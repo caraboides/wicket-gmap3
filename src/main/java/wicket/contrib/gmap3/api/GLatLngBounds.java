@@ -30,8 +30,8 @@ public class GLatLngBounds implements GValue
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private final GLatLng sw;
-	private final GLatLng ne;
+	private final LatLng sw;
+	private final LatLng ne;
 
 	/**
 	 * Construct.
@@ -39,18 +39,18 @@ public class GLatLngBounds implements GValue
 	 * @param sw
 	 * @param ne
 	 */
-	public GLatLngBounds(GLatLng sw, GLatLng ne)
+	public GLatLngBounds(LatLng sw, LatLng ne)
 	{
 		this.sw = sw;
 		this.ne = ne;
 	}
 
-	public GLatLng getSW()
+	public LatLng getSW()
 	{
 		return sw;
 	}
 
-	public GLatLng getNE()
+	public LatLng getNE()
 	{
 		return ne;
 	}
@@ -105,8 +105,8 @@ public class GLatLngBounds implements GValue
 			return null;
 		}
 		
-		GLatLng sw = new GLatLng(Float.valueOf(tokenizer.nextToken()), Float.valueOf(tokenizer.nextToken()));
-		GLatLng ne = new GLatLng(Float.valueOf(tokenizer.nextToken()), Float.valueOf(tokenizer.nextToken()));
+		LatLng sw = new LatLng(Float.valueOf(tokenizer.nextToken()), Float.valueOf(tokenizer.nextToken()));
+		LatLng ne = new LatLng(Float.valueOf(tokenizer.nextToken()), Float.valueOf(tokenizer.nextToken()));
 		return new GLatLngBounds(sw, ne);
 	}
 }

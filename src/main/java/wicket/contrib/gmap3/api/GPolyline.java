@@ -28,12 +28,12 @@ public class GPolyline extends GOverlay
 {
 	private static final long serialVersionUID = 1L;
 
-	private final GLatLng[] gLatLngs;
+	private final LatLng[] gLatLngs;
 	private final String color;
 	private final int weight;
 	private final float opacity;
 
-	public GPolyline(String color, int weight, float opacity, GLatLng... gLatLngs)
+	public GPolyline(String color, int weight, float opacity, LatLng... gLatLngs)
 	{
 		super();
 
@@ -49,7 +49,7 @@ public class GPolyline extends GOverlay
 		Constructor constructor = new Constructor("GPolyline");
 
 		Array array = new Array();
-		for (GLatLng gLatLng : gLatLngs)
+		for (LatLng gLatLng : gLatLngs)
 		{
 			array.add(gLatLng.getJSconstructor());
 		}

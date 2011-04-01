@@ -6,7 +6,6 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
 import wicket.contrib.gmap3.GMap;
-import wicket.contrib.gmap3.GMap.PanDirectionBehavior;
 import wicket.contrib.gmap3.api.GMapType;
 
 public abstract class ManyPanel extends Panel {
@@ -26,7 +25,7 @@ public abstract class ManyPanel extends Panel {
 
             @Override
             public void onClick( AjaxRequestTarget target ) {
-                gMap.setMapType( GMapType.G_NORMAL_MAP );
+                gMap.setMapType( GMapType.ROADMAP );
             }
         };
         add( normal );
@@ -35,7 +34,7 @@ public abstract class ManyPanel extends Panel {
 
             @Override
             public void onClick( AjaxRequestTarget target ) {
-                gMap.setMapType( GMapType.G_SATELLITE_MAP );
+                gMap.setMapType( GMapType.SATELLITE );
             }
         };
         add( satellite );
@@ -44,7 +43,7 @@ public abstract class ManyPanel extends Panel {
 
             @Override
             public void onClick( AjaxRequestTarget target ) {
-                gMap.setMapType( GMapType.G_HYBRID_MAP );
+                gMap.setMapType( GMapType.HYBRID );
             }
         };
         add( hybrid );

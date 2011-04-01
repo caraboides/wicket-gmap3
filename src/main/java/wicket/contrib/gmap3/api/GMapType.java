@@ -20,14 +20,17 @@ import java.io.Serializable;
 import wicket.contrib.gmap3.GMap;
 
 /**
- * Represents an Google Maps API's
- * <a href="http://www.google.com/apis/maps/documentation/reference.html#GMapType">GMapType</a>.
+ * Represents an Google Maps API's <a href=
+ * "http://www.google.com/apis/maps/documentation/reference.html#GMapType"
+ * >GMapType</a>.
  */
 public enum GMapType implements Serializable {
-	G_NORMAL_MAP, G_SATELLITE_MAP, G_HYBRID_MAP;
+        ROADMAP,
+        SATELLITE,
+        HYBRID,
+        TERRAIN;
 
-	public String getJSsetMapType(GMap map)
-	{
-		return map.getJSinvoke("setMapType(" + name() + ")");
-	}	
+    public String getJSsetMapType( GMap map ) {
+        return map.getJSinvoke( "setMapType(google.maps.MapTypeId." + name() + ")" );
+    }
 }

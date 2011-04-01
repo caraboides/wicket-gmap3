@@ -19,7 +19,7 @@ import wicket.contrib.examples.GMapExampleApplication;
 import wicket.contrib.examples.WicketExamplePage;
 import wicket.contrib.gmap3.GMap;
 import wicket.contrib.gmap3.api.GGroundOverlay;
-import wicket.contrib.gmap3.api.GLatLng;
+import wicket.contrib.gmap3.api.LatLng;
 import wicket.contrib.gmap3.api.GLatLngBounds;
 
 /**
@@ -32,12 +32,12 @@ public class GGroundOverlayPage extends WicketExamplePage {
 
     public GGroundOverlayPage() {
         map = new GMap( "map", GMapExampleApplication.get().getGoogleMapsAPIkey() );
-        map.setCenter( new GLatLng( 40.740, -74.18 ) );
+        map.setCenter( new LatLng( 40.740, -74.18 ) );
         map.setZoom( 12 );
 
         // ground overlay
 
-        GLatLngBounds boundaries = new GLatLngBounds( new GLatLng( 40.716216, -74.213393 ), new GLatLng( 40.765641, -74.139235 ) );
+        GLatLngBounds boundaries = new GLatLngBounds( new LatLng( 40.716216, -74.213393 ), new LatLng( 40.765641, -74.139235 ) );
         GGroundOverlay oldmap = new GGroundOverlay( "http://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg", boundaries );
         map.addOverlay( oldmap );
         add( map );

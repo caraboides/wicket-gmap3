@@ -28,7 +28,7 @@ public class GPolygon extends GOverlay
 {
 	private static final long serialVersionUID = 1L;
 
-	private final GLatLng[] gLatLngs;
+	private final LatLng[] gLatLngs;
 	private final String strokeColor;
 	private final int strokeWeight;
 	private final float strokeOpacity;
@@ -36,7 +36,7 @@ public class GPolygon extends GOverlay
 	private final float fillOpacity;
 
 	public GPolygon(String strokeColor, int strokeWeight, float strokeOpacity, String fillColor,
-			float fillOpacity, GLatLng... gLatLngs)
+			float fillOpacity, LatLng... gLatLngs)
 	{
 		super();
 
@@ -55,7 +55,7 @@ public class GPolygon extends GOverlay
 		Constructor constructor = new Constructor("GPolygon");
 
 		Array array = new Array();
-		for (GLatLng gLatLng : gLatLngs)
+		for (LatLng gLatLng : gLatLngs)
 		{
 			array.add(gLatLng.getJSconstructor());
 		}

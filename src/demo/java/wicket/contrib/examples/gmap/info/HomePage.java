@@ -12,9 +12,9 @@ import wicket.contrib.gmap3.GMap;
 import wicket.contrib.gmap3.GMapHeaderContributor;
 import wicket.contrib.gmap3.api.GControl;
 import wicket.contrib.gmap3.api.GInfoWindowTab;
-import wicket.contrib.gmap3.api.GLatLng;
 import wicket.contrib.gmap3.api.GMapType;
 import wicket.contrib.gmap3.api.GOverlay;
+import wicket.contrib.gmap3.api.LatLng;
 import wicket.contrib.gmap3.event.ClickListener;
 import wicket.contrib.gmap3.event.InfoWindowCloseListener;
 import wicket.contrib.gmap3.event.InfoWindowOpenListener;
@@ -39,13 +39,13 @@ public class HomePage extends WicketExamplePage {
 
         map = new GMap( "bottomPanel", new GMapHeaderContributor( GMapExampleApplication.get().getGoogleMapsAPIkey() ) );
         map.setOutputMarkupId( true );
-        map.setMapType( GMapType.G_SATELLITE_MAP );
+        map.setMapType( GMapType.SATELLITE );
         map.setScrollWheelZoomEnabled( true );
         map.add( new ClickListener() {
             private static final long serialVersionUID = 1L;
 
             @Override
-            protected void onClick( AjaxRequestTarget target, GLatLng gLatLng, GOverlay overlay ) {
+            protected void onClick( AjaxRequestTarget target, LatLng gLatLng, GOverlay overlay ) {
                 if ( gLatLng != null ) {
                     map.getInfoWindow().open( gLatLng, new HelloPanel() );
                 }
@@ -71,7 +71,7 @@ public class HomePage extends WicketExamplePage {
             }
         } );
         map.addControl( GControl.GSmallMapControl );
-        map.getInfoWindow().open( new GLatLng( 37.5, -122.1 ), new GInfoWindowTab( "One", new HelloPanel() ),
+        map.getInfoWindow().open( new LatLng( 37.5, -122.1 ), new GInfoWindowTab( "One", new HelloPanel() ),
                 new GInfoWindowTab( "Two", new HelloPanel() ) );
         add( map );
 
@@ -84,7 +84,7 @@ public class HomePage extends WicketExamplePage {
              */
             @Override
             protected void onEvent( AjaxRequestTarget target ) {
-                map.getInfoWindow().open( new GLatLng( 37.5, -122.1 ), new HelloPanel() );
+                map.getInfoWindow().open( new LatLng( 37.5, -122.1 ), new HelloPanel() );
             }
         } );
         add( infoWindow );

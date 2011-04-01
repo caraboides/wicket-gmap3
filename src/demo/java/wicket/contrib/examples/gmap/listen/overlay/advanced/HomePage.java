@@ -16,7 +16,7 @@ import wicket.contrib.gmap3.GMap;
 import wicket.contrib.gmap3.api.GControl;
 import wicket.contrib.gmap3.api.GEvent;
 import wicket.contrib.gmap3.api.GEventHandler;
-import wicket.contrib.gmap3.api.GLatLng;
+import wicket.contrib.gmap3.api.LatLng;
 import wicket.contrib.gmap3.api.GMarker;
 import wicket.contrib.gmap3.api.GMarkerOptions;
 import wicket.contrib.gmap3.api.GOverlay;
@@ -46,7 +46,7 @@ public class HomePage extends WicketExamplePage {
             private static final long serialVersionUID = 1L;
 
             @Override
-            protected void onClick( AjaxRequestTarget target, GLatLng latLng, GOverlay overlay ) {
+            protected void onClick( AjaxRequestTarget target, LatLng latLng, GOverlay overlay ) {
                 if ( latLng != null ) {
                     if ( map.getOverlays().size() >= 3 ) {
                         map.removeOverlay( map.getOverlays().get( 0 ) );
@@ -170,7 +170,7 @@ public class HomePage extends WicketExamplePage {
      */
     private static abstract class MyMarker extends GMarker {
 
-        public MyMarker( GLatLng latLng, GMarkerOptions options ) {
+        public MyMarker( LatLng latLng, GMarkerOptions options ) {
             super( latLng, options );
         }
 

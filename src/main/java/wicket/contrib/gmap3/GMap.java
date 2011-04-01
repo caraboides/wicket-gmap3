@@ -41,11 +41,11 @@ import org.slf4j.LoggerFactory;
 import wicket.contrib.gmap3.api.GControl;
 import wicket.contrib.gmap3.api.GEvent;
 import wicket.contrib.gmap3.api.GInfoWindow;
-import wicket.contrib.gmap3.api.GLatLng;
 import wicket.contrib.gmap3.api.GLatLngBounds;
 import wicket.contrib.gmap3.api.GMapType;
 import wicket.contrib.gmap3.api.GMarker;
 import wicket.contrib.gmap3.api.GOverlay;
+import wicket.contrib.gmap3.api.LatLng;
 import wicket.contrib.gmap3.event.GEventListenerBehavior;
 
 /**
@@ -63,7 +63,7 @@ public class GMap extends Panel implements GOverlayContainer {
 
     private static final long serialVersionUID = 1L;
 
-    private GLatLng center = new GLatLng( 37.4419, -122.1419 );
+    private LatLng center = new LatLng( 37.4419, -122.1419 );
 
     private boolean draggingEnabled = true;
 
@@ -71,7 +71,7 @@ public class GMap extends Panel implements GOverlayContainer {
 
     private boolean scrollWheelZoomEnabled = false;
 
-    private GMapType mapType = GMapType.G_NORMAL_MAP;
+    private GMapType mapType = GMapType.ROADMAP;
 
     private int zoom = 13;
 
@@ -281,7 +281,7 @@ public class GMap extends Panel implements GOverlayContainer {
         return Collections.unmodifiableSet( controls );
     }
 
-    public GLatLng getCenter() {
+    public LatLng getCenter() {
         return center;
     }
 
@@ -365,7 +365,7 @@ public class GMap extends Panel implements GOverlayContainer {
      * @param center
      *            center to set
      */
-    public void setCenter( final GLatLng center ) {
+    public void setCenter( final LatLng center ) {
         if ( !this.center.equals( center ) ) {
             this.center = center;
 
@@ -383,7 +383,7 @@ public class GMap extends Panel implements GOverlayContainer {
      * @param center
      *            the new center of the map
      */
-    public void panTo( final GLatLng center ) {
+    public void panTo( final LatLng center ) {
         if ( !this.center.equals( center ) ) {
             this.center = center;
 
@@ -398,13 +398,13 @@ public class GMap extends Panel implements GOverlayContainer {
     }
 
     /**
-     * Generates the JavaScript used to instantiate this GMap2 as an JavaScript
+     * Generates the JavaScript used to instantiate this GMap3 as an JavaScript
      * class on the client side.
      * 
      * @return The generated JavaScript
      */
     private String getJSinit() {
-        final StringBuffer js = new StringBuffer( "new WicketMap2('" + map.getMarkupId() + "');\n" );
+        final StringBuffer js = new StringBuffer( "new WicketMap('" + map.getMarkupId() + "');\n" );
 
         if ( activateOverlayListener() ) {
             js.append( overlayListener.getJSinit() );
@@ -418,9 +418,9 @@ public class GMap extends Panel implements GOverlayContainer {
         js.append( mapType.getJSsetMapType( this ) );
 
         // Add the controls.
-        for ( final GControl control : controls ) {
-            js.append( control.getJSadd( this ) );
-        }
+        //        for ( final GControl control : controls ) {
+        //            js.append( control.getJSadd( this ) );
+        //        }
 
         // Add the overlays.
         for ( final GOverlay overlay : overlays ) {
@@ -452,14 +452,14 @@ public class GMap extends Panel implements GOverlayContainer {
     /**
      * @see #fitMarkers(List, boolean, double)
      */
-    public void fitMarkers( final List<GLatLng> markersToShow ) {
+    public void fitMarkers( final List<LatLng> markersToShow ) {
         fitMarkers( markersToShow, false, 0.0 );
     }
 
     /**
      * @see #fitMarkers(List, boolean, double)
      */
-    public void fitMarkers( final List<GLatLng> markersToShow, final boolean showMarkersForPoints ) {
+    public void fitMarkers( final List<LatLng> markersToShow, final boolean showMarkersForPoints ) {
         fitMarkers( markersToShow, showMarkersForPoints, 0.0 );
     }
 
@@ -481,7 +481,7 @@ public class GMap extends Panel implements GOverlayContainer {
      *            probably want to turn this off so that you can show more
      *            information with each marker when clicked etc.
      */
-    public void fitMarkers( final List<GLatLng> markersToShow, final boolean showMarkersForPoints, final double zoomAdjustment ) {
+    public void fitMarkers( final List<LatLng> markersToShow, final boolean showMarkersForPoints, final double zoomAdjustment ) {
         if ( markersToShow.isEmpty() ) {
             log.warn( "Empty list provided to GMap2.fitMarkers method." );
             return;
@@ -497,7 +497,7 @@ public class GMap extends Panel implements GOverlayContainer {
 
                 // Ask google maps to keep extending the bounds to include each
                 // point
-                for ( final GLatLng point : markersToShow ) {
+                for ( final LatLng point : markersToShow ) {
                     buf.append( "bounds.extend( " + point.getJSconstructor() + " );\n" );
                 }
 
@@ -513,7 +513,7 @@ public class GMap extends Panel implements GOverlayContainer {
 
         // show the markers
         if ( showMarkersForPoints ) {
-            for ( final GLatLng location : markersToShow ) {
+            for ( final LatLng location : markersToShow ) {
                 this.addOverlay( new GMarker( location ) );
             }
         }
@@ -535,7 +535,7 @@ public class GMap extends Panel implements GOverlayContainer {
         return getJSinvoke( "setZoom(" + zoom + ")" );
     }
 
-    private String getJSsetCenter( final GLatLng center ) {
+    private String getJSsetCenter( final LatLng center ) {
         if ( center != null ) {
             return getJSinvoke( "setCenter(" + center.getJSconstructor() + ")" );
         } else {
@@ -547,7 +547,7 @@ public class GMap extends Panel implements GOverlayContainer {
         return getJSinvoke( "panDirection(" + dx + "," + dy + ")" );
     }
 
-    private String getJSpanTo( final GLatLng center ) {
+    private String getJSpanTo( final LatLng center ) {
         return getJSinvoke( "panTo(" + center.getJSconstructor() + ")" );
     }
 
@@ -568,7 +568,7 @@ public class GMap extends Panel implements GOverlayContainer {
         // Attention: don't use setters as this will result in an endless
         // AJAX request loop
         bounds = GLatLngBounds.parse( request.getParameter( "bounds" ) );
-        center = GLatLng.parse( request.getParameter( "center" ) );
+        center = LatLng.parse( request.getParameter( "center" ) );
         zoom = Integer.parseInt( request.getParameter( "zoom" ) );
         mapType = GMapType.valueOf( request.getParameter( "currentMapType" ) );
 
@@ -674,9 +674,9 @@ public class GMap extends Panel implements GOverlayContainer {
     public class SetCenterBehavior extends JSMethodBehavior {
         private static final long serialVersionUID = 1L;
 
-        private final GLatLng gLatLng;
+        private final LatLng gLatLng;
 
-        public SetCenterBehavior( final String event, final GLatLng gLatLng ) {
+        public SetCenterBehavior( final String event, final LatLng gLatLng ) {
             super( event );
             this.gLatLng = gLatLng;
         }

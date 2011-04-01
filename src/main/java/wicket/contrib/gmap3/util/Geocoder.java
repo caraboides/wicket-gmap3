@@ -23,7 +23,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.StringTokenizer;
 
-import wicket.contrib.gmap3.api.GLatLng;
+import wicket.contrib.gmap3.api.LatLng;
 
 /**
  * Geocoder. See: http://www.google.com/apis/maps/documentation/services.html#Geocoding_Direct
@@ -61,7 +61,7 @@ public class Geocoder implements Serializable {
 		this.gMapKey = gMapKey;
 	}
 
-	public GLatLng decode(String response) throws GeocoderException {
+	public LatLng decode(String response) throws GeocoderException {
 
 		StringTokenizer gLatLng = new StringTokenizer(response, ",");
 
@@ -74,7 +74,7 @@ public class Geocoder implements Serializable {
 			throw new GeocoderException(Integer.parseInt(status));
 		}
 
-		return new GLatLng(Double.parseDouble(latitude), Double.parseDouble(longitude));
+		return new LatLng(Double.parseDouble(latitude), Double.parseDouble(longitude));
 	}
 
 	/**
@@ -92,7 +92,7 @@ public class Geocoder implements Serializable {
 	 * @return
 	 * @throws IOException
 	 */
-	public GLatLng geocode(final String address) throws IOException {
+	public LatLng geocode(final String address) throws IOException {
 		InputStream is = invokeService(encode(address));
 		if (is != null) {
 			try {

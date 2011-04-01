@@ -29,7 +29,7 @@ public class GMarker extends GOverlay
 {
 	private static final long serialVersionUID = 1L;
 
-	private GLatLng latLng;
+	private LatLng latLng;
 
 	private final GMarkerOptions options;
 
@@ -37,24 +37,24 @@ public class GMarker extends GOverlay
 	 * @param gLatLng
 	 *            the point on the map where this marker will be anchored
 	 */
-	public GMarker(GLatLng gLatLng)
+	public GMarker(LatLng gLatLng)
 	{
 		this(gLatLng, null);
 	}
 
-	public GMarker(GLatLng gLatLng, GMarkerOptions options)
+	public GMarker(LatLng gLatLng, GMarkerOptions options)
 	{
 		super();
 		this.latLng = gLatLng;
 		this.options = options;
 	}
 
-	public GLatLng getLatLng()
+	public LatLng getLatLng()
 	{
 		return latLng;
 	}
 
-	public void setLatLng(GLatLng gLatLng)
+	public void setLatLng(LatLng gLatLng)
 	{
 		this.latLng = gLatLng;
 	}
@@ -79,6 +79,6 @@ public class GMarker extends GOverlay
 	protected void updateOnAjaxCall(AjaxRequestTarget target, GEvent overlayEvent)
 	{
 		Request request = RequestCycle.get().getRequest();
-		this.latLng = GLatLng.parse(request.getParameter("overlay.latLng"));
+		this.latLng = LatLng.parse(request.getParameter("overlay.latLng"));
 	}
 }

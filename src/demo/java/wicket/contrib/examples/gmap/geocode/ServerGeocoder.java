@@ -6,7 +6,7 @@ import java.net.URLConnection;
 
 import org.apache.wicket.util.io.Streams;
 
-import wicket.contrib.gmap3.api.GLatLng;
+import wicket.contrib.gmap3.api.LatLng;
 import wicket.contrib.gmap3.util.Geocoder;
 import wicket.contrib.gmap3.util.GeocoderException;
 
@@ -40,7 +40,7 @@ public class ServerGeocoder {
      * @throws IOException
      *             If a connection error happened
      */
-    public GLatLng findAddress( String address ) throws IOException {
+    public LatLng findAddress( String address ) throws IOException {
 
         URL url = new URL( geocoder.encode( address ) );
 

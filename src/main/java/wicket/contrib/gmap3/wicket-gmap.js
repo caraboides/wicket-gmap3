@@ -30,6 +30,7 @@ if (!Wicket) {
 Wicket.geocoder = new WicketClientGeocoder();
 
 function WicketClientGeocoder() {
+/*
 	this.coder = new google.maps.ClientGeocoder();
 
 	this.getLatLng = function(callBackUrl, addressId) {
@@ -53,14 +54,17 @@ function WicketClientGeocoder() {
 			});
 		});
 	}
+	*/
 }
 
 Wicket.maps = {}
 
-function WicketMap2(id) {
+function WicketMap(id) {
 	Wicket.maps[id] = this;
 
-	this.map = new google.maps.Map2(document.getElementById(id));
+    
+
+	this.map = new google.maps.Map(document.getElementById(id));
 	this.controls = {};
 	this.overlays = {};
 
@@ -69,8 +73,7 @@ function WicketMap2(id) {
 		params['bounds'] = this.map.getBounds();
 		params['zoom'] = this.map.getZoom();
 		params['currentMapType'] = this.getMapTypeString(this.map
-				.getCurrentMapType());
-		params['infoWindow.hidden'] = this.map.getInfoWindow().isHidden();
+				.getMapTypeId());
 
 		for ( var key in params) {
 			callBack = callBack + '&' + key + '=' + params[key];
@@ -83,8 +86,8 @@ function WicketMap2(id) {
 
 	this.addListener = function(event, callBack) {
 		var self = this;
-
-		google.maps.Event.addListener(this.map, event, function() {
+       
+		google.maps.event.addListener(this.map, event, function() {
 			var params = {};
 			for ( var p = 0; p < arguments.length; p++) {
 				if (arguments[p] != null) {
@@ -124,49 +127,56 @@ function WicketMap2(id) {
 	}
 
 	this.setDraggingEnabled = function(enabled) {
-		if (enabled) {
-			this.map.enableDragging(true);
-		} else {
-			this.map.disableDragging(false);
-		}
+	    var myOptions = {
+            draggable: enabled
+        };
+		this.map.setOptions(myOptions);
+		
 	}
 
 	this.setDoubleClickZoomEnabled = function(enabled) {
-		if (enabled) {
-			this.map.enableDoubleClickZoom(true);
-		} else {
-			this.map.disableDoubleClickZoom(false);
-		}
+	     var myOptions = {
+            disableDoubleClickZoom: enabled
+        };
+        this.map.setOptions(myOptions);
+	   
+	
+		
 	}
 
 	this.setScrollWheelZoomEnabled = function(enabled) {
-		if (enabled) {
-			this.map.enableScrollWheelZoom(true);
-		} else {
-			this.map.disableScrollWheelZoom(false);
-		}
+	 var myOptions = {
+            scrollwheel: enabled
+        };
+        this.map.setOptions(myOptions);
+	
+		
 	}
 
 	this.getMapTypeString = function(mapType) {
 		switch (mapType) {
-		case G_NORMAL_MAP:
-			return 'G_NORMAL_MAP';
+		case google.maps.MapTypeId.ROADMAP:
+			return 'ROADMAP';
 			break;
-		case G_SATELLITE_MAP:
-			return 'G_SATELLITE_MAP';
+		case google.maps.MapTypeId.SATELLITE:
+			return 'SATELLITE';
 			break;
-		case G_HYBRID_MAP:
-			return 'G_HYBRID_MAP';
+		case google.maps.MapTypeId.HYBRID:
+			return 'HYBRID';
 			break;
+		case google.maps.MapTypeId.TERRAIN:
+            return 'TERRAIN';
+            break;
 		default:
 			return 'unknown';
 			break;
 		}
 		;
 	}
-
+    
 	this.setMapType = function(mapType) {
-		this.map.setMapType(mapType);
+	   
+        this.map.setMapTypeId(mapType);
 	}
 
 	this.setZoom = function(level) {
@@ -199,7 +209,7 @@ function WicketMap2(id) {
 
 	this.addControl = function(controlId, control) {
 		this.controls[controlId] = control;
-
+        
 		this.map.addControl(control);
 	}
 

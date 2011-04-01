@@ -6,7 +6,7 @@ import wicket.contrib.examples.GMapExampleApplication;
 import wicket.contrib.examples.WicketExamplePage;
 import wicket.contrib.gmap3.GMap;
 import wicket.contrib.gmap3.api.GIcon;
-import wicket.contrib.gmap3.api.GLatLng;
+import wicket.contrib.gmap3.api.LatLng;
 import wicket.contrib.gmap3.api.GMarker;
 import wicket.contrib.gmap3.api.GMarkerOptions;
 import wicket.contrib.gmap3.api.GOverlay;
@@ -22,7 +22,7 @@ public class CustomPointPage extends WicketExamplePage {
 
     public CustomPointPage() {
         GMap map = new GMap( "map", GMapExampleApplication.get().getGoogleMapsAPIkey() );
-        map.setCenter( new GLatLng( 52.37649, 4.888573 ) );
+        map.setCenter( new LatLng( 52.37649, 4.888573 ) );
         add( map );
 
         GIcon icon =
@@ -31,7 +31,7 @@ public class CustomPointPage extends WicketExamplePage {
                         new GSize( 64, 64 ) ).iconAnchor( new GPoint( 19, 40 ) ).infoWindowAnchor( new GPoint( 9, 2 ) ).infoShadowAnchor(
                         new GPoint( 18, 25 ) );
 
-        GOverlay marker = new GMarker( new GLatLng( 52.37649, 4.888573 ), new GMarkerOptions( "My Title", icon ) );
+        GOverlay marker = new GMarker( new LatLng( 52.37649, 4.888573 ), new GMarkerOptions( "My Title", icon ) );
 
         map.addOverlay( marker );
     }

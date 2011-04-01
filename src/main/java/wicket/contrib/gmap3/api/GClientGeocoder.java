@@ -45,11 +45,11 @@ public abstract class GClientGeocoder extends AjaxEventBehavior {
 		Request request = RequestCycle.get().getRequest();
 
 		onGeoCode(target, Integer.parseInt(request.getParameter("status")),
-				request.getParameter("address"), GLatLng.parse(request.getParameter("point")));
+				request.getParameter("address"), LatLng.parse(request.getParameter("point")));
 	}
 
 	public abstract void onGeoCode(AjaxRequestTarget target, int status,
-			String address, GLatLng latLng);
+			String address, LatLng latLng);
 
 	@Override
 	protected CharSequence generateCallbackScript(CharSequence partialCall) {

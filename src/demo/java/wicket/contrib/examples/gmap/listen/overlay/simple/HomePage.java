@@ -10,7 +10,7 @@ import wicket.contrib.gmap3.GMap;
 import wicket.contrib.gmap3.api.GControl;
 import wicket.contrib.gmap3.api.GEvent;
 import wicket.contrib.gmap3.api.GEventHandler;
-import wicket.contrib.gmap3.api.GLatLng;
+import wicket.contrib.gmap3.api.LatLng;
 import wicket.contrib.gmap3.api.GMarker;
 import wicket.contrib.gmap3.api.GMarkerOptions;
 
@@ -28,7 +28,7 @@ public class HomePage extends WicketExamplePage {
 
         GMarkerOptions options = new GMarkerOptions().draggable( true );
         final GMarker marker = new GMarker( topMap.getCenter(), options );
-        final Label label = new Label( "label", new PropertyModel<GLatLng>( marker, "latLng" ) );
+        final Label label = new Label( "label", new PropertyModel<LatLng>( marker, "latLng" ) );
         label.setOutputMarkupId( true );
         add( label );
         marker.addListener( GEvent.dragend, new GEventHandler() {

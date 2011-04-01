@@ -12,7 +12,7 @@ import wicket.contrib.examples.GMapExampleApplication;
 import wicket.contrib.examples.WicketExamplePage;
 import wicket.contrib.gmap3.GMap;
 import wicket.contrib.gmap3.api.GControl;
-import wicket.contrib.gmap3.api.GLatLng;
+import wicket.contrib.gmap3.api.LatLng;
 import wicket.contrib.gmap3.api.GMarker;
 import wicket.contrib.gmap3.api.GMarkerOptions;
 import wicket.contrib.gmap3.api.GOverlay;
@@ -40,7 +40,7 @@ public class HomePage extends WicketExamplePage {
             private static final long serialVersionUID = 1L;
 
             @Override
-            protected void onClick( AjaxRequestTarget target, GLatLng latLng, GOverlay overlay ) {
+            protected void onClick( AjaxRequestTarget target, LatLng latLng, GOverlay overlay ) {
                 GMarker marker = ( overlay instanceof GMarker )
                     ? (GMarker) overlay
                     : null;
@@ -55,7 +55,7 @@ public class HomePage extends WicketExamplePage {
         } );
         topMap.setZoom( 10 );
         GMarkerOptions options = new GMarkerOptions( "Home" ).draggable( true ).autoPan( true );
-        topMap.addOverlay( new GMarker( new GLatLng( 37.4, -122.1 ), options ) );
+        topMap.addOverlay( new GMarker( new LatLng( 37.4, -122.1 ), options ) );
         topMap.addControl( GControl.GLargeMapControl );
         topMap.addControl( GControl.GMapTypeControl );
         add( topMap );
@@ -72,10 +72,10 @@ public class HomePage extends WicketExamplePage {
             protected void onEvent( AjaxRequestTarget target ) {
                 GMarker marker = markerModel.getObject();
                 if ( marker != null ) {
-                    GLatLng point = marker.getLatLng();
+                    LatLng point = marker.getLatLng();
 
                     GMarker random =
-                            new GMarker( new GLatLng( point.getLat() * ( 0.9995 + Math.random() / 1000 ), point.getLng()
+                            new GMarker( new LatLng( point.getLat() * ( 0.9995 + Math.random() / 1000 ), point.getLng()
                                     * ( 0.9995 + Math.random() / 1000 ) ) );
 
                     topMap.addOverlay( random );

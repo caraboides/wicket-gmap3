@@ -18,8 +18,8 @@ import wicket.contrib.gmap3.GMapHeaderContributor;
 import wicket.contrib.gmap3.api.GClientGeocoder;
 import wicket.contrib.gmap3.api.GControl;
 import wicket.contrib.gmap3.api.GInfoWindowTab;
-import wicket.contrib.gmap3.api.GLatLng;
 import wicket.contrib.gmap3.api.GMapType;
+import wicket.contrib.gmap3.api.LatLng;
 import wicket.contrib.gmap3.util.GeocoderException;
 
 /**
@@ -41,7 +41,7 @@ public class HomePage extends WicketExamplePage {
         final GMap bottomMap =
                 new GMap( "bottomPanel", new GMapHeaderContributor( GMapExampleApplication.get().getGoogleMapsAPIkey() ) );
         bottomMap.setOutputMarkupId( true );
-        bottomMap.setMapType( GMapType.G_SATELLITE_MAP );
+        bottomMap.setMapType( GMapType.SATELLITE );
         bottomMap.addControl( GControl.GSmallMapControl );
         add( bottomMap );
 
@@ -58,7 +58,7 @@ public class HomePage extends WicketExamplePage {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public void onGeoCode( AjaxRequestTarget target, int status, String address, GLatLng latLng ) {
+            public void onGeoCode( AjaxRequestTarget target, int status, String address, LatLng latLng ) {
                 if ( status == GeocoderException.G_GEO_SUCCESS ) {
                     bottomMap.getInfoWindow().open( latLng, new GInfoWindowTab( address, new Label( address, address ) ) );
                 } else {
@@ -81,7 +81,7 @@ public class HomePage extends WicketExamplePage {
                 try {
                     String address = addressTextField.getDefaultModelObjectAsString();
 
-                    GLatLng latLng = geocoder.findAddress( address );
+                    LatLng latLng = geocoder.findAddress( address );
 
                     bottomMap.getInfoWindow().open( latLng, new GInfoWindowTab( address, new Label( address, address ) ) );
                 } catch ( IOException e ) {

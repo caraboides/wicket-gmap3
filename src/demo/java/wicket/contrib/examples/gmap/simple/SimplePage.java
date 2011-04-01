@@ -3,7 +3,7 @@ package wicket.contrib.examples.gmap.simple;
 import wicket.contrib.examples.GMapExampleApplication;
 import wicket.contrib.examples.WicketExamplePage;
 import wicket.contrib.gmap3.GMap;
-import wicket.contrib.gmap3.api.GLatLng;
+import wicket.contrib.gmap3.api.LatLng;
 
 /**
  * SimplePage for the wicket-contrib-gmap2 project
@@ -14,7 +14,7 @@ public class SimplePage extends WicketExamplePage {
 
     public SimplePage() {
         GMap map = new GMap( "map", GMapExampleApplication.get().getGoogleMapsAPIkey() );
-        map.setCenter( new GLatLng( 52.37649, 4.888573 ) );
+        map.setCenter( new LatLng( 52.37649, 4.888573 ) );
         add( map );
     }
 }

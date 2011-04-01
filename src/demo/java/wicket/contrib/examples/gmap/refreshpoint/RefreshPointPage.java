@@ -10,7 +10,7 @@ import wicket.contrib.examples.GMapExampleApplication;
 import wicket.contrib.examples.WicketExamplePage;
 import wicket.contrib.gmap3.GMap;
 import wicket.contrib.gmap3.api.GIcon;
-import wicket.contrib.gmap3.api.GLatLng;
+import wicket.contrib.gmap3.api.LatLng;
 import wicket.contrib.gmap3.api.GMarker;
 import wicket.contrib.gmap3.api.GMarkerOptions;
 import wicket.contrib.gmap3.api.GOverlay;
@@ -30,7 +30,7 @@ public class RefreshPointPage extends WicketExamplePage {
         map = new GMap( "map", GMapExampleApplication.get().getGoogleMapsAPIkey() );
         add( map );
 
-        GOverlay overlay = createOverlay( "Amsterdam", new GLatLng( 52.37649, 4.888573 ), "image.gif", "shadow.png" );
+        GOverlay overlay = createOverlay( "Amsterdam", new LatLng( 52.37649, 4.888573 ), "image.gif", "shadow.png" );
 
         map.addOverlay( overlay );
 
@@ -43,12 +43,12 @@ public class RefreshPointPage extends WicketExamplePage {
             protected void onTimer( AjaxRequestTarget target, GMap map ) {
                 GOverlay overlay;
                 if ( i % 3 == 0 ) {
-                    overlay = createOverlay( "Amsterdam", new GLatLng( 52.37649, 4.888573 ), "image.gif", "shadow.png" );
+                    overlay = createOverlay( "Amsterdam", new LatLng( 52.37649, 4.888573 ), "image.gif", "shadow.png" );
                     i = 0;
                 } else if ( i % 3 == 1 ) {
-                    overlay = createOverlay( "Amsterdam", new GLatLng( 52.37649, 4.888573 ), "image2.gif", "shadow2.png" );
+                    overlay = createOverlay( "Amsterdam", new LatLng( 52.37649, 4.888573 ), "image2.gif", "shadow2.png" );
                 } else {
-                    overlay = createOverlay( "Toulouse", new GLatLng( 43.604363, 1.442951 ), "image2.gif", "shadow2.png" );
+                    overlay = createOverlay( "Toulouse", new LatLng( 43.604363, 1.442951 ), "image2.gif", "shadow2.png" );
                 }
                 i++;
                 map.setOverlays( Collections.singletonList( overlay ) );
@@ -56,7 +56,7 @@ public class RefreshPointPage extends WicketExamplePage {
         } );
     }
 
-    private GOverlay createOverlay( String title, GLatLng latLng, String image, String shadow ) {
+    private GOverlay createOverlay( String title, LatLng latLng, String image, String shadow ) {
         GIcon icon =
                 new GIcon( urlFor( new ResourceReference( RefreshPointPage.class, image ) ).toString(), urlFor(
                         new ResourceReference( RefreshPointPage.class, shadow ) ).toString() ).iconSize( new GSize( 64, 64 ) ).shadowSize(
