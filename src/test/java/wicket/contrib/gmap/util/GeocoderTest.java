@@ -8,6 +8,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import wicket.contrib.gmap3.api.GLatLng;
+import wicket.contrib.gmap3.util.Geocoder;
 
 public class GeocoderTest {
 
