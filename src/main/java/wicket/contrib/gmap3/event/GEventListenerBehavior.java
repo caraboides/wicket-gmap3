@@ -23,55 +23,49 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 
 import wicket.contrib.gmap3.GMap;
 
-public abstract class GEventListenerBehavior extends AbstractDefaultAjaxBehavior
-{
-	private static final long serialVersionUID = 1L;
+public abstract class GEventListenerBehavior extends AbstractDefaultAjaxBehavior {
+    private static final long serialVersionUID = 1L;
 
-	@Override
-	protected void onBind()
-	{
-		if (!(getComponent() instanceof GMap))
-		{
-			throw new IllegalArgumentException("must be bound to GMap2");
-		}
-	}
+    @Override
+    protected void onBind() {
+        if ( !( getComponent() instanceof GMap ) ) {
+            throw new IllegalArgumentException( "must be bound to GMap2" );
+        }
+    }
 
-	public String getJSaddListener()
-	{
-		return getGMap2().getJSinvoke(
-				"addListener('" + getEvent() + "', '" + getCallbackUrl() + "')");
-	}
+    public String getJSaddListener() {
+        return getGMap2().getJSinvoke( "addListener('" + getEvent() + "', '" + getCallbackUrl() + "')" );
+    }
 
-	protected final GMap getGMap2()
-	{
-		return (GMap)getComponent();
-	}
+    protected final GMap getGMap2() {
+        return (GMap) getComponent();
+    }
 
-	/**
-	 * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#respond(org.apache.wicket.ajax.AjaxRequestTarget)
-	 */
-	@Override
-	protected final void respond(AjaxRequestTarget target)
-	{
-		getGMap2().update(target);
+    /**
+     * @see org.apache.wicket.ajax.AbstractDefaultAjaxBehavior#respond(org.apache.wicket.ajax.AjaxRequestTarget)
+     */
+    @Override
+    protected final void respond( AjaxRequestTarget target ) {
+        getGMap2().update();
 
-		onEvent(target);
-	}
+        onEvent( target );
+    }
 
-	/**
-	 * Typically response parameters that are meant for this event are picket up
-	 * and made available for the further processing.
-	 * 
-	 * @param target
-	 *            Target to add the Components, that need to be redrawn, to.
-	 */
-	protected abstract void onEvent(AjaxRequestTarget target);
+    /**
+     * Typically response parameters that are meant for this event are picket up
+     * and made available for the further processing.
+     * 
+     * @param target
+     *            Target to add the Components, that need to be redrawn, to.
+     */
+    protected abstract void onEvent( AjaxRequestTarget target );
 
-	/**
-	 * See: Event table after <a
-	 * href="http://www.google.com/apis/maps/documentation/reference.html#GMap2">GMap2</a>
-	 * 
-	 * @return The name of the GMap Event that this Listener ought to listen to.
-	 */
-	protected abstract String getEvent();
+    /**
+     * See: Event table after <a href=
+     * "http://www.google.com/apis/maps/documentation/reference.html#GMap2"
+     * >GMap2</a>
+     * 
+     * @return The name of the GMap Event that this Listener ought to listen to.
+     */
+    protected abstract String getEvent();
 }

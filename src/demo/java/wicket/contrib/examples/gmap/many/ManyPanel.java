@@ -14,9 +14,9 @@ public abstract class ManyPanel extends Panel {
 
     private final WebMarkupContainer n, ne, e, se, s, sw, w, nw;
 
-    public ManyPanel( String id, String gMapKey ) {
+    public ManyPanel( String id ) {
         super( id );
-        gMap = new GMap( "gMap", gMapKey );
+        gMap = new GMap( "gMap" );
         gMap.setZoom( 7 );
         gMap.setOutputMarkupId( true );
         add( gMap );

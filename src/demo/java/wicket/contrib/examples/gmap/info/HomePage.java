@@ -6,10 +6,8 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 
-import wicket.contrib.examples.GMapExampleApplication;
 import wicket.contrib.examples.WicketExamplePage;
 import wicket.contrib.gmap3.GMap;
-import wicket.contrib.gmap3.GMapHeaderContributor;
 import wicket.contrib.gmap3.api.GControl;
 import wicket.contrib.gmap3.api.GInfoWindowTab;
 import wicket.contrib.gmap3.api.GMapType;
@@ -37,7 +35,7 @@ public class HomePage extends WicketExamplePage {
         feedback.setOutputMarkupId( true );
         add( feedback );
 
-        map = new GMap( "bottomPanel", new GMapHeaderContributor( GMapExampleApplication.get().getGoogleMapsAPIkey() ) );
+        map = new GMap( "bottomPanel" );
         map.setOutputMarkupId( true );
         map.setMapType( GMapType.SATELLITE );
         map.setScrollWheelZoomEnabled( true );

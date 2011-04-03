@@ -14,7 +14,6 @@ import org.apache.wicket.model.Model;
 import wicket.contrib.examples.GMapExampleApplication;
 import wicket.contrib.examples.WicketExamplePage;
 import wicket.contrib.gmap3.GMap;
-import wicket.contrib.gmap3.GMapHeaderContributor;
 import wicket.contrib.gmap3.api.GClientGeocoder;
 import wicket.contrib.gmap3.api.GControl;
 import wicket.contrib.gmap3.api.GInfoWindowTab;
@@ -38,8 +37,7 @@ public class HomePage extends WicketExamplePage {
         feedback.setOutputMarkupId( true );
         add( feedback );
 
-        final GMap bottomMap =
-                new GMap( "bottomPanel", new GMapHeaderContributor( GMapExampleApplication.get().getGoogleMapsAPIkey() ) );
+        final GMap bottomMap = new GMap( "bottomPanel" );
         bottomMap.setOutputMarkupId( true );
         bottomMap.setMapType( GMapType.SATELLITE );
         bottomMap.addControl( GControl.GSmallMapControl );
@@ -54,7 +52,7 @@ public class HomePage extends WicketExamplePage {
         Button button = new Button( "client" );
         // Using GClientGeocoder the geocoding request
         // is performed on the client using JavaScript
-        button.add( new GClientGeocoder( "onclick", addressTextField, GMapExampleApplication.get().getGoogleMapsAPIkey() ) {
+        button.add( new GClientGeocoder( "onclick", addressTextField ) {
             private static final long serialVersionUID = 1L;
 
             @Override

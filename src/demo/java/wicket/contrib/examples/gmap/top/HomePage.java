@@ -8,14 +8,13 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
-import wicket.contrib.examples.GMapExampleApplication;
 import wicket.contrib.examples.WicketExamplePage;
 import wicket.contrib.gmap3.GMap;
 import wicket.contrib.gmap3.api.GControl;
-import wicket.contrib.gmap3.api.LatLng;
 import wicket.contrib.gmap3.api.GMarker;
 import wicket.contrib.gmap3.api.GMarkerOptions;
 import wicket.contrib.gmap3.api.GOverlay;
+import wicket.contrib.gmap3.api.LatLng;
 import wicket.contrib.gmap3.event.ClickListener;
 
 /**
@@ -34,7 +33,7 @@ public class HomePage extends WicketExamplePage {
         feedback.setOutputMarkupId( true );
         add( feedback );
 
-        final GMap topMap = new GMap( "topPanel", GMapExampleApplication.get().getGoogleMapsAPIkey() );
+        final GMap topMap = new GMap( "topPanel" );
         topMap.setDoubleClickZoomEnabled( true );
         topMap.add( new ClickListener() {
             private static final long serialVersionUID = 1L;

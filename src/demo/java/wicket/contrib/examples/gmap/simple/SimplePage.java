@@ -1,20 +1,17 @@
 package wicket.contrib.examples.gmap.simple;
 
-import wicket.contrib.examples.GMapExampleApplication;
 import wicket.contrib.examples.WicketExamplePage;
 import wicket.contrib.gmap3.GMap;
 import wicket.contrib.gmap3.api.LatLng;
 
 /**
- * SimplePage for the wicket-contrib-gmap2 project
+ * SimplePage for the wicket-contrib-gmap3 project
  */
 public class SimplePage extends WicketExamplePage {
 
-    private static final long serialVersionUID = 1L;
-
     public SimplePage() {
-        GMap map = new GMap( "map", GMapExampleApplication.get().getGoogleMapsAPIkey() );
-        map.setCenter( new LatLng( 52.37649, 4.888573 ) );
+        GMap map = new GMap( "map" );
+        map.setCenter( new LatLng( 52.37649, 13.228573 ) );
         add( map );
     }
 }

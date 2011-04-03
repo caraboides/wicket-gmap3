@@ -2,12 +2,11 @@ package wicket.contrib.examples.gmap.marker;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 
-import wicket.contrib.examples.GMapExampleApplication;
 import wicket.contrib.examples.WicketExamplePage;
 import wicket.contrib.gmap3.GMap;
-import wicket.contrib.gmap3.api.LatLng;
 import wicket.contrib.gmap3.api.GMarker;
 import wicket.contrib.gmap3.api.GOverlay;
+import wicket.contrib.gmap3.api.LatLng;
 import wicket.contrib.gmap3.event.ClickListener;
 
 /**
@@ -18,7 +17,7 @@ public class HomePage extends WicketExamplePage {
     private static final long serialVersionUID = 1L;
 
     public HomePage() {
-        final GMap map = new GMap( "topPanel", GMapExampleApplication.get().getGoogleMapsAPIkey() );
+        final GMap map = new GMap( "topPanel" );
         add( map );
         map.add( new ClickListener() {
             private static final long serialVersionUID = 1L;

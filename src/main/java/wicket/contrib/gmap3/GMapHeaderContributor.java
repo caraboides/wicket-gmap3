@@ -19,7 +19,7 @@ public class GMapHeaderContributor extends HeaderContributor {
 
     protected static final String GOOGLE_LOAD_MAPS = "google.load(\"maps\", \"3\");";
 
-    public GMapHeaderContributor( final String gMapKey ) {
+    public GMapHeaderContributor() {
         super( new IHeaderContributor() {
             private static final long serialVersionUID = 1L;
 
@@ -30,6 +30,7 @@ public class GMapHeaderContributor extends HeaderContributor {
              * 
              * @see org.apache.wicket.markup.html.IHeaderContributor#renderHead(org.apache.wicket.markup.html.IHeaderResponse)
              */
+            @Override
             public void renderHead( IHeaderResponse response ) {
                 response.renderJavascriptReference( GMAP_API_URL );
                 response.renderJavascriptReference( WicketEventReference.INSTANCE );

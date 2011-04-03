@@ -13,47 +13,45 @@ import wicket.contrib.gmap3.GMapHeaderContributor;
  */
 public abstract class GClientGeocoder extends AjaxEventBehavior {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	// the TextField providing the requested address.
-	private TextField<?> addressField;
+    // the TextField providing the requested address.
+    private final TextField<?> _addressField;
 
-	private GMapHeaderContributor headerContrib;
+    private final GMapHeaderContributor headerContrib;
 
-	/**
-	 * Construct.
-	 * 
-	 * @param event
-	 */
-	public GClientGeocoder(String event, TextField<?> addressField, String key) {
-		super(event);
+    /**
+     * Construct.
+     * 
+     * @param event
+     */
+    public GClientGeocoder( String event, TextField<?> addressField ) {
+        super( event );
 
-		this.addressField = addressField;
-		this.addressField.setOutputMarkupId(true);
+        this._addressField = addressField;
+        this._addressField.setOutputMarkupId( true );
 
-		this.headerContrib = new GMapHeaderContributor(key);
-	}
+        this.headerContrib = new GMapHeaderContributor();
+    }
 
-	@Override
-	public void renderHead(IHeaderResponse response) {
-		super.renderHead(response);
-		headerContrib.renderHead(response);
-	}
+    @Override
+    public void renderHead( IHeaderResponse response ) {
+        super.renderHead( response );
+        headerContrib.renderHead( response );
+    }
 
-	@Override
-	protected void onEvent(AjaxRequestTarget target) {
-		Request request = RequestCycle.get().getRequest();
+    @Override
+    protected void onEvent( AjaxRequestTarget target ) {
+        Request request = RequestCycle.get().getRequest();
 
-		onGeoCode(target, Integer.parseInt(request.getParameter("status")),
-				request.getParameter("address"), LatLng.parse(request.getParameter("point")));
-	}
+        onGeoCode( target, Integer.parseInt( request.getParameter( "status" ) ), request.getParameter( "address" ),
+                LatLng.parse( request.getParameter( "point" ) ) );
+    }
 
-	public abstract void onGeoCode(AjaxRequestTarget target, int status,
-			String address, LatLng latLng);
+    public abstract void onGeoCode( AjaxRequestTarget target, int status, String address, LatLng latLng );
 
-	@Override
-	protected CharSequence generateCallbackScript(CharSequence partialCall) {
-		return "Wicket.geocoder.getLatLng('" + getCallbackUrl() + "', '"
-				+ addressField.getMarkupId() + "');" + "return false;";
-	}
+    @Override
+    protected CharSequence generateCallbackScript( CharSequence partialCall ) {
+        return "Wicket.geocoder.getLatLng('" + getCallbackUrl() + "', '" + _addressField.getMarkupId() + "');" + "return false;";
+    }
 }

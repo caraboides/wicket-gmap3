@@ -15,12 +15,11 @@
  */
 package wicket.contrib.examples.gmap.ggroundOverlay;
 
-import wicket.contrib.examples.GMapExampleApplication;
 import wicket.contrib.examples.WicketExamplePage;
 import wicket.contrib.gmap3.GMap;
 import wicket.contrib.gmap3.api.GGroundOverlay;
-import wicket.contrib.gmap3.api.LatLng;
 import wicket.contrib.gmap3.api.GLatLngBounds;
+import wicket.contrib.gmap3.api.LatLng;
 
 /**
  * SimplePage for the wicket-contrib-gmap2 project
@@ -31,7 +30,7 @@ public class GGroundOverlayPage extends WicketExamplePage {
     private final GMap map;
 
     public GGroundOverlayPage() {
-        map = new GMap( "map", GMapExampleApplication.get().getGoogleMapsAPIkey() );
+        map = new GMap( "map" );
         map.setCenter( new LatLng( 40.740, -74.18 ) );
         map.setZoom( 12 );
 

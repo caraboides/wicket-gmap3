@@ -4,15 +4,14 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.PropertyModel;
 
-import wicket.contrib.examples.GMapExampleApplication;
 import wicket.contrib.examples.WicketExamplePage;
 import wicket.contrib.gmap3.GMap;
 import wicket.contrib.gmap3.api.GControl;
 import wicket.contrib.gmap3.api.GEvent;
 import wicket.contrib.gmap3.api.GEventHandler;
-import wicket.contrib.gmap3.api.LatLng;
 import wicket.contrib.gmap3.api.GMarker;
 import wicket.contrib.gmap3.api.GMarkerOptions;
+import wicket.contrib.gmap3.api.LatLng;
 
 /**
  * Example HomePage for the wicket-contrib-gmap2 project
@@ -22,7 +21,7 @@ public class HomePage extends WicketExamplePage {
     private static final long serialVersionUID = 1L;
 
     public HomePage() {
-        final GMap topMap = new GMap( "topPanel", GMapExampleApplication.get().getGoogleMapsAPIkey() );
+        final GMap topMap = new GMap( "topPanel" );
         topMap.addControl( GControl.GLargeMapControl );
         add( topMap );
 

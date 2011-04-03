@@ -18,9 +18,8 @@
  */
 package wicket.contrib.gmap3.api;
 
-import java.io.Serializable;
 
-public enum GEvent implements Serializable {
+public enum GEvent {
 
         click,
         dblclick,

@@ -15,25 +15,27 @@
  */
 package wicket.contrib.gmap3.api;
 
-import java.io.Serializable;
-
 import wicket.contrib.gmap3.GMap;
 
 /**
- * Represents an Google Maps API's
- * <a href="http://www.google.com/apis/maps/documentation/reference.html#GControl">GControl</a>.
+ * Represents an Google Maps API's <a href=
+ * "http://www.google.com/apis/maps/documentation/reference.html#GControl"
+ * >GControl</a>.
  */
-public enum GControl implements Serializable
-{
-	GSmallMapControl, GLargeMapControl, GSmallZoomControl, GScaleControl, GMapTypeControl, GLargeMapControl3D, GSmallZoomControl3D;
+public enum GControl {
+        GSmallMapControl,
+        GLargeMapControl,
+        GSmallZoomControl,
+        GScaleControl,
+        GMapTypeControl,
+        GLargeMapControl3D,
+        GSmallZoomControl3D;
 
-	public String getJSadd(GMap map)
-	{
-		return map.getJSinvoke("addControl('" + name() + "', new " + name() + "())");
-	}
+    public String getJSadd( GMap map ) {
+        return map.getJSinvoke( "addControl('" + name() + "', new " + name() + "())" );
+    }
 
-	public String getJSremove(GMap map)
-	{
-		return map.getJSinvoke("removeControl('" + name() + "')");
-	}
+    public String getJSremove( GMap map ) {
+        return map.getJSinvoke( "removeControl('" + name() + "')" );
+    }
 }

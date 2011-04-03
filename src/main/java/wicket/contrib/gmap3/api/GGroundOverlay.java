@@ -22,37 +22,30 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 
 import wicket.contrib.gmap3.js.Constructor;
 
-public class GGroundOverlay extends GOverlay
-{
+public class GGroundOverlay extends GOverlay {
 
-	private static final long serialVersionUID = 1L;
-	private final GLatLngBounds bounds;
-	private final String imageUrl;
+    private static final long serialVersionUID = 1L;
+    private final GLatLngBounds _bounds;
+    private final String _imageUrl;
 
+    public GGroundOverlay( String imageUrl, GLatLngBounds bounds ) {
+        super();
+        _bounds = bounds;
+        _imageUrl = imageUrl;
+    }
 
-	public GGroundOverlay(String imageUrl, GLatLngBounds bounds)
-	{
-		super();
-		this.bounds = bounds;
-		this.imageUrl = imageUrl;
-	}
+    @Override
+    public String getJSconstructor() {
+        Constructor constructor = new Constructor( "GGroundOverlay" );
+        constructor.addString( _imageUrl );
+        constructor.add( _bounds.getJSconstructor() );
+        return constructor.toJS();
 
+    }
 
-	@Override
-	public String getJSconstructor()
-	{
-		Constructor constructor = new Constructor("GGroundOverlay");
-		constructor.addString(imageUrl);
-		constructor.add(bounds.getJSconstructor());
-		return constructor.toJS();
-
-	}
-
-
-	@Override
-	protected void updateOnAjaxCall(AjaxRequestTarget target, GEvent overlayEvent)
-	{
-		// TODO
-	}
+    @Override
+    protected void updateOnAjaxCall( AjaxRequestTarget target, GEvent overlayEvent ) {
+        // TODO
+    }
 
 }

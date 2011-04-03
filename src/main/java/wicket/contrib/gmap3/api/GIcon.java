@@ -31,45 +31,45 @@ public class GIcon implements GValue, Cloneable {
 
     private static final long serialVersionUID = 1714038753187423501L;
 
-    private String image;
-    private String shadow;
-    private GSize iconSize = null;
-    private GSize shadowSize = null;
-    private GPoint iconAnchor = null;
-    private GPoint infoWindowAnchor = null;
-    private GPoint infoShadowAnchor = null;
+    private String _image;
+    private String _shadow;
+    private GSize _iconSize = null;
+    private GSize _shadowSize = null;
+    private GPoint _iconAnchor = null;
+    private GPoint _infoWindowAnchor = null;
+    private GPoint _infoShadowAnchor = null;
 
     /**
      * http://code.google.com/intl/de/apis/maps/documentation/reference.html#
      * GIcon.imageMap
      */
-    private List<Integer> imageMap = null;
+    private List<Integer> _imageMap = null;
 
     public GIcon() {
-        image = "http://www.google.com/mapfiles/marker.png";
-        shadow = "http://www.google.com/mapfiles/shadow50.png";
+        _image = "http://www.google.com/mapfiles/marker.png";
+        _shadow = "http://www.google.com/mapfiles/shadow50.png";
 
     }
 
     public GIcon( final String image ) {
-        this.image = image;
-        shadow = "http://www.google.com/mapfiles/shadow50.png";
+        _image = image;
+        _shadow = "http://www.google.com/mapfiles/shadow50.png";
     }
 
     public GIcon( final String image, final String shadow ) {
-        this.image = image;
-        this.shadow = shadow;
+        this._image = image;
+        this._shadow = shadow;
     }
 
     public GIcon( final String image, final String shadow, final GSize iconSize, final GSize shadowSize, final GPoint iconAnchor,
             final GPoint infoWindowAnchor, final GPoint infoShadowAnchor ) {
-        this.image = image;
-        this.shadow = shadow;
-        this.iconSize = iconSize;
-        this.shadowSize = shadowSize;
-        this.iconAnchor = iconAnchor;
-        this.infoWindowAnchor = infoWindowAnchor;
-        this.infoShadowAnchor = infoShadowAnchor;
+        _image = image;
+        _shadow = shadow;
+        _iconSize = iconSize;
+        _shadowSize = shadowSize;
+        _iconAnchor = iconAnchor;
+        _infoWindowAnchor = infoWindowAnchor;
+        _infoShadowAnchor = infoShadowAnchor;
     }
 
     @Override
@@ -93,71 +93,71 @@ public class GIcon implements GValue, Cloneable {
             return false;
         }
         final GIcon other = (GIcon) obj;
-        if ( iconAnchor == null ) {
-            if ( other.iconAnchor != null ) {
+        if ( _iconAnchor == null ) {
+            if ( other._iconAnchor != null ) {
                 return false;
             }
-        } else if ( !iconAnchor.equals( other.iconAnchor ) ) {
+        } else if ( !_iconAnchor.equals( other._iconAnchor ) ) {
             return false;
         }
-        if ( iconSize == null ) {
-            if ( other.iconSize != null ) {
+        if ( _iconSize == null ) {
+            if ( other._iconSize != null ) {
                 return false;
             }
-        } else if ( !iconSize.equals( other.iconSize ) ) {
+        } else if ( !_iconSize.equals( other._iconSize ) ) {
             return false;
         }
-        if ( image == null ) {
-            if ( other.image != null ) {
+        if ( _image == null ) {
+            if ( other._image != null ) {
                 return false;
             }
-        } else if ( !image.equals( other.image ) ) {
+        } else if ( !_image.equals( other._image ) ) {
             return false;
         }
-        if ( imageMap == null ) {
-            if ( other.imageMap != null ) {
+        if ( _imageMap == null ) {
+            if ( other._imageMap != null ) {
                 return false;
             }
-        } else if ( !imageMap.equals( other.imageMap ) ) {
+        } else if ( !_imageMap.equals( other._imageMap ) ) {
             return false;
         }
-        if ( infoShadowAnchor == null ) {
-            if ( other.infoShadowAnchor != null ) {
+        if ( _infoShadowAnchor == null ) {
+            if ( other._infoShadowAnchor != null ) {
                 return false;
             }
-        } else if ( !infoShadowAnchor.equals( other.infoShadowAnchor ) ) {
+        } else if ( !_infoShadowAnchor.equals( other._infoShadowAnchor ) ) {
             return false;
         }
-        if ( infoWindowAnchor == null ) {
-            if ( other.infoWindowAnchor != null ) {
+        if ( _infoWindowAnchor == null ) {
+            if ( other._infoWindowAnchor != null ) {
                 return false;
             }
-        } else if ( !infoWindowAnchor.equals( other.infoWindowAnchor ) ) {
+        } else if ( !_infoWindowAnchor.equals( other._infoWindowAnchor ) ) {
             return false;
         }
-        if ( shadow == null ) {
-            if ( other.shadow != null ) {
+        if ( _shadow == null ) {
+            if ( other._shadow != null ) {
                 return false;
             }
-        } else if ( !shadow.equals( other.shadow ) ) {
+        } else if ( !_shadow.equals( other._shadow ) ) {
             return false;
         }
-        if ( shadowSize == null ) {
-            if ( other.shadowSize != null ) {
+        if ( _shadowSize == null ) {
+            if ( other._shadowSize != null ) {
                 return false;
             }
-        } else if ( !shadowSize.equals( other.shadowSize ) ) {
+        } else if ( !_shadowSize.equals( other._shadowSize ) ) {
             return false;
         }
         return true;
     }
 
     public GPoint getIconAnchor() {
-        return iconAnchor;
+        return _iconAnchor;
     }
 
     public GSize getIconSize() {
-        return iconSize;
+        return _iconSize;
     }
 
     public String getId() {
@@ -165,40 +165,41 @@ public class GIcon implements GValue, Cloneable {
     }
 
     public String getImage() {
-        return image;
+        return _image;
     }
 
     public List<Integer> getImageMap() {
-        return imageMap;
+        return _imageMap;
     }
 
     public GPoint getInfoShadowAnchor() {
-        return infoShadowAnchor;
+        return _infoShadowAnchor;
     }
 
     public GPoint getInfoWindowAnchor() {
-        return infoWindowAnchor;
+        return _infoWindowAnchor;
     }
 
+    @Override
     public String getJSconstructor() {
         final StringBuffer buffer = new StringBuffer();
         buffer.append( "(function() {\n" );
         buffer.append( "var icon = new GIcon();\n" );
-        buffer.append( "icon.image = \"" ).append( image ).append( "\";\n" );
-        if ( shadow != null ) {
-            buffer.append( "icon.shadow = \"" ).append( shadow ).append( "\";\n" );
+        buffer.append( "icon.image = \"" ).append( _image ).append( "\";\n" );
+        if ( _shadow != null ) {
+            buffer.append( "icon.shadow = \"" ).append( _shadow ).append( "\";\n" );
         }
 
-        if ( iconSize != null ) {
-            buffer.append( "icon.iconSize = " ).append( iconSize.getJSconstructor() ).append( ";\n" );
+        if ( _iconSize != null ) {
+            buffer.append( "icon.iconSize = " ).append( _iconSize.getJSconstructor() ).append( ";\n" );
         }
 
-        if ( shadowSize != null ) {
-            buffer.append( "icon.shadowSize = " ).append( shadowSize.getJSconstructor() ).append( ";\n" );
+        if ( _shadowSize != null ) {
+            buffer.append( "icon.shadowSize = " ).append( _shadowSize.getJSconstructor() ).append( ";\n" );
         }
-        if ( imageMap != null ) {
+        if ( _imageMap != null ) {
             buffer.append( "icon.imageMap  = [" );
-            final Iterator<Integer> imit = imageMap.iterator();
+            final Iterator<Integer> imit = _imageMap.iterator();
             while ( imit.hasNext() ) {
                 buffer.append( imit.next().toString() );
                 if ( imit.hasNext() ) {
@@ -207,16 +208,16 @@ public class GIcon implements GValue, Cloneable {
             }
             buffer.append( "];\n" );
         }
-        if ( iconAnchor != null ) {
-            buffer.append( "icon.iconAnchor = " ).append( iconAnchor.getJSconstructor() ).append( ";\n" );
+        if ( _iconAnchor != null ) {
+            buffer.append( "icon.iconAnchor = " ).append( _iconAnchor.getJSconstructor() ).append( ";\n" );
         }
 
-        if ( infoWindowAnchor != null ) {
-            buffer.append( "icon.infoWindowAnchor = " ).append( infoWindowAnchor.getJSconstructor() ).append( ";\n" );
+        if ( _infoWindowAnchor != null ) {
+            buffer.append( "icon.infoWindowAnchor = " ).append( _infoWindowAnchor.getJSconstructor() ).append( ";\n" );
         }
 
-        if ( infoShadowAnchor != null ) {
-            buffer.append( "icon.infoShadowAnchor = " ).append( infoShadowAnchor.getJSconstructor() ).append( ";\n" );
+        if ( _infoShadowAnchor != null ) {
+            buffer.append( "icon.infoShadowAnchor = " ).append( _infoShadowAnchor.getJSconstructor() ).append( ";\n" );
         }
 
         buffer.append( "return icon;\n" );
@@ -225,111 +226,111 @@ public class GIcon implements GValue, Cloneable {
     }
 
     public String getShadow() {
-        return shadow;
+        return _shadow;
     }
 
     public GSize getShadowSize() {
-        return shadowSize;
+        return _shadowSize;
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ( iconAnchor == null
+        result = prime * result + ( _iconAnchor == null
             ? 0
-            : iconAnchor.hashCode() );
-        result = prime * result + ( iconSize == null
+            : _iconAnchor.hashCode() );
+        result = prime * result + ( _iconSize == null
             ? 0
-            : iconSize.hashCode() );
-        result = prime * result + ( image == null
+            : _iconSize.hashCode() );
+        result = prime * result + ( _image == null
             ? 0
-            : image.hashCode() );
-        result = prime * result + ( imageMap == null
+            : _image.hashCode() );
+        result = prime * result + ( _imageMap == null
             ? 0
-            : imageMap.hashCode() );
-        result = prime * result + ( infoShadowAnchor == null
+            : _imageMap.hashCode() );
+        result = prime * result + ( _infoShadowAnchor == null
             ? 0
-            : infoShadowAnchor.hashCode() );
-        result = prime * result + ( infoWindowAnchor == null
+            : _infoShadowAnchor.hashCode() );
+        result = prime * result + ( _infoWindowAnchor == null
             ? 0
-            : infoWindowAnchor.hashCode() );
-        result = prime * result + ( shadow == null
+            : _infoWindowAnchor.hashCode() );
+        result = prime * result + ( _shadow == null
             ? 0
-            : shadow.hashCode() );
-        result = prime * result + ( shadowSize == null
+            : _shadow.hashCode() );
+        result = prime * result + ( _shadowSize == null
             ? 0
-            : shadowSize.hashCode() );
+            : _shadowSize.hashCode() );
         return result;
     }
 
     public GIcon iconAnchor( final GPoint iconAnchor ) {
         final GIcon clone = clone();
-        clone.iconAnchor = iconAnchor;
+        clone._iconAnchor = iconAnchor;
         return clone;
     }
 
     public GIcon iconSize( final GSize iconSize ) {
         final GIcon clone = clone();
-        clone.iconSize = iconSize;
+        clone._iconSize = iconSize;
         return clone;
     }
 
     public GIcon infoShadowAnchor( final GPoint infoShadowAnchor ) {
         final GIcon clone = clone();
-        clone.infoShadowAnchor = infoShadowAnchor;
+        clone._infoShadowAnchor = infoShadowAnchor;
         return clone;
     }
 
     public GIcon infoWindowAnchor( final GPoint infoWindowAnchor ) {
         final GIcon clone = clone();
-        clone.infoWindowAnchor = infoWindowAnchor;
+        clone._infoWindowAnchor = infoWindowAnchor;
         return clone;
     }
 
     public void setIconAnchor( final GPoint iconAnchor ) {
-        this.iconAnchor = iconAnchor;
+        this._iconAnchor = iconAnchor;
     }
 
     public void setIconSize( final GSize iconSize ) {
-        this.iconSize = iconSize;
+        this._iconSize = iconSize;
     }
 
     public void setImage( final String image ) {
-        this.image = image;
+        this._image = image;
     }
 
     public void setImageMap( final List<Integer> imageMap ) {
-        this.imageMap = imageMap;
+        _imageMap = imageMap;
     }
 
     public void setInfoShadowAnchor( final GPoint infoShadowAnchor ) {
-        this.infoShadowAnchor = infoShadowAnchor;
+        this._infoShadowAnchor = infoShadowAnchor;
     }
 
     public void setInfoWindowAnchor( final GPoint infoWindowAnchor ) {
-        this.infoWindowAnchor = infoWindowAnchor;
+        this._infoWindowAnchor = infoWindowAnchor;
     }
 
     public void setShadow( final String shadow ) {
-        this.shadow = shadow;
+        this._shadow = shadow;
     }
 
     public void setShadowSize( final GSize shadowSize ) {
-        this.shadowSize = shadowSize;
+        this._shadowSize = shadowSize;
     }
 
     public GIcon shadowSize( final GSize shadowSize ) {
         final GIcon clone = clone();
-        clone.shadowSize = shadowSize;
+        clone._shadowSize = shadowSize;
         return clone;
     }
 
     public void setSchema( final String schema ) {
         final String regex = "https?";
-        image.replaceFirst( regex, schema );
-        if ( shadow != null ) {
-            shadow.replaceFirst( regex, schema );
+        _image.replaceFirst( regex, schema );
+        if ( _shadow != null ) {
+            _shadow.replaceFirst( regex, schema );
         }
     }
 

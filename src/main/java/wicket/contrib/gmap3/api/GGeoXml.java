@@ -23,32 +23,29 @@ import wicket.contrib.gmap3.js.Constructor;
 
 /**
  * Represents an Google Maps API's <a
- * href="http://www.google.com/apis/maps/documentation/reference.html#GGeoXml">GGeoXml</a>.
+ * href="http://www.google.com/apis/maps/documentation/reference.html#GGeoXml"
+ * >GGeoXml</a>.
  */
-public class GGeoXml extends GOverlay
-{
-	private static final long serialVersionUID = 1L;
+public class GGeoXml extends GOverlay {
+    private static final long serialVersionUID = 1L;
 
-	private URL kmlFileUrl;
+    private final URL _kmlFileUrl;
 
-	/**
-	 * @param kmlFileUrl
-	 *            the URL of the remote KML file
-	 */
-	public GGeoXml(URL kmlFileUrl)
-	{
-		this.kmlFileUrl = kmlFileUrl;
-	}
+    /**
+     * @param kmlFileUrl
+     *            the URL of the remote KML file
+     */
+    public GGeoXml( URL kmlFileUrl ) {
+        _kmlFileUrl = kmlFileUrl;
+    }
 
-	@Override
-	public String getJSconstructor()
-	{
-		Constructor constructor = new Constructor("GGeoXml").add("'"+kmlFileUrl.toString()+"'");
-		return constructor.toJS();
-	}
+    @Override
+    public String getJSconstructor() {
+        Constructor constructor = new Constructor( "GGeoXml" ).add( "'" + _kmlFileUrl.toString() + "'" );
+        return constructor.toJS();
+    }
 
-	@Override
-	protected void updateOnAjaxCall(AjaxRequestTarget target,
-			GEvent overlayEvent) {
-	}
+    @Override
+    protected void updateOnAjaxCall( AjaxRequestTarget target, GEvent overlayEvent ) {
+    }
 }

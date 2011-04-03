@@ -6,16 +6,15 @@ import org.apache.wicket.ResourceReference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.util.time.Duration;
 
-import wicket.contrib.examples.GMapExampleApplication;
 import wicket.contrib.examples.WicketExamplePage;
 import wicket.contrib.gmap3.GMap;
 import wicket.contrib.gmap3.api.GIcon;
-import wicket.contrib.gmap3.api.LatLng;
 import wicket.contrib.gmap3.api.GMarker;
 import wicket.contrib.gmap3.api.GMarkerOptions;
 import wicket.contrib.gmap3.api.GOverlay;
 import wicket.contrib.gmap3.api.GPoint;
 import wicket.contrib.gmap3.api.GSize;
+import wicket.contrib.gmap3.api.LatLng;
 
 /**
  * SimplePage for the wicket-contrib-gmap2 project
@@ -27,7 +26,7 @@ public class RefreshPointPage extends WicketExamplePage {
     private final GMap map;
 
     public RefreshPointPage() {
-        map = new GMap( "map", GMapExampleApplication.get().getGoogleMapsAPIkey() );
+        map = new GMap( "map" );
         add( map );
 
         GOverlay overlay = createOverlay( "Amsterdam", new LatLng( 52.37649, 4.888573 ), "image.gif", "shadow.png" );

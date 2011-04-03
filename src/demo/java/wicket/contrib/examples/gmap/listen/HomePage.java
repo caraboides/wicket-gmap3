@@ -10,7 +10,6 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.util.convert.IConverter;
 
-import wicket.contrib.examples.GMapExampleApplication;
 import wicket.contrib.examples.WicketExamplePage;
 import wicket.contrib.gmap3.GMap;
 import wicket.contrib.gmap3.api.GControl;
@@ -32,7 +31,7 @@ public class HomePage extends WicketExamplePage {
     private MoveEndListener moveEndBehavior;
 
     public HomePage() {
-        final GMap map = new GMap( "map", GMapExampleApplication.get().getGoogleMapsAPIkey() );
+        final GMap map = new GMap( "map" );
         map.addControl( GControl.GLargeMapControl );
         add( map );
         moveEndBehavior = new MyMoveEndListener();

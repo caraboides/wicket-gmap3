@@ -5,7 +5,6 @@ import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.repeater.RepeatingView;
 
-import wicket.contrib.examples.GMapExampleApplication;
 import wicket.contrib.examples.WicketExamplePage;
 import wicket.contrib.gmap3.GMapHeaderContributor;
 
@@ -41,7 +40,7 @@ public class ManyPage extends WicketExamplePage {
         // the GMapHeaderContributor needs to be present in a page if it
         // potentially might initialize a GMap2 component.
         // 
-        container.add( new GMapHeaderContributor( GMapExampleApplication.get().getGoogleMapsAPIkey() ) );
+        container.add( new GMapHeaderContributor() );
         add( container );
 
         repeating = new RepeatingView( "repeating" );
@@ -51,7 +50,7 @@ public class ManyPage extends WicketExamplePage {
     }
 
     protected void addPanel() {
-        ManyPanel newPanel = new ManyPanel( repeating.newChildId(), GMapExampleApplication.get().getGoogleMapsAPIkey() ) {
+        ManyPanel newPanel = new ManyPanel( repeating.newChildId() ) {
             private static final long serialVersionUID = 1L;
 
             @Override

@@ -10,16 +10,15 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
-import wicket.contrib.examples.GMapExampleApplication;
 import wicket.contrib.examples.WicketExamplePage;
 import wicket.contrib.gmap3.GMap;
 import wicket.contrib.gmap3.api.GControl;
 import wicket.contrib.gmap3.api.GEvent;
 import wicket.contrib.gmap3.api.GEventHandler;
-import wicket.contrib.gmap3.api.LatLng;
 import wicket.contrib.gmap3.api.GMarker;
 import wicket.contrib.gmap3.api.GMarkerOptions;
 import wicket.contrib.gmap3.api.GOverlay;
+import wicket.contrib.gmap3.api.LatLng;
 import wicket.contrib.gmap3.event.ClickListener;
 
 /**
@@ -33,7 +32,7 @@ public class HomePage extends WicketExamplePage {
      * Constructor
      */
     public HomePage() {
-        final GMap map = new GMap( "map", GMapExampleApplication.get().getGoogleMapsAPIkey() );
+        final GMap map = new GMap( "map" );
         map.addControl( GControl.GLargeMapControl );
         add( map );
         final WebMarkupContainer repeaterParent = new WebMarkupContainer( "repeaterParent" );

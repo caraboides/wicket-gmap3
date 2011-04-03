@@ -63,29 +63,29 @@ public class GMap extends Panel implements GOverlayContainer {
 
     private static final long serialVersionUID = 1L;
 
-    private LatLng center = new LatLng( 37.4419, -122.1419 );
+    private LatLng _center = new LatLng( 37.4419, -122.1419 );
 
-    private boolean draggingEnabled = true;
+    private boolean _draggingEnabled = true;
 
-    private boolean doubleClickZoomEnabled = false;
+    private boolean _doubleClickZoomEnabled = false;
 
-    private boolean scrollWheelZoomEnabled = false;
+    private boolean _scrollWheelZoomEnabled = false;
 
-    private GMapType mapType = GMapType.ROADMAP;
+    private GMapType _mapType = GMapType.ROADMAP;
 
-    private int zoom = 13;
+    private int _zoom = 13;
 
-    private final Set<GControl> controls = new HashSet<GControl>();
+    private final Set<GControl> _controls = new HashSet<GControl>();
 
-    private final List<GOverlay> overlays = new ArrayList<GOverlay>();
+    private final List<GOverlay> _overlays = new ArrayList<GOverlay>();
 
-    private final WebMarkupContainer map;
+    private final WebMarkupContainer _map;
 
-    private final GInfoWindow infoWindow;
+    private final GInfoWindow _infoWindow;
 
-    private GLatLngBounds bounds;
+    private GLatLngBounds _bounds;
 
-    private OverlayListener overlayListener = null;
+    private OverlayListener _overlayListener = null;
 
     /**
      * Construct.
@@ -94,8 +94,8 @@ public class GMap extends Panel implements GOverlayContainer {
      * @param gMapKey
      *            Google gmap API KEY
      */
-    public GMap( final String id, final String gMapKey ) {
-        this( id, new GMapHeaderContributor( gMapKey ), new ArrayList<GOverlay>() );
+    public GMap( final String id ) {
+        this( id, new GMapHeaderContributor(), new ArrayList<GOverlay>() );
     }
 
     /**
@@ -109,8 +109,8 @@ public class GMap extends Panel implements GOverlayContainer {
      *             and add the overlays later on.
      */
     @Deprecated
-    public GMap( final String id, final String gMapKey, final List<GOverlay> overlays ) {
-        this( id, new GMapHeaderContributor( gMapKey ), overlays );
+    public GMap( final String id, final List<GOverlay> overlays ) {
+        this( id, new GMapHeaderContributor(), overlays );
     }
 
     /**
@@ -126,26 +126,27 @@ public class GMap extends Panel implements GOverlayContainer {
         add( new HeaderContributor( new IHeaderContributor() {
             private static final long serialVersionUID = 1L;
 
+            @Override
             public void renderHead( final IHeaderResponse response ) {
                 response.renderOnDomReadyJavascript( getJSinit() );
             }
         } ) );
 
-        infoWindow = new GInfoWindow();
-        add( infoWindow );
+        _infoWindow = new GInfoWindow();
+        add( _infoWindow );
 
-        map = new WebMarkupContainer( "map" );
-        map.setOutputMarkupId( true );
-        add( map );
+        _map = new WebMarkupContainer( "map" );
+        _map.setOutputMarkupId( true );
+        add( _map );
 
         if ( activateOverlayListener() ) {
-            overlayListener = new OverlayListener();
-            add( overlayListener );
+            _overlayListener = new OverlayListener();
+            add( _overlayListener );
         }
     }
 
     public String getMapId() {
-        return map.getMarkupId();
+        return _map.getMarkupId();
     }
 
     protected boolean activateOverlayListener() {
@@ -192,7 +193,7 @@ public class GMap extends Panel implements GOverlayContainer {
      * @return This
      */
     public GMap addControl( final GControl control ) {
-        controls.add( control );
+        _controls.add( control );
 
         if ( AjaxRequestTarget.get() != null && findPage() != null ) {
             AjaxRequestTarget.get().appendJavascript( control.getJSadd( GMap.this ) );
@@ -209,7 +210,7 @@ public class GMap extends Panel implements GOverlayContainer {
      * @return This
      */
     public GMap removeControl( final GControl control ) {
-        controls.remove( control );
+        _controls.remove( control );
 
         if ( AjaxRequestTarget.get() != null && findPage() != null ) {
             AjaxRequestTarget.get().appendJavascript( control.getJSremove( GMap.this ) );
@@ -225,8 +226,9 @@ public class GMap extends Panel implements GOverlayContainer {
      *            overlay to add
      * @return This
      */
+    @Override
     public GMap addOverlay( final GOverlay overlay ) {
-        overlays.add( overlay );
+        _overlays.add( overlay );
         overlay.setParent( this );
 
         if ( AjaxRequestTarget.get() != null && findPage() != null ) {
@@ -243,9 +245,10 @@ public class GMap extends Panel implements GOverlayContainer {
      *            overlay to remove
      * @return This
      */
+    @Override
     public GMap removeOverlay( final GOverlay overlay ) {
-        while ( overlays.contains( overlay ) ) {
-            overlays.remove( overlay );
+        while ( _overlays.contains( overlay ) ) {
+            _overlays.remove( overlay );
         }
 
         if ( AjaxRequestTarget.get() != null && findPage() != null ) {
@@ -262,36 +265,38 @@ public class GMap extends Panel implements GOverlayContainer {
      * 
      * @return This
      */
+    @Override
     public GMap removeAllOverlays() {
-        for ( final GOverlay overlay : overlays ) {
+        for ( final GOverlay overlay : _overlays ) {
             overlay.setParent( null );
         }
-        overlays.clear();
+        _overlays.clear();
         if ( AjaxRequestTarget.get() != null && findPage() != null ) {
             AjaxRequestTarget.get().appendJavascript( getJSinvoke( "clearOverlays()" ) );
         }
         return this;
     }
 
+    @Override
     public List<GOverlay> getOverlays() {
-        return Collections.unmodifiableList( overlays );
+        return Collections.unmodifiableList( _overlays );
     }
 
     public Set<GControl> getControls() {
-        return Collections.unmodifiableSet( controls );
+        return Collections.unmodifiableSet( _controls );
     }
 
     public LatLng getCenter() {
-        return center;
+        return _center;
     }
 
     public GLatLngBounds getBounds() {
-        return bounds;
+        return _bounds;
     }
 
     public void setDraggingEnabled( final boolean enabled ) {
-        if ( this.draggingEnabled != enabled ) {
-            draggingEnabled = enabled;
+        if ( this._draggingEnabled != enabled ) {
+            _draggingEnabled = enabled;
 
             if ( AjaxRequestTarget.get() != null && findPage() != null ) {
                 AjaxRequestTarget.get().appendJavascript( getJSsetDraggingEnabled( enabled ) );
@@ -300,12 +305,12 @@ public class GMap extends Panel implements GOverlayContainer {
     }
 
     public boolean isDraggingEnabled() {
-        return draggingEnabled;
+        return _draggingEnabled;
     }
 
     public void setDoubleClickZoomEnabled( final boolean enabled ) {
-        if ( this.doubleClickZoomEnabled != enabled ) {
-            doubleClickZoomEnabled = enabled;
+        if ( this._doubleClickZoomEnabled != enabled ) {
+            _doubleClickZoomEnabled = enabled;
 
             if ( AjaxRequestTarget.get() != null && findPage() != null ) {
                 AjaxRequestTarget.get().appendJavascript( getJSsetDoubleClickZoomEnabled( enabled ) );
@@ -314,12 +319,12 @@ public class GMap extends Panel implements GOverlayContainer {
     }
 
     public boolean isDoubleClickZoomEnabled() {
-        return doubleClickZoomEnabled;
+        return _doubleClickZoomEnabled;
     }
 
     public void setScrollWheelZoomEnabled( final boolean enabled ) {
-        if ( this.scrollWheelZoomEnabled != enabled ) {
-            scrollWheelZoomEnabled = enabled;
+        if ( this._scrollWheelZoomEnabled != enabled ) {
+            _scrollWheelZoomEnabled = enabled;
 
             if ( AjaxRequestTarget.get() != null && findPage() != null ) {
                 AjaxRequestTarget.get().appendJavascript( getJSsetScrollWheelZoomEnabled( enabled ) );
@@ -328,16 +333,16 @@ public class GMap extends Panel implements GOverlayContainer {
     }
 
     public boolean isScrollWheelZoomEnabled() {
-        return scrollWheelZoomEnabled;
+        return _scrollWheelZoomEnabled;
     }
 
     public GMapType getMapType() {
-        return mapType;
+        return _mapType;
     }
 
     public void setMapType( final GMapType mapType ) {
-        if ( this.mapType != mapType ) {
-            this.mapType = mapType;
+        if ( this._mapType != mapType ) {
+            this._mapType = mapType;
 
             if ( AjaxRequestTarget.get() != null && findPage() != null ) {
                 AjaxRequestTarget.get().appendJavascript( mapType.getJSsetMapType( GMap.this ) );
@@ -346,15 +351,15 @@ public class GMap extends Panel implements GOverlayContainer {
     }
 
     public int getZoom() {
-        return zoom;
+        return _zoom;
     }
 
     public void setZoom( final int level ) {
-        if ( this.zoom != level ) {
-            this.zoom = level;
+        if ( this._zoom != level ) {
+            this._zoom = level;
 
             if ( AjaxRequestTarget.get() != null && findPage() != null ) {
-                AjaxRequestTarget.get().appendJavascript( getJSsetZoom( zoom ) );
+                AjaxRequestTarget.get().appendJavascript( getJSsetZoom( _zoom ) );
             }
         }
     }
@@ -366,8 +371,8 @@ public class GMap extends Panel implements GOverlayContainer {
      *            center to set
      */
     public void setCenter( final LatLng center ) {
-        if ( !this.center.equals( center ) ) {
-            this.center = center;
+        if ( !this._center.equals( center ) ) {
+            this._center = center;
 
             if ( AjaxRequestTarget.get() != null && findPage() != null ) {
                 AjaxRequestTarget.get().appendJavascript( getJSsetCenter( center ) );
@@ -384,8 +389,8 @@ public class GMap extends Panel implements GOverlayContainer {
      *            the new center of the map
      */
     public void panTo( final LatLng center ) {
-        if ( !this.center.equals( center ) ) {
-            this.center = center;
+        if ( !this._center.equals( center ) ) {
+            this._center = center;
 
             if ( AjaxRequestTarget.get() != null && findPage() != null ) {
                 AjaxRequestTarget.get().appendJavascript( getJSpanTo( center ) );
@@ -394,7 +399,7 @@ public class GMap extends Panel implements GOverlayContainer {
     }
 
     public GInfoWindow getInfoWindow() {
-        return infoWindow;
+        return _infoWindow;
     }
 
     /**
@@ -404,18 +409,18 @@ public class GMap extends Panel implements GOverlayContainer {
      * @return The generated JavaScript
      */
     private String getJSinit() {
-        final StringBuffer js = new StringBuffer( "new WicketMap('" + map.getMarkupId() + "');\n" );
+        final StringBuffer js = new StringBuffer( "new WicketMap('" + _map.getMarkupId() + "');\n" );
 
         if ( activateOverlayListener() ) {
-            js.append( overlayListener.getJSinit() );
+            js.append( _overlayListener.getJSinit() );
         }
         js.append( getJSsetCenter( getCenter() ) );
         js.append( getJSsetZoom( getZoom() ) );
-        js.append( getJSsetDraggingEnabled( draggingEnabled ) );
-        js.append( getJSsetDoubleClickZoomEnabled( doubleClickZoomEnabled ) );
-        js.append( getJSsetScrollWheelZoomEnabled( scrollWheelZoomEnabled ) );
+        js.append( getJSsetDraggingEnabled( _draggingEnabled ) );
+        js.append( getJSsetDoubleClickZoomEnabled( _doubleClickZoomEnabled ) );
+        js.append( getJSsetScrollWheelZoomEnabled( _scrollWheelZoomEnabled ) );
 
-        js.append( mapType.getJSsetMapType( this ) );
+        js.append( _mapType.getJSsetMapType( this ) );
 
         // Add the controls.
         //        for ( final GControl control : controls ) {
@@ -423,11 +428,11 @@ public class GMap extends Panel implements GOverlayContainer {
         //        }
 
         // Add the overlays.
-        for ( final GOverlay overlay : overlays ) {
+        for ( final GOverlay overlay : _overlays ) {
             js.append( overlay.getJSadd() );
         }
 
-        js.append( infoWindow.getJSinit() );
+        js.append( _infoWindow.getJSinit() );
 
         for ( final Object behavior : getBehaviors( GEventListenerBehavior.class ) ) {
             js.append( ( (GEventListenerBehavior) behavior ).getJSaddListener() );
@@ -446,7 +451,7 @@ public class GMap extends Panel implements GOverlayContainer {
      */
     // TODO Could this become default or protected?
     public String getJSinvoke( final String invocation ) {
-        return "Wicket.maps['" + map.getMarkupId() + "']." + invocation + ";\n";
+        return "Wicket.maps['" + _map.getMarkupId() + "']." + invocation + ";\n";
     }
 
     /**
@@ -490,6 +495,7 @@ public class GMap extends Panel implements GOverlayContainer {
         this.add( new HeaderContributor( new IHeaderContributor() {
             private static final long serialVersionUID = 1L;
 
+            @Override
             public void renderHead( final IHeaderResponse response ) {
                 final StringBuffer buf = new StringBuffer();
                 buf.append( "var bounds = new GLatLngBounds();\n" );
@@ -538,9 +544,8 @@ public class GMap extends Panel implements GOverlayContainer {
     private String getJSsetCenter( final LatLng center ) {
         if ( center != null ) {
             return getJSinvoke( "setCenter(" + center.getJSconstructor() + ")" );
-        } else {
-            return "";
         }
+        return "";
     }
 
     private String getJSpanDirection( final int dx, final int dy ) {
@@ -562,17 +567,17 @@ public class GMap extends Panel implements GOverlayContainer {
     /**
      * Update state from a request to an AJAX target.
      */
-    public void update( final AjaxRequestTarget target ) {
+    public void update() {
         final Request request = RequestCycle.get().getRequest();
 
         // Attention: don't use setters as this will result in an endless
         // AJAX request loop
-        bounds = GLatLngBounds.parse( request.getParameter( "bounds" ) );
-        center = LatLng.parse( request.getParameter( "center" ) );
-        zoom = Integer.parseInt( request.getParameter( "zoom" ) );
-        mapType = GMapType.valueOf( request.getParameter( "currentMapType" ) );
+        _bounds = GLatLngBounds.parse( request.getParameter( "bounds" ) );
+        _center = LatLng.parse( request.getParameter( "center" ) );
+        _zoom = Integer.parseInt( request.getParameter( "zoom" ) );
+        _mapType = GMapType.valueOf( request.getParameter( "currentMapType" ) );
 
-        infoWindow.update( target );
+        _infoWindow.update();
     }
 
     public void setOverlays( final List<GOverlay> overlays ) {
@@ -586,10 +591,10 @@ public class GMap extends Panel implements GOverlayContainer {
 
         private static final long serialVersionUID = 1L;
 
-        private final String attribute;
+        private final String _attribute;
 
         public JSMethodBehavior( final String attribute ) {
-            this.attribute = attribute;
+            _attribute = attribute;
         }
 
         /**
@@ -600,11 +605,11 @@ public class GMap extends Panel implements GOverlayContainer {
         public void onComponentTag( final Component component, final ComponentTag tag ) {
             String invoke = getJSinvoke();
 
-            if ( attribute.equalsIgnoreCase( "href" ) ) {
+            if ( _attribute.equalsIgnoreCase( "href" ) ) {
                 invoke = "javascript:" + invoke;
             }
 
-            tag.put( attribute, invoke );
+            tag.put( _attribute, invoke );
         }
 
         protected abstract String getJSinvoke();
@@ -639,67 +644,67 @@ public class GMap extends Panel implements GOverlayContainer {
     public class PanDirectionBehavior extends JSMethodBehavior {
         private static final long serialVersionUID = 1L;
 
-        private final int dx;
+        private final int _dx;
 
-        private final int dy;
+        private final int _dy;
 
         public PanDirectionBehavior( final String event, final int dx, final int dy ) {
             super( event );
-            this.dx = dx;
-            this.dy = dy;
+            _dx = dx;
+            _dy = dy;
         }
 
         @Override
         protected String getJSinvoke() {
-            return getJSpanDirection( dx, dy );
+            return getJSpanDirection( _dx, _dy );
         }
     }
 
     public class SetZoomBehavior extends JSMethodBehavior {
         private static final long serialVersionUID = 1L;
 
-        private final int zoom;
+        private final int _zoomBehavior;
 
         public SetZoomBehavior( final String event, final int zoom ) {
             super( event );
-            this.zoom = zoom;
+            _zoomBehavior = zoom;
         }
 
         @Override
         protected String getJSinvoke() {
-            return getJSsetZoom( zoom );
+            return getJSsetZoom( _zoomBehavior );
         }
     }
 
     public class SetCenterBehavior extends JSMethodBehavior {
         private static final long serialVersionUID = 1L;
 
-        private final LatLng gLatLng;
+        private final LatLng _gLatLng;
 
         public SetCenterBehavior( final String event, final LatLng gLatLng ) {
             super( event );
-            this.gLatLng = gLatLng;
+            _gLatLng = gLatLng;
         }
 
         @Override
         protected String getJSinvoke() {
-            return getJSsetCenter( gLatLng );
+            return getJSsetCenter( _gLatLng );
         }
     }
 
     public class SetMapTypeBehavior extends JSMethodBehavior {
         private static final long serialVersionUID = 1L;
 
-        private final GMapType mapType;
+        private final GMapType _mapTypeBehavior;
 
         public SetMapTypeBehavior( final String event, final GMapType mapType ) {
             super( event );
-            this.mapType = mapType;
+            _mapTypeBehavior = mapType;
         }
 
         @Override
         protected String getJSinvoke() {
-            return mapType.getJSsetMapType( GMap.this );
+            return _mapTypeBehavior.getJSsetMapType( GMap.this );
         }
     }
 
@@ -715,7 +720,7 @@ public class GMap extends Panel implements GOverlayContainer {
             // TODO this is ugly
             // the id's of the Overlays are unique within the ArrayList
             // maybe we should change that collection
-            for ( final GOverlay overlay : overlays ) {
+            for ( final GOverlay overlay : _overlays ) {
                 if ( overlay.getId().equals( overlayId ) ) {
                     overlay.onEvent( target, GEvent.valueOf( event ) );
                     break;

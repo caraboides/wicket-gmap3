@@ -4,7 +4,6 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.PropertyModel;
 
-import wicket.contrib.examples.GMapExampleApplication;
 import wicket.contrib.examples.WicketExamplePage;
 import wicket.contrib.gmap3.GMap;
 import wicket.contrib.gmap3.api.GControl;
@@ -23,7 +22,7 @@ public class HomePage extends WicketExamplePage {
     private final Label mapTypeLabel;
 
     public HomePage() {
-        map = new GMap( "panel", GMapExampleApplication.get().getGoogleMapsAPIkey() );
+        map = new GMap( "panel" );
         map.addControl( GControl.GMapTypeControl );
         add( map );
         map.add( new MapTypeChangedListener() {
