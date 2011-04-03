@@ -22,21 +22,22 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 
 /**
  * See "infowindowbeforeclose" in the event section of <a
- * href="http://www.google.com/apis/maps/documentation/reference.html#GMap2">GMap2</a>.
+ * href="http://www.google.com/apis/maps/documentation/reference.html#GMap2"
+ * >GMap2</a>.
  */
-public abstract class InfoWindowBeforeCloseListener extends GEventListenerBehavior
-{
+public abstract class InfoWindowBeforeCloseListener extends GEventListenerBehavior {
 
-	@Override
-	protected String getEvent() {
-		return "infowindowbeforeclose";
-	}
+    private static final long serialVersionUID = 2463618282608061455L;
 
-	@Override
-	protected void onEvent(AjaxRequestTarget target)
-	{
-		onInfoWindowBeforeClose(target);
-	}
+    @Override
+    protected String getEvent() {
+        return "infowindowbeforeclose";
+    }
 
-	protected abstract void onInfoWindowBeforeClose(AjaxRequestTarget target);
+    @Override
+    protected void onEvent( AjaxRequestTarget target ) {
+        onInfoWindowBeforeClose( target );
+    }
+
+    protected abstract void onInfoWindowBeforeClose( AjaxRequestTarget target );
 }

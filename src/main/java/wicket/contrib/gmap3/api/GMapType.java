@@ -15,8 +15,6 @@
  */
 package wicket.contrib.gmap3.api;
 
-import java.io.Serializable;
-
 import wicket.contrib.gmap3.GMap;
 
 /**
@@ -24,7 +22,7 @@ import wicket.contrib.gmap3.GMap;
  * "http://www.google.com/apis/maps/documentation/reference.html#GMapType"
  * >GMapType</a>.
  */
-public enum GMapType implements Serializable {
+public enum GMapType {
         ROADMAP,
         SATELLITE,
         HYBRID,

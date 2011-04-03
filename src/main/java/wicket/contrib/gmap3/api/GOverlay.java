@@ -36,9 +36,9 @@ public abstract class GOverlay implements Serializable {
     /**
      * id of this object. it is session unique.
      */
-    private final String id;
+    private final String _id;
 
-    private GMap parent = null;
+    private GMap _parent = null;
 
     private final Map<GEvent, GEventHandler> events = new EnumMap<GEvent, GEventHandler>( GEvent.class );
 
@@ -49,7 +49,7 @@ public abstract class GOverlay implements Serializable {
      */
     public GOverlay() {
         // id is session unique
-        id = String.valueOf( Session.get().nextSequenceValue() );
+        _id = String.valueOf( Session.get().nextSequenceValue() );
     }
 
     /**
@@ -58,7 +58,7 @@ public abstract class GOverlay implements Serializable {
      */
     public String getJSadd() {
         final StringBuffer js = new StringBuffer( "var overlay" + getId() + "= " + getJSconstructor() + ";" );
-        js.append( parent.getJSinvoke( "addOverlay('" + getId() + "', " + "overlay" + getId() + ")" ) );
+        js.append( _parent.getJSinvoke( "addOverlay('" + getId() + "', " + "overlay" + getId() + ")" ) );
         // Add the Events
         for ( final GEvent event : events.keySet() ) {
             js.append( event.getJSadd( this ) );
@@ -81,7 +81,7 @@ public abstract class GOverlay implements Serializable {
         for ( final GEvent event : events.keySet() ) {
             js.append( event.getJSclear( this ) );
         }
-        js.append( parent.getJSinvoke( "removeOverlay('" + getId() + "')" ) );
+        js.append( _parent.getJSinvoke( "removeOverlay('" + getId() + "')" ) );
         return js.toString();
     }
 
@@ -89,7 +89,7 @@ public abstract class GOverlay implements Serializable {
      * @return The session unique id of this object as a String.
      */
     public String getId() {
-        return id;
+        return _id;
     }
 
     /**
@@ -101,11 +101,11 @@ public abstract class GOverlay implements Serializable {
     public abstract String getJSconstructor();
 
     public GMap getParent() {
-        return parent;
+        return _parent;
     }
 
     public void setParent( final GMap parent ) {
-        this.parent = parent;
+        _parent = parent;
     }
 
     /**
@@ -118,10 +118,7 @@ public abstract class GOverlay implements Serializable {
     public GOverlay addListener( final GEvent event, final GEventHandler handler ) {
         events.put( event, handler );
 
-        if ( AjaxRequestTarget.get() != null )
-        // TODO
-        // && getParent().findPage() != null)
-        {
+        if ( AjaxRequestTarget.get() != null && getParent().getPage() != null ) {
             AjaxRequestTarget.get().appendJavascript( event.getJSadd( this ) );
         }
 

@@ -25,61 +25,53 @@ import wicket.contrib.gmap3.js.Constructor;
  * 
  * @author Robert Jacolin, Vincent Demay, Gregory Maes - Anyware Technologies
  */
-public class GSize implements GValue
-{
-	/**
-	 * Default serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	private float width;
-	private float height;
+public class GSize implements GValue {
 
-	public GSize(float width, float height)
-	{
-		this.width = width;
-		this.height = height;
-	}
+    private static final long serialVersionUID = 5827792929263787358L;
 
-	public float getWidth()
-	{
-		return width;
-	}
+    private final float _width;
+    private final float _height;
 
-	public float getHeight()
-	{
-		return height;
-	}
+    public GSize( float width, float height ) {
+        this._width = width;
+        this._height = height;
+    }
 
-	public String getJSconstructor()
-	{
-		return new Constructor("GSize").add(width).add(height).toJS();
-	}
-	
-	@Override
-	public int hashCode()
-	{
-		final int PRIME = 31;
-		int result = 1;
-		result = PRIME * result + Float.floatToIntBits(height);
-		result = PRIME * result + Float.floatToIntBits(width);
-		return result;
-	}
+    public float getWidth() {
+        return _width;
+    }
 
-	@Override
-	public boolean equals(Object obj)
-	{
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		final GSize other = (GSize)obj;
-		if (Float.floatToIntBits(height) != Float.floatToIntBits(other.height))
-			return false;
-		if (Float.floatToIntBits(width) != Float.floatToIntBits(other.width))
-			return false;
-		return true;
-	}
+    public float getHeight() {
+        return _height;
+    }
+
+    @Override
+    public String getJSconstructor() {
+        return new Constructor( "GSize" ).add( _width ).add( _height ).toJS();
+    }
+
+    @Override
+    public int hashCode() {
+        final int PRIME = 31;
+        int result = 1;
+        result = PRIME * result + Float.floatToIntBits( _height );
+        result = PRIME * result + Float.floatToIntBits( _width );
+        return result;
+    }
+
+    @Override
+    public boolean equals( Object obj ) {
+        if ( this == obj )
+            return true;
+        if ( !super.equals( obj ) )
+            return false;
+        if ( getClass() != obj.getClass() )
+            return false;
+        final GSize other = (GSize) obj;
+        if ( Float.floatToIntBits( _height ) != Float.floatToIntBits( other._height ) )
+            return false;
+        if ( Float.floatToIntBits( _width ) != Float.floatToIntBits( other._width ) )
+            return false;
+        return true;
+    }
 }

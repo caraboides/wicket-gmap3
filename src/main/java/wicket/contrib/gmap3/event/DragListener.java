@@ -22,21 +22,22 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 
 /**
  * See "drag" in the event section of <a
- * href="http://www.google.com/apis/maps/documentation/reference.html#GMap2">GMap2</a>.
+ * href="http://www.google.com/apis/maps/documentation/reference.html#GMap2"
+ * >GMap2</a>.
  */
-public abstract class DragListener extends GEventListenerBehavior
-{
+public abstract class DragListener extends GEventListenerBehavior {
 
-	@Override
-	protected String getEvent() {
-		return "drag";
-	}
+    private static final long serialVersionUID = -7607546792206488705L;
 
-	@Override
-	protected void onEvent(AjaxRequestTarget target)
-	{
-		onDrag(target);
-	}
+    @Override
+    protected String getEvent() {
+        return "drag";
+    }
 
-	protected abstract void onDrag(AjaxRequestTarget target);
+    @Override
+    protected void onEvent( AjaxRequestTarget target ) {
+        onDrag( target );
+    }
+
+    protected abstract void onDrag( AjaxRequestTarget target );
 }

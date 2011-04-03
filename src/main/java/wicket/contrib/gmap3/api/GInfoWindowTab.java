@@ -20,60 +20,56 @@ import org.apache.wicket.Component;
 import wicket.contrib.gmap3.js.Constructor;
 
 /**
- * Represents an Google Maps API's <a
- * href="http://www.google.com/apis/maps/documentation/reference.html#GInfoWindowTab">GInfoWindowTab</a>.
+ * Represents an Google Maps API's <a href=
+ * "http://www.google.com/apis/maps/documentation/reference.html#GInfoWindowTab"
+ * >GInfoWindowTab</a>.
  */
-public class GInfoWindowTab implements GValue
-{
+public class GInfoWindowTab implements GValue {
 
-	/**
-	 * Default serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     * Default serialVersionUID.
+     */
+    private static final long serialVersionUID = 1L;
 
-	private final String title;
-	private final Component content;
+    private final String _title;
+    private final Component _content;
 
-	/**
-	 * Construct.
-	 * 
-	 * @param content
-	 */
-	public GInfoWindowTab(Component content)
-	{
-		this(content.getId(), content);
-	}
+    /**
+     * Construct.
+     * 
+     * @param content
+     */
+    public GInfoWindowTab( Component content ) {
+        this( content.getId(), content );
+    }
 
-	/**
-	 * Construct.
-	 * 
-	 * @param title
-	 * @param content
-	 */
-	public GInfoWindowTab(String title, Component content)
-	{
-		this.title = title;
-		this.content = content;
+    /**
+     * Construct.
+     * 
+     * @param title
+     * @param content
+     */
+    public GInfoWindowTab( String title, Component content ) {
+        this._title = title;
+        this._content = content;
 
-		content.setOutputMarkupId(true);
-	}
+        content.setOutputMarkupId( true );
+    }
 
-	public String getTitle()
-	{
-		return title;
-	}
+    public String getTitle() {
+        return _title;
+    }
 
-	public Component getContent()
-	{
-		return content;
-	}
+    public Component getContent() {
+        return _content;
+    }
 
-	/**
-	 * @return A JavaScript constructor that represents this element.
-	 */
-	public String getJSconstructor()
-	{
-		return new Constructor("GInfoWindowTab").addString(title).add(
-				"document.getElementById('" + content.getMarkupId() + "')").toJS();
-	}
+    /**
+     * @return A JavaScript constructor that represents this element.
+     */
+    @Override
+    public String getJSconstructor() {
+        return new Constructor( "GInfoWindowTab" ).addString( _title ).add(
+                "document.getElementById('" + _content.getMarkupId() + "')" ).toJS();
+    }
 }

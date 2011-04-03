@@ -22,21 +22,22 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 
 /**
  * See "dragend" in the event section of <a
- * href="http://www.google.com/apis/maps/documentation/reference.html#GMap2">GMap2</a>.
+ * href="http://www.google.com/apis/maps/documentation/reference.html#GMap2"
+ * >GMap2</a>.
  */
-public abstract class DragEndListener extends GEventListenerBehavior
-{
+public abstract class DragEndListener extends GEventListenerBehavior {
 
-	@Override
-	protected String getEvent() {
-		return "dragend";
-	}
+    private static final long serialVersionUID = 7703619537678292116L;
 
-	@Override
-	protected void onEvent(AjaxRequestTarget target)
-	{
-		onDragEnd(target);
-	}
+    @Override
+    protected String getEvent() {
+        return "dragend";
+    }
 
-	protected abstract void onDragEnd(AjaxRequestTarget target);
+    @Override
+    protected void onEvent( AjaxRequestTarget target ) {
+        onDragEnd( target );
+    }
+
+    protected abstract void onDragEnd( AjaxRequestTarget target );
 }

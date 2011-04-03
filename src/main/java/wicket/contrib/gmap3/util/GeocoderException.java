@@ -39,15 +39,15 @@ public class GeocoderException extends IOException {
 
 	public static final int G_GEO_TOO_MANY_QUERIES = 620;
 
-	private int status;
+	private int _status;
 
 	public GeocoderException(int status) {
 		super("Status " + status);
 
-		this.status = status;
+		this._status = status;
 	}
 
 	public final int getStatus() {
-		return status;
+		return _status;
 	}
 }

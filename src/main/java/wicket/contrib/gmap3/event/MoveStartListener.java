@@ -24,30 +24,30 @@ import wicket.contrib.gmap3.GMap;
 
 /**
  * See "movestart" in the event section of <a
- * href="http://www.google.com/apis/maps/documentation/reference.html#GMap2">GMap2</a>.
+ * href="http://www.google.com/apis/maps/documentation/reference.html#GMap2"
+ * >GMap2</a>.
  */
-public abstract class MoveStartListener extends GEventListenerBehavior
-{
+public abstract class MoveStartListener extends GEventListenerBehavior {
 
-	@Override
-	protected String getEvent() {
-		return "movestart";
-	}
+    private static final long serialVersionUID = 1117073014605085884L;
 
-	@Override
-	protected void onEvent(AjaxRequestTarget target)
-	{
-		onMoveStart(target);
-	}
+    @Override
+    protected String getEvent() {
+        return "movestart";
+    }
 
+    @Override
+    protected void onEvent( AjaxRequestTarget target ) {
+        onMoveStart( target );
+    }
 
-	/**
-	 * Override this method to provide handling of a move.<br>
-	 * You can get the new center coordinates of the map by calling
-	 * {@link GMap#getCenter()}.
-	 * 
-	 * @param target
-	 *            the target that initiated the move
-	 */
-	protected abstract void onMoveStart(AjaxRequestTarget target);
+    /**
+     * Override this method to provide handling of a move.<br>
+     * You can get the new center coordinates of the map by calling
+     * {@link GMap#getCenter()}.
+     * 
+     * @param target
+     *            the target that initiated the move
+     */
+    protected abstract void onMoveStart( AjaxRequestTarget target );
 }

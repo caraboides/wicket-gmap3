@@ -22,40 +22,45 @@ import org.apache.wicket.Request;
 import org.apache.wicket.RequestCycle;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 
+import wicket.contrib.gmap3.GMap;
+
 /**
  * See "zoomend" in the event section of <a
- * href="http://www.google.com/apis/maps/documentation/reference.html#GMap2">GMap2</a>.
+ * href="http://www.google.com/apis/maps/documentation/reference.html#GMap2"
+ * >GMap2</a>.
  */
 public abstract class ZoomEndListener extends GEventListenerBehavior {
-	@Override
-	protected String getEvent() {
-		return "zoomend";
-	}
 
-	@Override
-	protected void onEvent(AjaxRequestTarget target) {
-		Request request = RequestCycle.get().getRequest();
-		int oldLevel = 0;
-		int newLevel = 0;
-		String oldZoomLevelParameter = request.getParameter("argument0");
-		String newZoomLevelParameter = request.getParameter("argument1");
-		if (oldZoomLevelParameter == null || newZoomLevelParameter == null) {
-			return;
-		}
-		oldLevel = Integer.parseInt(oldZoomLevelParameter);
-		newLevel = Integer.parseInt(newZoomLevelParameter);
-		onZoomEnd(target, oldLevel, newLevel);
-	}
+    private static final long serialVersionUID = -5092475688071699463L;
 
-	/**
-	 * Override this method to provide handling of a zoomEnd.<br>
-	 * You can get the new center coordinates of the map by calling
-	 * {@link GMap#getCenter()}.
-	 * 
-	 * @param target
-	 *            the target that initiated the move
-	 */
-	protected abstract void onZoomEnd(AjaxRequestTarget target, int oldLevel,
-			int newLevel);
+    @Override
+    protected String getEvent() {
+        return "zoomend";
+    }
+
+    @Override
+    protected void onEvent( AjaxRequestTarget target ) {
+        Request request = RequestCycle.get().getRequest();
+        int oldLevel = 0;
+        int newLevel = 0;
+        String oldZoomLevelParameter = request.getParameter( "argument0" );
+        String newZoomLevelParameter = request.getParameter( "argument1" );
+        if ( oldZoomLevelParameter == null || newZoomLevelParameter == null ) {
+            return;
+        }
+        oldLevel = Integer.parseInt( oldZoomLevelParameter );
+        newLevel = Integer.parseInt( newZoomLevelParameter );
+        onZoomEnd( target, oldLevel, newLevel );
+    }
+
+    /**
+     * Override this method to provide handling of a zoomEnd.<br>
+     * You can get the new center coordinates of the map by calling
+     * {@link GMap#getCenter()}.
+     * 
+     * @param target
+     *            the target that initiated the move
+     */
+    protected abstract void onZoomEnd( AjaxRequestTarget target, int oldLevel, int newLevel );
 
 }

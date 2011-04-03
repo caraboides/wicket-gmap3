@@ -23,62 +23,54 @@ import wicket.contrib.gmap3.js.Constructor;
 
 /**
  * Represents an Google Maps API's <a
- * href="http://www.google.com/apis/maps/documentation/reference.html#GMarker">GMarker</a>.
+ * href="http://www.google.com/apis/maps/documentation/reference.html#GMarker"
+ * >GMarker</a>.
  */
-public class GMarker extends GOverlay
-{
-	private static final long serialVersionUID = 1L;
+public class GMarker extends GOverlay {
+    private static final long serialVersionUID = 1L;
 
-	private LatLng latLng;
+    private LatLng _latLng;
 
-	private final GMarkerOptions options;
+    private final GMarkerOptions _options;
 
-	/**
-	 * @param gLatLng
-	 *            the point on the map where this marker will be anchored
-	 */
-	public GMarker(LatLng gLatLng)
-	{
-		this(gLatLng, null);
-	}
+    /**
+     * @param gLatLng
+     *            the point on the map where this marker will be anchored
+     */
+    public GMarker( LatLng gLatLng ) {
+        this( gLatLng, null );
+    }
 
-	public GMarker(LatLng gLatLng, GMarkerOptions options)
-	{
-		super();
-		this.latLng = gLatLng;
-		this.options = options;
-	}
+    public GMarker( LatLng gLatLng, GMarkerOptions options ) {
+        super();
+        _latLng = gLatLng;
+        _options = options;
+    }
 
-	public LatLng getLatLng()
-	{
-		return latLng;
-	}
+    public LatLng getLatLng() {
+        return _latLng;
+    }
 
-	public void setLatLng(LatLng gLatLng)
-	{
-		this.latLng = gLatLng;
-	}
+    public void setLatLng( LatLng gLatLng ) {
+        _latLng = gLatLng;
+    }
 
-	public GMarkerOptions getMarkerOptions()
-	{
-		return this.options;
-	}
+    public GMarkerOptions getMarkerOptions() {
+        return _options;
+    }
 
-	@Override
-	public String getJSconstructor()
-	{
-		Constructor constructor = new Constructor("GMarker").add(latLng.getJSconstructor());
-		if (options != null)
-		{
-			constructor.add(options.getJSconstructor());
-		}
-		return constructor.toJS();
-	}
+    @Override
+    public String getJSconstructor() {
+        Constructor constructor = new Constructor( "GMarker" ).add( _latLng.getJSconstructor() );
+        if ( _options != null ) {
+            constructor.add( _options.getJSconstructor() );
+        }
+        return constructor.toJS();
+    }
 
-	@Override
-	protected void updateOnAjaxCall(AjaxRequestTarget target, GEvent overlayEvent)
-	{
-		Request request = RequestCycle.get().getRequest();
-		this.latLng = LatLng.parse(request.getParameter("overlay.latLng"));
-	}
+    @Override
+    protected void updateOnAjaxCall( AjaxRequestTarget target, GEvent overlayEvent ) {
+        Request request = RequestCycle.get().getRequest();
+        _latLng = LatLng.parse( request.getParameter( "overlay.latLng" ) );
+    }
 }

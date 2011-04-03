@@ -63,7 +63,7 @@ public class HomePage extends WicketExamplePage {
                     error( "Unable to geocode (" + status + ")" );
                     target.addComponent( feedback );
                 }
-            };
+            }
         } );
         geocodeForm.add( button );
 

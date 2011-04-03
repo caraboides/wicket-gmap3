@@ -22,29 +22,34 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 
 /**
  * See "load" in the event section of <a
- * href="http://www.google.com/apis/maps/documentation/reference.html#GMap2">GMap2</a>.
+ * href="http://www.google.com/apis/maps/documentation/reference.html#GMap2"
+ * >GMap2</a>.
  */
 public abstract class LoadListener extends GEventListenerBehavior {
 
-	@Override
-	protected String getEvent() {
-		return "load";
-	}
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1026370336005792416L;
 
-	@Override
-	public String getJSaddListener() {
-		// where notifying immediately (instead of adding a listener) because
-		// GMap2 will not fire the "load" event when we are finished adding our
-		// listeners :(
-		return getGMap2()
-				.getJSinvoke("onEvent('" + getCallbackUrl() + "', {})");
+    @Override
+    protected String getEvent() {
+        return "load";
+    }
 
-	}
+    @Override
+    public String getJSaddListener() {
+        // where notifying immediately (instead of adding a listener) because
+        // GMap2 will not fire the "load" event when we are finished adding our
+        // listeners :(
+        return getGMap2().getJSinvoke( "onEvent('" + getCallbackUrl() + "', {})" );
 
-	@Override
-	protected void onEvent(AjaxRequestTarget target) {
-		onLoad(target);
-	}
+    }
 
-	protected abstract void onLoad(AjaxRequestTarget target);
+    @Override
+    protected void onEvent( AjaxRequestTarget target ) {
+        onLoad( target );
+    }
+
+    protected abstract void onLoad( AjaxRequestTarget target );
 }

@@ -29,9 +29,9 @@ public class LatLng implements GValue {
      * Default serialVersionUID.
      */
     private static final long serialVersionUID = 1L;
-    private final double lat;
-    private final double lng;
-    private final boolean unbounded;
+    private final double _lat;
+    private final double _lng;
+    private final boolean _unbounded;
 
     /**
      * Construct.
@@ -51,17 +51,17 @@ public class LatLng implements GValue {
      * @param unbounded
      */
     public LatLng( double lat, double lng, boolean unbounded ) {
-        this.lat = lat;
-        this.lng = lng;
-        this.unbounded = unbounded;
+        _lat = lat;
+        _lng = lng;
+        _unbounded = unbounded;
     }
 
     public double getLat() {
-        return lat;
+        return _lat;
     }
 
     public double getLng() {
-        return lng;
+        return _lng;
     }
 
     @Override
@@ -72,8 +72,10 @@ public class LatLng implements GValue {
     /**
      * @see wicket.contrib.gmap.api.GValue#getJSconstructor()
      */
+    @Override
     public String getJSconstructor() {
-        return new Constructor( "google.maps.LatLng" ).add( lat ).add( lng ).add( unbounded ).toJS();
+        return new Constructor( "google.maps.LatLng" ).add( Double.valueOf( _lat ) ).add( Double.valueOf( _lng ) ).add(
+                Boolean.valueOf( _unbounded ) ).toJS();
     }
 
     @Override
@@ -81,11 +83,11 @@ public class LatLng implements GValue {
         final int PRIME = 31;
         int result = super.hashCode();
         long temp;
-        temp = Double.doubleToLongBits( lat );
+        temp = Double.doubleToLongBits( _lat );
         result = PRIME * result + (int) ( temp ^ ( temp >>> 32 ) );
-        temp = Double.doubleToLongBits( lng );
+        temp = Double.doubleToLongBits( _lng );
         result = PRIME * result + (int) ( temp ^ ( temp >>> 32 ) );
-        result = PRIME * result + ( unbounded
+        result = PRIME * result + ( _unbounded
             ? 1231
             : 1237 );
         return result;
@@ -100,11 +102,11 @@ public class LatLng implements GValue {
         if ( getClass() != obj.getClass() )
             return false;
         final LatLng other = (LatLng) obj;
-        if ( Double.doubleToLongBits( lat ) != Double.doubleToLongBits( other.lat ) )
+        if ( Double.doubleToLongBits( _lat ) != Double.doubleToLongBits( other._lat ) )
             return false;
-        if ( Double.doubleToLongBits( lng ) != Double.doubleToLongBits( other.lng ) )
+        if ( Double.doubleToLongBits( _lng ) != Double.doubleToLongBits( other._lng ) )
             return false;
-        if ( unbounded != other.unbounded )
+        if ( _unbounded != other._unbounded )
             return false;
         return true;
     }

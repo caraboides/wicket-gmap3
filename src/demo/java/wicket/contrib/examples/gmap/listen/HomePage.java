@@ -52,17 +52,18 @@ public class HomePage extends WicketExamplePage {
         boundsLabel = new MultiLineLabel( "bounds", new PropertyModel<GLatLngBounds>( map, "bounds" ) ) {
             private static final long serialVersionUID = 1L;
 
-            @SuppressWarnings( "unchecked" )
             @Override
-            public IConverter getConverter( Class type ) {
+            public IConverter getConverter( @SuppressWarnings( "rawtypes" ) Class type ) {
                 if ( GLatLngBounds.class.isAssignableFrom( type ) ) {
                     return new IConverter() {
                         private static final long serialVersionUID = 1L;
 
+                        @Override
                         public GLatLngBounds convertToObject( String value, Locale locale ) {
                             throw new UnsupportedOperationException();
                         }
 
+                        @Override
                         public String convertToString( Object value, Locale locale ) {
                             GLatLngBounds bounds = (GLatLngBounds) value;
 
@@ -79,9 +80,8 @@ public class HomePage extends WicketExamplePage {
                             return buffer.toString();
                         }
                     };
-                } else {
-                    return super.getConverter( type );
                 }
+                return super.getConverter( type );
             }
 
         };
@@ -125,5 +125,5 @@ public class HomePage extends WicketExamplePage {
             target.addComponent( zoomLabel );
             target.addComponent( boundsLabel );
         }
-    };
+    }
 }

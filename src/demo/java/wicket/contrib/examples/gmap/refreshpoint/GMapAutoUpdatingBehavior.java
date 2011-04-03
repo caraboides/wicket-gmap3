@@ -33,8 +33,7 @@ public abstract class GMapAutoUpdatingBehavior extends AbstractDefaultAjaxBehavi
 
     private static final long serialVersionUID = 1L;
 
-    /** The update interval */
-    private final Duration updateInterval;
+    private final Duration _updateInterval;
 
     private boolean stopped = false;
 
@@ -45,7 +44,7 @@ public abstract class GMapAutoUpdatingBehavior extends AbstractDefaultAjaxBehavi
      *            Duration between AJAX callbacks
      */
     public GMapAutoUpdatingBehavior( final Duration updateInterval ) {
-        this.updateInterval = updateInterval;
+        _updateInterval = updateInterval;
     }
 
     @Override
@@ -72,7 +71,7 @@ public abstract class GMapAutoUpdatingBehavior extends AbstractDefaultAjaxBehavi
         if ( !stopped ) {
             Response response = RequestCycle.get().getResponse();
             response.write( "<script type=\"text/javascript\">" );
-            response.write( getJsTimeoutCall( updateInterval ) );
+            response.write( getJsTimeoutCall( _updateInterval ) );
             response.write( "</script>" );
         }
     }
@@ -93,7 +92,7 @@ public abstract class GMapAutoUpdatingBehavior extends AbstractDefaultAjaxBehavi
     @Override
     protected final void respond( final AjaxRequestTarget target ) {
         if ( !stopped ) {
-            target.appendJavascript( getJsTimeoutCall( updateInterval ) );
+            target.appendJavascript( getJsTimeoutCall( _updateInterval ) );
         }
         onTimer( target, getGMap() );
     }

@@ -59,8 +59,8 @@ public class HomePage extends WicketExamplePage {
                                 private static final long serialVersionUID = 1L;
 
                                 @Override
-                                public void onEvent( AjaxRequestTarget target ) {
-                                    target.addComponent( repeaterParent );
+                                public void onEvent( AjaxRequestTarget eventTarget ) {
+                                    eventTarget.addComponent( repeaterParent );
                                 }
                             };
                         }
@@ -71,8 +71,8 @@ public class HomePage extends WicketExamplePage {
                                 private static final long serialVersionUID = 1L;
 
                                 @Override
-                                public void onEvent( AjaxRequestTarget target ) {
-                                    target.addComponent( repeaterParent );
+                                public void onEvent( AjaxRequestTarget eventTarget ) {
+                                    eventTarget.addComponent( repeaterParent );
                                 }
                             };
                         }
@@ -168,6 +168,8 @@ public class HomePage extends WicketExamplePage {
      * 
      */
     private static abstract class MyMarker extends GMarker {
+
+        private static final long serialVersionUID = -5720177222106241564L;
 
         public MyMarker( LatLng latLng, GMarkerOptions options ) {
             super( latLng, options );

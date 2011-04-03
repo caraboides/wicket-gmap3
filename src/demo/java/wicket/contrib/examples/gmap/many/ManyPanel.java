@@ -10,22 +10,24 @@ import wicket.contrib.gmap3.api.GMapType;
 
 public abstract class ManyPanel extends Panel {
 
-    final GMap gMap;
+    private static final long serialVersionUID = 591561714018540952L;
+
+    final GMap _gMap;
 
     private final WebMarkupContainer n, ne, e, se, s, sw, w, nw;
 
     public ManyPanel( String id ) {
         super( id );
-        gMap = new GMap( "gMap" );
-        gMap.setZoom( 7 );
-        gMap.setOutputMarkupId( true );
-        add( gMap );
+        _gMap = new GMap( "gMap" );
+        _gMap.setZoom( 7 );
+        _gMap.setOutputMarkupId( true );
+        add( _gMap );
         final AjaxFallbackLink<Void> normal = new AjaxFallbackLink<Void>( "normal" ) {
             private static final long serialVersionUID = 1L;
 
             @Override
             public void onClick( AjaxRequestTarget target ) {
-                gMap.setMapType( GMapType.ROADMAP );
+                _gMap.setMapType( GMapType.ROADMAP );
             }
         };
         add( normal );
@@ -34,7 +36,7 @@ public abstract class ManyPanel extends Panel {
 
             @Override
             public void onClick( AjaxRequestTarget target ) {
-                gMap.setMapType( GMapType.SATELLITE );
+                _gMap.setMapType( GMapType.SATELLITE );
             }
         };
         add( satellite );
@@ -43,7 +45,7 @@ public abstract class ManyPanel extends Panel {
 
             @Override
             public void onClick( AjaxRequestTarget target ) {
-                gMap.setMapType( GMapType.HYBRID );
+                _gMap.setMapType( GMapType.HYBRID );
             }
         };
         add( hybrid );
@@ -64,14 +66,14 @@ public abstract class ManyPanel extends Panel {
         nw = new WebMarkupContainer( "nw" );
         add( nw );
 
-        n.add( gMap.new PanDirectionBehavior( "onclick", 0, 1 ) );
-        ne.add( gMap.new PanDirectionBehavior( "onclick", -1, 1 ) );
-        e.add( gMap.new PanDirectionBehavior( "onclick", -1, 0 ) );
-        se.add( gMap.new PanDirectionBehavior( "onclick", -1, -1 ) );
-        s.add( gMap.new PanDirectionBehavior( "onclick", 0, -1 ) );
-        sw.add( gMap.new PanDirectionBehavior( "onclick", 1, -1 ) );
-        w.add( gMap.new PanDirectionBehavior( "onclick", 1, 0 ) );
-        nw.add( gMap.new PanDirectionBehavior( "onclick", 1, 1 ) );
+        n.add( _gMap.new PanDirectionBehavior( "onclick", 0, 1 ) );
+        ne.add( _gMap.new PanDirectionBehavior( "onclick", -1, 1 ) );
+        e.add( _gMap.new PanDirectionBehavior( "onclick", -1, 0 ) );
+        se.add( _gMap.new PanDirectionBehavior( "onclick", -1, -1 ) );
+        s.add( _gMap.new PanDirectionBehavior( "onclick", 0, -1 ) );
+        sw.add( _gMap.new PanDirectionBehavior( "onclick", 1, -1 ) );
+        w.add( _gMap.new PanDirectionBehavior( "onclick", 1, 0 ) );
+        nw.add( _gMap.new PanDirectionBehavior( "onclick", 1, 1 ) );
 
         AjaxFallbackLink<Object> close = new AjaxFallbackLink<Object>( "close" ) {
             private static final long serialVersionUID = 1L;

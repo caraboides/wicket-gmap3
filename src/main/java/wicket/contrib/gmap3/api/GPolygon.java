@@ -21,58 +21,54 @@ import wicket.contrib.gmap3.js.Array;
 import wicket.contrib.gmap3.js.Constructor;
 
 /**
- * Represents an Google Maps API's <a
- * href="http://www.google.com/apis/maps/documentation/reference.html#GPolygon">GPolygon</a>.
+ * Represents an Google Maps API's <a href=
+ * "http://www.google.com/apis/maps/documentation/reference.html#GPolygon"
+ * >GPolygon</a>.
  */
-public class GPolygon extends GOverlay
-{
-	private static final long serialVersionUID = 1L;
+public class GPolygon extends GOverlay {
+    private static final long serialVersionUID = 1L;
 
-	private final LatLng[] gLatLngs;
-	private final String strokeColor;
-	private final int strokeWeight;
-	private final float strokeOpacity;
-	private final String fillColor;
-	private final float fillOpacity;
+    private final LatLng[] _gLatLngs;
+    private final String _strokeColor;
+    private final int _strokeWeight;
+    private final float _strokeOpacity;
+    private final String _fillColor;
+    private final float _fillOpacity;
 
-	public GPolygon(String strokeColor, int strokeWeight, float strokeOpacity, String fillColor,
-			float fillOpacity, LatLng... gLatLngs)
-	{
-		super();
+    public GPolygon( String strokeColor, int strokeWeight, float strokeOpacity, String fillColor, float fillOpacity,
+            LatLng... gLatLngs ) {
+        super();
 
-		this.gLatLngs = gLatLngs;
+        _gLatLngs = gLatLngs;
 
-		this.strokeColor = strokeColor;
-		this.strokeWeight = strokeWeight;
-		this.strokeOpacity = strokeOpacity;
-		this.fillColor = fillColor;
-		this.fillOpacity = fillOpacity;
-	}
+        _strokeColor = strokeColor;
+        _strokeWeight = strokeWeight;
+        _strokeOpacity = strokeOpacity;
+        _fillColor = fillColor;
+        _fillOpacity = fillOpacity;
+    }
 
-	@Override
-	public String getJSconstructor()
-	{
-		Constructor constructor = new Constructor("GPolygon");
+    @Override
+    public String getJSconstructor() {
+        Constructor constructor = new Constructor( "GPolygon" );
 
-		Array array = new Array();
-		for (LatLng gLatLng : gLatLngs)
-		{
-			array.add(gLatLng.getJSconstructor());
-		}
-		constructor.add(array.toJS());
+        Array array = new Array();
+        for ( LatLng gLatLng : _gLatLngs ) {
+            array.add( gLatLng.getJSconstructor() );
+        }
+        constructor.add( array.toJS() );
 
-		constructor.addString(strokeColor);
-		constructor.addString(strokeWeight);
-		constructor.addString(strokeOpacity);
-		constructor.addString(fillColor);
-		constructor.addString(fillOpacity);
+        constructor.addString( _strokeColor );
+        constructor.addString( _strokeWeight );
+        constructor.addString( _strokeOpacity );
+        constructor.addString( _fillColor );
+        constructor.addString( _fillOpacity );
 
-		return constructor.toJS();
-	}
+        return constructor.toJS();
+    }
 
-	@Override
-	protected void updateOnAjaxCall(AjaxRequestTarget target, GEvent overlayEvent)
-	{
-		// TODO
-	}
+    @Override
+    protected void updateOnAjaxCall( AjaxRequestTarget target, GEvent overlayEvent ) {
+        // TODO
+    }
 }

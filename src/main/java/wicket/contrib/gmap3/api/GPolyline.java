@@ -21,50 +21,46 @@ import wicket.contrib.gmap3.js.Array;
 import wicket.contrib.gmap3.js.Constructor;
 
 /**
- * Represents an Google Maps API's <a
- * href="http://www.google.com/apis/maps/documentation/reference.html#GPolyline">GPolyline</a>.
+ * Represents an Google Maps API's <a href=
+ * "http://www.google.com/apis/maps/documentation/reference.html#GPolyline"
+ * >GPolyline</a>.
  */
-public class GPolyline extends GOverlay
-{
-	private static final long serialVersionUID = 1L;
+public class GPolyline extends GOverlay {
+    private static final long serialVersionUID = 1L;
 
-	private final LatLng[] gLatLngs;
-	private final String color;
-	private final int weight;
-	private final float opacity;
+    private final LatLng[] _gLatLngs;
+    private final String _color;
+    private final int _weight;
+    private final float _opacity;
 
-	public GPolyline(String color, int weight, float opacity, LatLng... gLatLngs)
-	{
-		super();
+    public GPolyline( String color, int weight, float opacity, LatLng... gLatLngs ) {
+        super();
 
-		this.gLatLngs = gLatLngs;
-		this.color = color;
-		this.weight = weight;
-		this.opacity = opacity;
-	}
+        _gLatLngs = gLatLngs;
+        _color = color;
+        _weight = weight;
+        _opacity = opacity;
+    }
 
-	@Override
-	public String getJSconstructor()
-	{
-		Constructor constructor = new Constructor("GPolyline");
+    @Override
+    public String getJSconstructor() {
+        Constructor constructor = new Constructor( "GPolyline" );
 
-		Array array = new Array();
-		for (LatLng gLatLng : gLatLngs)
-		{
-			array.add(gLatLng.getJSconstructor());
-		}
-		constructor.add(array.toJS());
+        Array array = new Array();
+        for ( LatLng gLatLng : _gLatLngs ) {
+            array.add( gLatLng.getJSconstructor() );
+        }
+        constructor.add( array.toJS() );
 
-		constructor.addString(color);
-		constructor.addString(weight);
-		constructor.addString(opacity);
+        constructor.addString( _color );
+        constructor.addString( _weight );
+        constructor.addString( _opacity );
 
-		return constructor.toJS();
-	}
+        return constructor.toJS();
+    }
 
-	@Override
-	protected void updateOnAjaxCall(AjaxRequestTarget target, GEvent overlayEvent)
-	{
-		// TODO
-	}
+    @Override
+    protected void updateOnAjaxCall( AjaxRequestTarget target, GEvent overlayEvent ) {
+        // TODO
+    }
 }

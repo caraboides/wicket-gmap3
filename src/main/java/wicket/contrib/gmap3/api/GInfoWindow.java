@@ -26,13 +26,13 @@ public class GInfoWindow extends WebMarkupContainer {
 
     private GMarker _marker;
 
-    private final RepeatingView content = new RepeatingView( "content" );
+    private final RepeatingView _content = new RepeatingView( "content" );
 
     public GInfoWindow() {
         super( "infoWindow" );
 
         setOutputMarkupId( true );
-        add( content );
+        add( _content );
     }
 
     /**
@@ -63,11 +63,11 @@ public class GInfoWindow extends WebMarkupContainer {
     }
 
     private void setTabs( GInfoWindowTab[] tabs ) {
-        content.removeAll();
+        _content.removeAll();
 
         this._tabs = tabs;
         for ( GInfoWindowTab tab : tabs ) {
-            content.add( tab.getContent() );
+            _content.add( tab.getContent() );
         }
     }
 

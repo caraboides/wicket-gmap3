@@ -26,36 +26,39 @@ import wicket.contrib.gmap3.api.LatLng;
 
 /**
  * See "dblclick" in the event section of <a
- * href="http://www.google.com/apis/maps/documentation/reference.html#GMap2">GMap2</a>.
+ * href="http://www.google.com/apis/maps/documentation/reference.html#GMap2"
+ * >GMap2</a>.
  */
 public abstract class DblClickListener extends GEventListenerBehavior {
 
-	@Override
-	protected String getEvent() {
-		return "dblclick";
-	}
+    private static final long serialVersionUID = -6193218322346599432L;
 
-	@Override
-	protected final void onEvent(AjaxRequestTarget target) {
-		Request request = RequestCycle.get().getRequest();
+    @Override
+    protected String getEvent() {
+        return "dblclick";
+    }
 
-		LatLng latLng = null;
+    @Override
+    protected final void onEvent( AjaxRequestTarget target ) {
+        Request request = RequestCycle.get().getRequest();
 
-		String latLngParameter = request.getParameter("argument1");
-		if (latLngParameter != null) {
-			latLng = LatLng.parse(latLngParameter);
-		}
+        LatLng latLng = null;
 
-		onDblClick(target, latLng);
-	}
+        String latLngParameter = request.getParameter( "argument1" );
+        if ( latLngParameter != null ) {
+            latLng = LatLng.parse( latLngParameter );
+        }
 
-	/**
-	 * Override this method to provide handling of a click on the map.
-	 * 
-	 * @param latLng
-	 *            the clicked GLatLng
-	 * @param target
-	 *            the target that initiated the click
-	 */
-	protected abstract void onDblClick(AjaxRequestTarget target, LatLng latLng);
+        onDblClick( target, latLng );
+    }
+
+    /**
+     * Override this method to provide handling of a click on the map.
+     * 
+     * @param latLng
+     *            the clicked GLatLng
+     * @param target
+     *            the target that initiated the click
+     */
+    protected abstract void onDblClick( AjaxRequestTarget target, LatLng latLng );
 }

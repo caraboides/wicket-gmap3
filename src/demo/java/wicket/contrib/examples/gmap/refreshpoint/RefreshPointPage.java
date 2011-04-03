@@ -23,34 +23,34 @@ public class RefreshPointPage extends WicketExamplePage {
 
     private static final long serialVersionUID = 1L;
 
-    private final GMap map;
+    private final GMap _map;
 
     public RefreshPointPage() {
-        map = new GMap( "map" );
-        add( map );
+        _map = new GMap( "map" );
+        add( _map );
 
         GOverlay overlay = createOverlay( "Amsterdam", new LatLng( 52.37649, 4.888573 ), "image.gif", "shadow.png" );
 
-        map.addOverlay( overlay );
+        _map.addOverlay( overlay );
 
-        map.add( new GMapAutoUpdatingBehavior( Duration.seconds( 5 ) ) {
+        _map.add( new GMapAutoUpdatingBehavior( Duration.seconds( 5 ) ) {
             private static final long serialVersionUID = 1L;
 
             private int i = 1;
 
             @Override
             protected void onTimer( AjaxRequestTarget target, GMap map ) {
-                GOverlay overlay;
+                GOverlay newOverlay;
                 if ( i % 3 == 0 ) {
-                    overlay = createOverlay( "Amsterdam", new LatLng( 52.37649, 4.888573 ), "image.gif", "shadow.png" );
+                    newOverlay = createOverlay( "Amsterdam", new LatLng( 52.37649, 4.888573 ), "image.gif", "shadow.png" );
                     i = 0;
                 } else if ( i % 3 == 1 ) {
-                    overlay = createOverlay( "Amsterdam", new LatLng( 52.37649, 4.888573 ), "image2.gif", "shadow2.png" );
+                    newOverlay = createOverlay( "Amsterdam", new LatLng( 52.37649, 4.888573 ), "image2.gif", "shadow2.png" );
                 } else {
-                    overlay = createOverlay( "Toulouse", new LatLng( 43.604363, 1.442951 ), "image2.gif", "shadow2.png" );
+                    newOverlay = createOverlay( "Toulouse", new LatLng( 43.604363, 1.442951 ), "image2.gif", "shadow2.png" );
                 }
                 i++;
-                map.setOverlays( Collections.singletonList( overlay ) );
+                map.setOverlays( Collections.singletonList( newOverlay ) );
             }
         } );
     }
@@ -61,7 +61,7 @@ public class RefreshPointPage extends WicketExamplePage {
                         new ResourceReference( RefreshPointPage.class, shadow ) ).toString() ).iconSize( new GSize( 64, 64 ) ).shadowSize(
                         new GSize( 64, 64 ) ).iconAnchor( new GPoint( 19, 40 ) ).infoWindowAnchor( new GPoint( 9, 2 ) ).infoShadowAnchor(
                         new GPoint( 18, 25 ) );
-        map.setCenter( latLng );
+        _map.setCenter( latLng );
         return new GMarker( latLng, new GMarkerOptions( title, icon ) );
     }
 }

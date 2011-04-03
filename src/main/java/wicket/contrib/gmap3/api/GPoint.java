@@ -25,61 +25,55 @@ import wicket.contrib.gmap3.js.Constructor;
  * 
  * @author Iulian-Corneliu Costan
  */
-public class GPoint implements GValue
-{
-	/**
-	 * Default serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
+public class GPoint implements GValue {
+    /**
+     * Default serialVersionUID.
+     */
+    private static final long serialVersionUID = 1L;
 
-	private float longitude;
-	private float latitude;
+    private final float _longitude;
+    private final float _latitude;
 
-	public GPoint(float longitude, float latitude)
-	{
-		this.longitude = longitude;
-		this.latitude = latitude;
-	}
+    public GPoint( float longitude, float latitude ) {
+        _longitude = longitude;
+        _latitude = latitude;
+    }
 
-	public float getLongitude()
-	{
-		return longitude;
-	}
+    public float getLongitude() {
+        return _longitude;
+    }
 
-	public float getLatitude()
-	{
-		return latitude;
-	}
+    public float getLatitude() {
+        return _latitude;
+    }
 
-	public String getJSconstructor()
-	{
-		return new Constructor("GPoint").add(longitude).add(latitude).toJS();
-	}
+    @Override
+    public String getJSconstructor() {
+        return new Constructor( "GPoint" ).add( _longitude ).add( _latitude ).toJS();
+    }
 
-	@Override
-	public int hashCode()
-	{
-		final int PRIME = 31;
-		int result = 1;
-		result = PRIME * result + Float.floatToIntBits(latitude);
-		result = PRIME * result + Float.floatToIntBits(longitude);
-		return result;
-	}
+    @Override
+    public int hashCode() {
+        final int PRIME = 31;
+        int result = 1;
+        result = PRIME * result + Float.floatToIntBits( _latitude );
+        result = PRIME * result + Float.floatToIntBits( _longitude );
+        return result;
+    }
 
-	@Override
-	public boolean equals(Object obj)
-	{
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		final GPoint other = (GPoint)obj;
-		if (Float.floatToIntBits(latitude) != Float.floatToIntBits(other.latitude))
-			return false;
-		if (Float.floatToIntBits(longitude) != Float.floatToIntBits(other.longitude))
-			return false;
-		return true;
-	}
+    @Override
+    public boolean equals( Object obj ) {
+        if ( this == obj )
+            return true;
+        if ( !super.equals( obj ) )
+            return false;
+        if ( getClass() != obj.getClass() )
+            return false;
+        final GPoint other = (GPoint) obj;
+        if ( Float.floatToIntBits( _latitude ) != Float.floatToIntBits( other._latitude ) )
+            return false;
+        if ( Float.floatToIntBits( _longitude ) != Float.floatToIntBits( other._longitude ) )
+            return false;
+        return true;
+    }
 }
