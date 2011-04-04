@@ -192,11 +192,13 @@ function WicketMap(id) {
 	}
 
 	this.zoomOut = function() {
-		this.map.zoomOut();
+	   
+	    this.map.setZoom(this.map.getZoom()-1)
+		
 	}
 
 	this.zoomIn = function() {
-		this.map.zoomIn();
+		this.map.setZoom(this.map.getZoom()+1)
 	}
 
 	this.addControl = function(controlId, control) {
