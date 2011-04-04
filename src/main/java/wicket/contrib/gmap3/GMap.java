@@ -96,7 +96,7 @@ public class GMap extends Panel implements GOverlayContainer {
      *            Google gmap API KEY
      */
     public GMap( final String id ) {
-        this( id, new GMapHeaderContributor(), new ArrayList<GOverlay>() );
+        this( id, new GMapHeaderContributor( "http" ), new ArrayList<GOverlay>() );
     }
 
     /**
@@ -111,7 +111,7 @@ public class GMap extends Panel implements GOverlayContainer {
      */
     @Deprecated
     public GMap( final String id, final List<GOverlay> overlays ) {
-        this( id, new GMapHeaderContributor(), overlays );
+        this( id, new GMapHeaderContributor( "http" ), overlays );
     }
 
     /**

@@ -18,7 +18,6 @@
  */
 package wicket.contrib.gmap3.api;
 
-
 public enum GEvent {
 
         click,
@@ -34,11 +33,11 @@ public enum GEvent {
     }
 
     public String getJSadd( final GOverlay overlay, final String function ) {
-        return "GEvent.addListener(overlay" + overlay.getId() + ", '" + name() + "'," + function + ");\n";
+        return "google.maps.event.addListener(overlay" + overlay.getId() + ", '" + name() + "'," + function + ");\n";
     }
 
     public String getJSadd( final GOverlay overlay ) {
-        return overlay.getParent().getJSinvoke( "addOverlayListener('" + overlay.getId() + "', '" + name() + "')" );
+        return "google.maps.event.addListener(" + overlay.getId() + "', '" + name() + "')";
     }
 
     public String getJSclear( final GOverlay overlay ) {

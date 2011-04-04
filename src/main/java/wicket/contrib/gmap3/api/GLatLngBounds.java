@@ -62,7 +62,7 @@ public class GLatLngBounds implements GValue {
      */
     @Override
     public String getJSconstructor() {
-        return new Constructor( "GLatLngBounds" ).add( _sw.getJSconstructor() ).add( _ne.getJSconstructor() ).toJS();
+        return new Constructor( "google.maps.LatLngBounds" ).add( _sw.getJSconstructor() ).add( _ne.getJSconstructor() ).toJS();
     }
 
     @Override

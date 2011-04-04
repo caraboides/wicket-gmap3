@@ -31,7 +31,7 @@ public abstract class GClientGeocoder extends AjaxEventBehavior {
         this._addressField = addressField;
         this._addressField.setOutputMarkupId( true );
 
-        this.headerContrib = new GMapHeaderContributor();
+        this.headerContrib = new GMapHeaderContributor( "http" );
     }
 
     @Override
