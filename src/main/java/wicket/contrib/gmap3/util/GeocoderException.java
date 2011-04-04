@@ -19,35 +19,35 @@ import java.io.IOException;
 
 public class GeocoderException extends IOException {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public static final int G_GEO_SUCCESS = 200;
+    public static final int G_GEO_SUCCESS = 200;
 
-	public static final int G_GEO_BAD_REQUEST = 400;
+    public static final int G_GEO_BAD_REQUEST = 400;
 
-	public static final int G_GEO_SERVER_ERROR = 500;
+    public static final int G_GEO_SERVER_ERROR = 500;
 
-	public static final int G_GEO_MISSING_QUERY = 601;
+    public static final int G_GEO_MISSING_QUERY = 601;
 
-	public static final int G_GEO_UNKNOWN_ADDRESS = 602;
+    public static final int G_GEO_UNKNOWN_ADDRESS = 602;
 
-	public static final int G_GEO_UNAVAILABLE_ADDRESS = 603;
+    public static final int G_GEO_UNAVAILABLE_ADDRESS = 603;
 
-	public static final int G_GEO_UNKNOWN_DIRECTIONS = 604;
+    public static final int G_GEO_UNKNOWN_DIRECTIONS = 604;
 
-	public static final int G_GEO_BAD_KEY = 610;
+    public static final int G_GEO_BAD_KEY = 610;
 
-	public static final int G_GEO_TOO_MANY_QUERIES = 620;
+    public static final int G_GEO_TOO_MANY_QUERIES = 620;
 
-	private int _status;
+    private final int _status;
 
-	public GeocoderException(int status) {
-		super("Status " + status);
+    public GeocoderException( int status ) {
+        super( "Status " + status );
 
-		this._status = status;
-	}
+        _status = status;
+    }
 
-	public final int getStatus() {
-		return _status;
-	}
+    public final int getStatus() {
+        return _status;
+    }
 }

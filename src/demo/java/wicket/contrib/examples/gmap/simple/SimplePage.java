@@ -11,7 +11,8 @@ public class SimplePage extends WicketExamplePage {
 
     public SimplePage() {
         GMap map = new GMap( "map" );
-        map.setCenter( new LatLng( 52.37649, 13.228573 ) );
+        map.setScrollWheelZoomEnabled( true );
+        map.setCenter( new LatLng( 52.47649, 13.228573 ) );
         add( map );
     }
 }

@@ -62,6 +62,7 @@ Wicket.maps = {}
 function WicketMap(id) {
 	Wicket.maps[id] = this;
 
+	this.options = {};
     
 
 	this.map = new google.maps.Map(document.getElementById(id));
@@ -127,28 +128,19 @@ function WicketMap(id) {
 	}
 
 	this.setDraggingEnabled = function(enabled) {
-	    var myOptions = {
-            draggable: enabled
-        };
-		this.map.setOptions(myOptions);
-		
+	   this.options.draggable= enabled;
+       this.map.setOptions(this.options);
 	}
 
 	this.setDoubleClickZoomEnabled = function(enabled) {
-	     var myOptions = {
-            disableDoubleClickZoom: enabled
-        };
-        this.map.setOptions(myOptions);
-	   
-	
-		
+       this.options.disableDoubleClickZoom = enabled;
+       this.map.setOptions(this.options);
 	}
 
 	this.setScrollWheelZoomEnabled = function(enabled) {
-	 var myOptions = {
-            scrollwheel: enabled
-        };
-        this.map.setOptions(myOptions);
+       this.options.scrollwheel= enabled
+       this.map.setOptions(this.options);
+
 	
 		
 	}
