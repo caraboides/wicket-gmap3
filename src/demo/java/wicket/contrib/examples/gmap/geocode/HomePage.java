@@ -16,7 +16,7 @@ import wicket.contrib.examples.WicketExamplePage;
 import wicket.contrib.gmap3.GMap;
 import wicket.contrib.gmap3.api.GClientGeocoder;
 import wicket.contrib.gmap3.api.GControl;
-import wicket.contrib.gmap3.api.GInfoWindowTab;
+import wicket.contrib.gmap3.api.GInfoWindowContent;
 import wicket.contrib.gmap3.api.GMapType;
 import wicket.contrib.gmap3.api.LatLng;
 import wicket.contrib.gmap3.util.GeocoderException;
@@ -58,7 +58,7 @@ public class HomePage extends WicketExamplePage {
             @Override
             public void onGeoCode( AjaxRequestTarget target, int status, String address, LatLng latLng ) {
                 if ( status == GeocoderException.G_GEO_SUCCESS ) {
-                    bottomMap.getInfoWindow().open( latLng, new GInfoWindowTab( address, new Label( address, address ) ) );
+                    bottomMap.getInfoWindow().open( latLng, new GInfoWindowContent( new Label( address, address ) ) );
                 } else {
                     error( "Unable to geocode (" + status + ")" );
                     target.addComponent( feedback );
@@ -81,7 +81,7 @@ public class HomePage extends WicketExamplePage {
 
                     LatLng latLng = geocoder.findAddress( address );
 
-                    bottomMap.getInfoWindow().open( latLng, new GInfoWindowTab( address, new Label( address, address ) ) );
+                    bottomMap.getInfoWindow().open( latLng, new GInfoWindowContent( new Label( address, address ) ) );
                 } catch ( IOException e ) {
                     target.appendJavascript( "Unable to geocode (" + e.getMessage() + ")" );
                 }

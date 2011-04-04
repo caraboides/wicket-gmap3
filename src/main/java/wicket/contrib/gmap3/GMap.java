@@ -433,8 +433,6 @@ public class GMap extends Panel implements GOverlayContainer {
             js.append( overlay.getJS() );
         }
 
-        js.append( _infoWindow.getJSinit() );
-
         for ( final Object behavior : getBehaviors( GEventListenerBehavior.class ) ) {
             js.append( ( (GEventListenerBehavior) behavior ).getJSaddListener() );
         }

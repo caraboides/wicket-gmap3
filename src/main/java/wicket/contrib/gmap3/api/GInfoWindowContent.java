@@ -24,24 +24,14 @@ import wicket.contrib.gmap3.js.Constructor;
  * "http://www.google.com/apis/maps/documentation/reference.html#GInfoWindowTab"
  * >GInfoWindowTab</a>.
  */
-public class GInfoWindowTab implements GValue {
+public class GInfoWindowContent implements GValue {
 
     /**
      * Default serialVersionUID.
      */
     private static final long serialVersionUID = 1L;
 
-    private final String _title;
     private final Component _content;
-
-    /**
-     * Construct.
-     * 
-     * @param content
-     */
-    public GInfoWindowTab( Component content ) {
-        this( content.getId(), content );
-    }
 
     /**
      * Construct.
@@ -49,15 +39,10 @@ public class GInfoWindowTab implements GValue {
      * @param title
      * @param content
      */
-    public GInfoWindowTab( String title, Component content ) {
-        this._title = title;
+    public GInfoWindowContent( Component content ) {
         this._content = content;
-
         content.setOutputMarkupId( true );
-    }
 
-    public String getTitle() {
-        return _title;
     }
 
     public Component getContent() {
@@ -69,7 +54,11 @@ public class GInfoWindowTab implements GValue {
      */
     @Override
     public String getJSconstructor() {
-        return new Constructor( "GInfoWindowTab" ).addString( _title ).add(
-                "document.getElementById('" + _content.getMarkupId() + "')" ).toJS();
+        return new Constructor( "google.maps.InfoWindow" ).add( "document.getElementById('" + _content.getMarkupId() + "')" ).toJS();
+    }
+
+    public String getJSconstructor( LatLng latLng ) {
+        return new Constructor( "google.maps.InfoWindow" ).add(
+                "{content: document.getElementById('" + _content.getMarkupId() + "'), position: " + latLng.getJSconstructor() + "}" ).toJS();
     }
 }

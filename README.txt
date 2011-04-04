@@ -8,7 +8,7 @@ project status: 25%
 
  - Simple map works, see demo
  - Simple Markers
-
+ - InfoWindow Demo
 
 
 TODOs:

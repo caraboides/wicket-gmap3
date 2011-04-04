@@ -9,7 +9,7 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import wicket.contrib.examples.WicketExamplePage;
 import wicket.contrib.gmap3.GMap;
 import wicket.contrib.gmap3.api.GControl;
-import wicket.contrib.gmap3.api.GInfoWindowTab;
+import wicket.contrib.gmap3.api.GInfoWindowContent;
 import wicket.contrib.gmap3.api.GMapType;
 import wicket.contrib.gmap3.api.GOverlay;
 import wicket.contrib.gmap3.api.LatLng;
@@ -69,8 +69,7 @@ public class HomePage extends WicketExamplePage {
             }
         } );
         map.addControl( GControl.GSmallMapControl );
-        map.getInfoWindow().open( new LatLng( 37.5, -122.1 ), new GInfoWindowTab( "One", new HelloPanel() ),
-                new GInfoWindowTab( "Two", new HelloPanel() ) );
+        map.getInfoWindow().open( new LatLng( 37.5, -122.1 ), new GInfoWindowContent( new HelloPanel() ) );
         add( map );
 
         infoWindow = new Label( "infoWindow", "openInfoWindow" );
@@ -83,6 +82,7 @@ public class HomePage extends WicketExamplePage {
             @Override
             protected void onEvent( AjaxRequestTarget target ) {
                 map.getInfoWindow().open( new LatLng( 37.5, -122.1 ), new HelloPanel() );
+
             }
         } );
         add( infoWindow );

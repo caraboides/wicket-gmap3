@@ -20,7 +20,7 @@ public class GInfoWindow extends WebMarkupContainer {
      */
     private static final long serialVersionUID = 1L;
 
-    private GInfoWindowTab[] _tabs;
+    private GInfoWindowContent _infoWindowContent;
 
     private LatLng _latLng;
 
@@ -30,9 +30,9 @@ public class GInfoWindow extends WebMarkupContainer {
 
     public GInfoWindow() {
         super( "infoWindow" );
-
         setOutputMarkupId( true );
         add( _content );
+
     }
 
     /**
@@ -44,31 +44,13 @@ public class GInfoWindow extends WebMarkupContainer {
         if ( Boolean.parseBoolean( request.getParameter( "infoWindow.hidden" ) ) ) {
             // Attention: don't use close() as this might result in an
             // endless AJAX request loop
-            setTabs( new GInfoWindowTab[0] );
             _marker = null;
             _latLng = null;
         }
     }
 
     public final String getJSinit() {
-        if ( _latLng != null ) {
-            return getJSopen( _latLng, _tabs );
-        }
-
-        if ( _marker != null ) {
-            return getJSopen( _marker, _tabs );
-        }
-
-        return "";
-    }
-
-    private void setTabs( GInfoWindowTab[] tabs ) {
-        _content.removeAll();
-
-        this._tabs = tabs;
-        for ( GInfoWindowTab tab : tabs ) {
-            _content.add( tab.getContent() );
-        }
+        return _infoWindowContent.getJSconstructor();
     }
 
     /**
@@ -79,42 +61,42 @@ public class GInfoWindow extends WebMarkupContainer {
      * @return This
      */
     public GInfoWindow open( LatLng latLng, Component content ) {
-        return open( latLng, new GInfoWindowTab( content ) );
+        return open( latLng, new GInfoWindowContent( content ) );
     }
 
     /**
      * Open an info window.
      * 
+     * @param map
+     * 
      * @param content
      *            content to open in info window
      * @return This
      */
-    public GInfoWindow open( GMarker marker, Component content ) {
-        return open( marker, new GInfoWindowTab( content ) );
+    public GInfoWindow open( GMap map, GMarker marker, Component content ) {
+        return open( marker, new GInfoWindowContent( content ) );
     }
 
-    public GInfoWindow open( LatLng latLng, GInfoWindowTab... tabs ) {
-        setTabs( tabs );
+    public GInfoWindow open( LatLng latLng, GInfoWindowContent tab ) {
 
         this._latLng = latLng;
         this._marker = null;
-
+        _content.add( tab.getContent() );
         if ( AjaxRequestTarget.get() != null ) {
-            AjaxRequestTarget.get().appendJavascript( getJSopen( latLng, tabs ) );
+            AjaxRequestTarget.get().appendJavascript( getJSopen( latLng, tab ) );
             AjaxRequestTarget.get().addComponent( this );
         }
 
         return this;
     }
 
-    public GInfoWindow open( GMarker marker, GInfoWindowTab... tabs ) {
-        setTabs( tabs );
+    public GInfoWindow open( GMarker marker, GInfoWindowContent tab ) {
 
         this._latLng = null;
         this._marker = marker;
 
         if ( AjaxRequestTarget.get() != null ) {
-            AjaxRequestTarget.get().appendJavascript( getJSopen( marker, tabs ) );
+            AjaxRequestTarget.get().appendJavascript( getJSopen( marker, tab ) );
             AjaxRequestTarget.get().addComponent( this );
         }
 
@@ -126,7 +108,6 @@ public class GInfoWindow extends WebMarkupContainer {
     }
 
     public void close() {
-        setTabs( new GInfoWindowTab[0] );
 
         _marker = null;
         _latLng = null;
@@ -137,46 +118,28 @@ public class GInfoWindow extends WebMarkupContainer {
         }
     }
 
-    private String getJSopen( LatLng latLng, GInfoWindowTab[] tabs ) {
+    private String getJSopen( LatLng latLng, GInfoWindowContent tab ) {
         StringBuffer buffer = new StringBuffer();
+        buffer.append( " var info =  " + tab.getJSconstructor( latLng ) + " ;\n" );
 
-        buffer.append( "openInfoWindowTabs(" );
-        buffer.append( latLng.getJSconstructor() );
-        buffer.append( ",[" );
+        buffer.append( "info.open(" );
+        buffer.append( getGMap2().getJsReference() + ".map" );
 
-        boolean first = true;
-        for ( GInfoWindowTab tab : tabs ) {
-            if ( !first ) {
-                buffer.append( "," );
-            }
-            buffer.append( tab.getJSconstructor() );
-            first = false;
-        }
+        buffer.append( ");" );
 
-        buffer.append( "])" );
-
-        return getGMap2().getJSinvoke( buffer.toString() );
+        return buffer.toString();
     }
 
-    private String getJSopen( GMarker marker, GInfoWindowTab[] tabs ) {
+    private String getJSopen( GMarker marker, GInfoWindowContent tab ) {
         StringBuffer buffer = new StringBuffer();
+        buffer.append( " var infoWin =  " + tab.getJSconstructor() + " ;\n" );
 
-        buffer.append( "openMarkerInfoWindowTabs('" );
+        buffer.append( "infoWin.open(" );
+        buffer.append( getGMap2().getJsReference() + ".map," );
         buffer.append( marker.getId() );
-        buffer.append( "',[" );
+        buffer.append( ");" );
 
-        boolean first = true;
-        for ( GInfoWindowTab tab : tabs ) {
-            if ( !first ) {
-                buffer.append( "," );
-            }
-            buffer.append( tab.getJSconstructor() );
-            first = false;
-        }
-
-        buffer.append( "])" );
-
-        return getGMap2().getJSinvoke( buffer.toString() );
+        return buffer.toString();
     }
 
     private String getJSclose() {

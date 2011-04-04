@@ -44,7 +44,7 @@ public class HomePage extends WicketExamplePage {
                     ? (GMarker) overlay
                     : null;
                 if ( marker != null ) {
-                    topMap.getInfoWindow().open( marker, new HelloPanel() );
+                    topMap.getInfoWindow().open( topMap, marker, new HelloPanel() );
                 } else if ( latLng != null ) {
                     marker = new GMarker( new GMarkerOptions( topMap, latLng ) );
                     topMap.addOverlay( marker );
