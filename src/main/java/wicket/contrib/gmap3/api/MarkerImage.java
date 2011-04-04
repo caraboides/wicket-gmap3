@@ -41,6 +41,7 @@ public class MarkerImage implements GValue, Cloneable {
 
     public MarkerImage( final String image ) {
         _url = image;
+        //_url = "http://www.google.com/mapfiles/marker.png";
 
     }
 
@@ -76,7 +77,7 @@ public class MarkerImage implements GValue, Cloneable {
     public String getJSconstructor() {
         final StringBuffer buffer = new StringBuffer();
         buffer.append( "(function() {\n" );
-        buffer.append( "var  = new new google.maps.MarkerImage(\'" + _url + "\' );" );
+        buffer.append( "var icon = new google.maps.MarkerImage(\'" + _url + "\' );\n" );
 
         if ( _size != null ) {
             buffer.append( "icon.size = " ).append( _size.getJSconstructor() ).append( ";\n" );
@@ -108,6 +109,11 @@ public class MarkerImage implements GValue, Cloneable {
         return _size;
     }
 
+    /**
+     * The display size of the sprite or image. When using sprites, you must
+     * specify the sprite size. If the size is not provided, it will be set when
+     * the image loads.
+     */
     public MarkerImage setSize( GSize size ) {
         _size = size;
         return this;
@@ -117,6 +123,10 @@ public class MarkerImage implements GValue, Cloneable {
         return _origin;
     }
 
+    /**
+     * The position of the image within a sprite, if any. By default, the origin
+     * is located at the top left corner of the image (0, 0).
+     */
     public MarkerImage setOrigin( GPoint origin ) {
         _origin = origin;
         return this;
@@ -126,6 +136,10 @@ public class MarkerImage implements GValue, Cloneable {
         return _scaledSize;
     }
 
+    /**
+     * The size of the entire image after scaling, if any. Use this property to
+     * stretch/shrink an image or a sprite.
+     */
     public MarkerImage setScaledSize( GSize scaledSize ) {
         _scaledSize = scaledSize;
         return this;
@@ -135,6 +149,11 @@ public class MarkerImage implements GValue, Cloneable {
         return _anchor;
     }
 
+    /**
+     * The position at which to anchor an image in correspondance to the
+     * location of the marker on the map. By default, the anchor is located
+     * along the center point of the bottom of the image.
+     */
     public MarkerImage setAnchor( GPoint anchor ) {
         _anchor = anchor;
         return this;

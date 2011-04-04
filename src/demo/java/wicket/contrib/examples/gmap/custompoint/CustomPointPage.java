@@ -7,7 +7,6 @@ import wicket.contrib.gmap3.GMap;
 import wicket.contrib.gmap3.api.GMarker;
 import wicket.contrib.gmap3.api.GMarkerOptions;
 import wicket.contrib.gmap3.api.GOverlay;
-import wicket.contrib.gmap3.api.GPoint;
 import wicket.contrib.gmap3.api.GSize;
 import wicket.contrib.gmap3.api.LatLng;
 import wicket.contrib.gmap3.api.MarkerImage;
@@ -25,11 +24,11 @@ public class CustomPointPage extends WicketExamplePage {
         add( map );
 
         MarkerImage icon =
-                new MarkerImage( urlFor( new ResourceReference( CustomPointPage.class, "image.gif" ) ).toString() ).setSize(
-                        new GSize( 64, 64 ) ).setAnchor( new GPoint( 19, 40 ) );
+                new MarkerImage( urlFor( new ResourceReference( CustomPointPage.class, "image.gif" ) ).toString() ).setScaledSize(
+                        new GSize( 64, 64 ) ).setSize( new GSize( 64, 64 ) );
         MarkerImage shadow =
-                new MarkerImage( urlFor( new ResourceReference( CustomPointPage.class, "shadow.png" ) ).toString() ).setSize(
-                        new GSize( 64, 64 ) ).setAnchor( new GPoint( 18, 25 ) );
+                new MarkerImage( urlFor( new ResourceReference( CustomPointPage.class, "shadow.png" ) ).toString() ).setScaledSize(
+                        new GSize( 64, 64 ) ).setSize( new GSize( 64, 64 ) );
         GOverlay marker = new GMarker( new GMarkerOptions( map, new LatLng( 52.37649, 4.888573 ), "My Title", icon, shadow ) );
 
         map.addOverlay( marker );

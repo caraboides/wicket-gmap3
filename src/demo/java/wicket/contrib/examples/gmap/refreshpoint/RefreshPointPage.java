@@ -7,12 +7,10 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.util.time.Duration;
 
 import wicket.contrib.examples.WicketExamplePage;
-import wicket.contrib.examples.gmap.custompoint.CustomPointPage;
 import wicket.contrib.gmap3.GMap;
 import wicket.contrib.gmap3.api.GMarker;
 import wicket.contrib.gmap3.api.GMarkerOptions;
 import wicket.contrib.gmap3.api.GOverlay;
-import wicket.contrib.gmap3.api.GPoint;
 import wicket.contrib.gmap3.api.GSize;
 import wicket.contrib.gmap3.api.LatLng;
 import wicket.contrib.gmap3.api.MarkerImage;
@@ -59,11 +57,11 @@ public class RefreshPointPage extends WicketExamplePage {
     private GOverlay createOverlay( String title, LatLng latLng, String image, String shadow ) {
 
         MarkerImage icon =
-                new MarkerImage( urlFor( new ResourceReference( CustomPointPage.class, image ) ).toString() ).setSize(
-                        new GSize( 64, 64 ) ).setAnchor( new GPoint( 9, 2 ) );
+                new MarkerImage( urlFor( new ResourceReference( RefreshPointPage.class, image ) ).toString() ).setScaledSize(
+                        new GSize( 64, 64 ) ).setSize( new GSize( 64, 64 ) );
         MarkerImage shadowIcon =
-                new MarkerImage( urlFor( new ResourceReference( CustomPointPage.class, shadow ) ).toString() ).setSize(
-                        new GSize( 64, 64 ) ).setAnchor( new GPoint( 18, 25 ) );
+                new MarkerImage( urlFor( new ResourceReference( RefreshPointPage.class, shadow ) ).toString() ).setScaledSize(
+                        new GSize( 64, 64 ) ).setSize( new GSize( 64, 64 ) );
 
         _map.setCenter( latLng );
         return new GMarker( new GMarkerOptions( _map, latLng, title, icon, shadowIcon ) );

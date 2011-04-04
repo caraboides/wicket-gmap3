@@ -49,7 +49,7 @@ public class GPoint implements GValue {
 
     @Override
     public String getJSconstructor() {
-        return new Constructor( "GPoint" ).add( _longitude ).add( _latitude ).toJS();
+        return new Constructor( "google.maps.Point" ).add( _longitude ).add( _latitude ).toJS();
     }
 
     @Override

@@ -65,7 +65,7 @@ public class GMarkerOptions implements GValue, Cloneable {
         this( gmap, latLng );
         _title = title;
         _icon = icon;
-        setShadow( shadow );
+        _shadow = shadow;
     }
 
     @Override
