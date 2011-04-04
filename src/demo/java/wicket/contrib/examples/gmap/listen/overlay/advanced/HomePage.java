@@ -50,7 +50,7 @@ public class HomePage extends WicketExamplePage {
                     if ( map.getOverlays().size() >= 3 ) {
                         map.removeOverlay( map.getOverlays().get( 0 ) );
                     }
-                    final MyMarker marker = new MyMarker( latLng, new GMarkerOptions().draggable( true ) ) {
+                    final MyMarker marker = new MyMarker( new GMarkerOptions( map, latLng ).draggable( true ) ) {
                         private static final long serialVersionUID = 1L;
 
                         @Override
@@ -78,6 +78,7 @@ public class HomePage extends WicketExamplePage {
                         }
 
                     };
+
                     map.addOverlay( marker );
                     marker.addListener( GEvent.dragend, marker.getDragendHandler() );
                     rv.removeAll();
@@ -171,8 +172,8 @@ public class HomePage extends WicketExamplePage {
 
         private static final long serialVersionUID = -5720177222106241564L;
 
-        public MyMarker( LatLng latLng, GMarkerOptions options ) {
-            super( latLng, options );
+        public MyMarker( GMarkerOptions options ) {
+            super( options );
         }
 
         abstract GEventHandler getDblclickHandler();

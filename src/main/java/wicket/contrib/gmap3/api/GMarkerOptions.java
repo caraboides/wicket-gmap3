@@ -18,59 +18,89 @@
  */
 package wicket.contrib.gmap3.api;
 
+import javax.annotation.Nonnull;
+
+import wicket.contrib.gmap3.GMap;
 import wicket.contrib.gmap3.js.ObjectLiteral;
 
+/**
+ * http://code.google.com/apis/maps/documentation/javascript/reference.html#
+ * MarkerOptions
+ * 
+ * @author Christian Hennig (christian.hennig@freiheit.com)
+ */
 public class GMarkerOptions implements GValue, Cloneable {
     /**
      * Default serialVersionUID.
      */
     private static final long serialVersionUID = 1L;
 
-    private String _title;
-
     private boolean _clickable = true;
-
+    private final String _cursor = null;
     private boolean _draggable = false;
+    private final boolean _flat = false;
+    private MarkerImage _icon = null;
+    private final GMap _gmap;
+    private String _title;
+    private LatLng _latLng;
 
     private boolean _bouncy = true;
 
     private boolean _autoPan = false;
 
-    private GIcon _icon = null;
+    private MarkerImage _shadow = null;
 
-    public GMarkerOptions() {
+    public GMarkerOptions( @Nonnull GMap gmap, @Nonnull LatLng latLng ) {
+        _latLng = latLng;
+        _gmap = gmap;
     }
 
-    public GMarkerOptions( String title ) {
+    public GMarkerOptions( @Nonnull GMap gmap, @Nonnull LatLng latLng, String title ) {
+        this( gmap, latLng );
         _title = title;
+
     }
 
-    public GMarkerOptions( String title, GIcon icon ) {
+    public GMarkerOptions( @Nonnull GMap gmap, @Nonnull LatLng latLng, String title, MarkerImage icon, MarkerImage shadow ) {
+        this( gmap, latLng );
         _title = title;
         _icon = icon;
+        setShadow( shadow );
     }
 
     @Override
     public String getJSconstructor() {
         ObjectLiteral literal = new ObjectLiteral();
 
-        if ( _title != null ) {
-            literal.setString( "title", _title );
-        }
+        literal.set( "map", _gmap.getJsReference() + ".map" );
+        literal.set( "position", _latLng.getJSconstructor() );
+
         if ( !_clickable ) {
             literal.set( "clickable", "false" );
         }
+        if ( _cursor != null ) {
+            literal.set( "cursor", _cursor );
+        }
         if ( _draggable ) {
             literal.set( "draggable", "true" );
+        }
+        if ( _flat ) {
+            literal.setString( "flat", "true" );
+        }
+        if ( _icon != null ) {
+            literal.set( "icon", _icon.getJSconstructor() );
+        }
+        if ( _shadow != null ) {
+            literal.set( "shadow", _shadow.getJSconstructor() );
+        }
+        if ( _title != null ) {
+            literal.setString( "title", _title );
         }
         if ( !_bouncy ) {
             literal.set( "bouncy", "false" );
         }
         if ( _autoPan ) {
             literal.set( "autoPan", "true" );
-        }
-        if ( _icon != null ) {
-            literal.set( "icon", _icon.getJSconstructor() );
         }
 
         return literal.toJS();
@@ -96,7 +126,7 @@ public class GMarkerOptions implements GValue, Cloneable {
         return _autoPan;
     }
 
-    public GIcon getIcon() {
+    public MarkerImage getIcon() {
         return _icon;
     }
 
@@ -131,6 +161,26 @@ public class GMarkerOptions implements GValue, Cloneable {
         GMarkerOptions clone = clone();
         clone._bouncy = bouncy;
         return clone;
+    }
+
+    public String getCursor() {
+        return _cursor;
+    }
+
+    public boolean isFlat() {
+        return _flat;
+    }
+
+    public void setLatLng( LatLng latLng ) {
+        _latLng = latLng;
+    }
+
+    public LatLng getLatLng() {
+        return _latLng;
+    }
+
+    public GMap getGmap() {
+        return _gmap;
     }
 
     @Override
@@ -186,5 +236,13 @@ public class GMarkerOptions implements GValue, Cloneable {
         } else if ( !_title.equals( other._title ) )
             return false;
         return true;
+    }
+
+    public void setShadow( MarkerImage shadow ) {
+        _shadow = shadow;
+    }
+
+    public MarkerImage getShadow() {
+        return _shadow;
     }
 }

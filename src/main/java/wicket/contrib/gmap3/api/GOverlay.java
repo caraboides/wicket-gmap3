@@ -56,19 +56,33 @@ public abstract class GOverlay implements Serializable {
      * @return String representing the JavaScript add command for the
      *         corresponding JavaScript object.
      */
-    public String getJSadd() {
-        final StringBuffer js = new StringBuffer( "var overlay" + getId() + "= " + getJSconstructor() + ";" );
-        js.append( _parent.getJSinvoke( "addOverlay('" + getId() + "', " + "overlay" + getId() + ")" ) );
-        // Add the Events
-        for ( final GEvent event : events.keySet() ) {
-            js.append( event.getJSadd( this ) );
-        }
-        // Add the functions
+    public String getJS() {
+
+        return addFunctions( addEvents( addOverlays( new StringBuffer() ) ) ).toString();
+
+    }
+
+    private StringBuffer addOverlays( final StringBuffer js ) {
+        js.append( "var overlay" + getId() + "= " + getJSconstructor() + ";" );
+        // Overlays will set map in they options, so this is not necessary 
+        js.append( "overlay" + getId() + ".setMap(" + _parent.getJsReference() + ".map);" );
+        return js;
+    }
+
+    private StringBuffer addFunctions( final StringBuffer js ) {
         for ( final GEvent event : _functions.keySet() ) {
             js.append( event.getJSadd( this, _functions.get( event ) ) );
         }
+        return js;
 
-        return js.toString();
+    }
+
+    private StringBuffer addEvents( final StringBuffer js ) {
+        for ( final GEvent event : events.keySet() ) {
+            js.append( event.getJSadd( this ) );
+        }
+        return js;
+
     }
 
     /**

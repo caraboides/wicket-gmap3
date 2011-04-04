@@ -25,8 +25,8 @@ public class HomePage extends WicketExamplePage {
         topMap.addControl( GControl.GLargeMapControl );
         add( topMap );
 
-        GMarkerOptions options = new GMarkerOptions().draggable( true );
-        final GMarker marker = new GMarker( topMap.getCenter(), options );
+        GMarkerOptions options = new GMarkerOptions( topMap, topMap.getCenter() ).draggable( true );
+        final GMarker marker = new GMarker( options );
         final Label label = new Label( "label", new PropertyModel<LatLng>( marker, "latLng" ) );
         label.setOutputMarkupId( true );
         add( label );

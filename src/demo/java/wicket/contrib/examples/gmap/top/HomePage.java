@@ -46,15 +46,15 @@ public class HomePage extends WicketExamplePage {
                 if ( marker != null ) {
                     topMap.getInfoWindow().open( marker, new HelloPanel() );
                 } else if ( latLng != null ) {
-                    marker = new GMarker( latLng );
+                    marker = new GMarker( new GMarkerOptions( topMap, latLng ) );
                     topMap.addOverlay( marker );
                 }
                 markerSelected( target, marker );
             }
         } );
         topMap.setZoom( 10 );
-        GMarkerOptions options = new GMarkerOptions( "Home" ).draggable( true ).autoPan( true );
-        topMap.addOverlay( new GMarker( new LatLng( 37.4, -122.1 ), options ) );
+        GMarkerOptions options = new GMarkerOptions( topMap, new LatLng( 37.4, -122.1 ), "Home" ).draggable( true ).autoPan( true );
+        topMap.addOverlay( new GMarker( options ) );
         topMap.addControl( GControl.GLargeMapControl );
         topMap.addControl( GControl.GMapTypeControl );
         add( topMap );
@@ -74,8 +74,9 @@ public class HomePage extends WicketExamplePage {
                     LatLng point = marker.getLatLng();
 
                     GMarker random =
-                            new GMarker( new LatLng( point.getLat() * ( 0.9995 + Math.random() / 1000 ), point.getLng()
-                                    * ( 0.9995 + Math.random() / 1000 ) ) );
+                            new GMarker( new GMarkerOptions( topMap, new LatLng(
+                                    point.getLat() * ( 0.9995 + Math.random() / 1000 ), point.getLng()
+                                            * ( 0.9995 + Math.random() / 1000 ) ) ) );
 
                     topMap.addOverlay( random );
                 }

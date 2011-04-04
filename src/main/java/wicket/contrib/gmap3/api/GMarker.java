@@ -29,30 +29,15 @@ import wicket.contrib.gmap3.js.Constructor;
 public class GMarker extends GOverlay {
     private static final long serialVersionUID = 1L;
 
-    private LatLng _latLng;
-
     private final GMarkerOptions _options;
 
-    /**
-     * @param gLatLng
-     *            the point on the map where this marker will be anchored
-     */
-    public GMarker( LatLng gLatLng ) {
-        this( gLatLng, null );
-    }
-
-    public GMarker( LatLng gLatLng, GMarkerOptions options ) {
+    public GMarker( GMarkerOptions options ) {
         super();
-        _latLng = gLatLng;
         _options = options;
     }
 
     public LatLng getLatLng() {
-        return _latLng;
-    }
-
-    public void setLatLng( LatLng gLatLng ) {
-        _latLng = gLatLng;
+        return _options.getLatLng();
     }
 
     public GMarkerOptions getMarkerOptions() {
@@ -61,16 +46,13 @@ public class GMarker extends GOverlay {
 
     @Override
     public String getJSconstructor() {
-        Constructor constructor = new Constructor( "GMarker" ).add( _latLng.getJSconstructor() );
-        if ( _options != null ) {
-            constructor.add( _options.getJSconstructor() );
-        }
+        Constructor constructor = new Constructor( "google.maps.Marker" ).add( _options.getJSconstructor() );
         return constructor.toJS();
     }
 
     @Override
     protected void updateOnAjaxCall( AjaxRequestTarget target, GEvent overlayEvent ) {
         Request request = RequestCycle.get().getRequest();
-        _latLng = LatLng.parse( request.getParameter( "overlay.latLng" ) );
+        _options.setLatLng( LatLng.parse( request.getParameter( "overlay.latLng" ) ) );
     }
 }

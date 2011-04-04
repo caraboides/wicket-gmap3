@@ -44,6 +44,7 @@ import wicket.contrib.gmap3.api.GInfoWindow;
 import wicket.contrib.gmap3.api.GLatLngBounds;
 import wicket.contrib.gmap3.api.GMapType;
 import wicket.contrib.gmap3.api.GMarker;
+import wicket.contrib.gmap3.api.GMarkerOptions;
 import wicket.contrib.gmap3.api.GOverlay;
 import wicket.contrib.gmap3.api.LatLng;
 import wicket.contrib.gmap3.event.GEventListenerBehavior;
@@ -232,7 +233,7 @@ public class GMap extends Panel implements GOverlayContainer {
         overlay.setParent( this );
 
         if ( AjaxRequestTarget.get() != null && findPage() != null ) {
-            AjaxRequestTarget.get().appendJavascript( overlay.getJSadd() );
+            AjaxRequestTarget.get().appendJavascript( overlay.getJS() );
         }
 
         return this;
@@ -429,7 +430,7 @@ public class GMap extends Panel implements GOverlayContainer {
 
         // Add the overlays.
         for ( final GOverlay overlay : _overlays ) {
-            js.append( overlay.getJSadd() );
+            js.append( overlay.getJS() );
         }
 
         js.append( _infoWindow.getJSinit() );
@@ -451,7 +452,14 @@ public class GMap extends Panel implements GOverlayContainer {
      */
     // TODO Could this become default or protected?
     public String getJSinvoke( final String invocation ) {
-        return "Wicket.maps['" + _map.getMarkupId() + "']." + invocation + ";\n";
+        return getJsReference() + "." + invocation + ";\n";
+    }
+
+    /**
+     * Build a reference in JS-Scope.
+     */
+    public String getJsReference() {
+        return "Wicket.maps['" + _map.getMarkupId() + "']";
     }
 
     /**
@@ -520,7 +528,7 @@ public class GMap extends Panel implements GOverlayContainer {
         // show the markers
         if ( showMarkersForPoints ) {
             for ( final LatLng location : markersToShow ) {
-                this.addOverlay( new GMarker( location ) );
+                this.addOverlay( new GMarker( new GMarkerOptions( this, location ) ) );
             }
         }
     }

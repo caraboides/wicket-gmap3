@@ -5,6 +5,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import wicket.contrib.examples.WicketExamplePage;
 import wicket.contrib.gmap3.GMap;
 import wicket.contrib.gmap3.api.GMarker;
+import wicket.contrib.gmap3.api.GMarkerOptions;
 import wicket.contrib.gmap3.api.GOverlay;
 import wicket.contrib.gmap3.api.LatLng;
 import wicket.contrib.gmap3.event.ClickListener;
@@ -28,7 +29,7 @@ public class HomePage extends WicketExamplePage {
                     if ( map.getOverlays().size() >= 3 ) {
                         map.removeOverlay( map.getOverlays().get( 0 ) );
                     }
-                    map.addOverlay( new GMarker( latLng ) );
+                    map.addOverlay( new GMarker( new GMarkerOptions( map, latLng ) ) );
                 }
             }
         } );

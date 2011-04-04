@@ -7,14 +7,15 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.util.time.Duration;
 
 import wicket.contrib.examples.WicketExamplePage;
+import wicket.contrib.examples.gmap.custompoint.CustomPointPage;
 import wicket.contrib.gmap3.GMap;
-import wicket.contrib.gmap3.api.GIcon;
 import wicket.contrib.gmap3.api.GMarker;
 import wicket.contrib.gmap3.api.GMarkerOptions;
 import wicket.contrib.gmap3.api.GOverlay;
 import wicket.contrib.gmap3.api.GPoint;
 import wicket.contrib.gmap3.api.GSize;
 import wicket.contrib.gmap3.api.LatLng;
+import wicket.contrib.gmap3.api.MarkerImage;
 
 /**
  * SimplePage for the wicket-contrib-gmap2 project
@@ -56,12 +57,15 @@ public class RefreshPointPage extends WicketExamplePage {
     }
 
     private GOverlay createOverlay( String title, LatLng latLng, String image, String shadow ) {
-        GIcon icon =
-                new GIcon( urlFor( new ResourceReference( RefreshPointPage.class, image ) ).toString(), urlFor(
-                        new ResourceReference( RefreshPointPage.class, shadow ) ).toString() ).iconSize( new GSize( 64, 64 ) ).shadowSize(
-                        new GSize( 64, 64 ) ).iconAnchor( new GPoint( 19, 40 ) ).infoWindowAnchor( new GPoint( 9, 2 ) ).infoShadowAnchor(
-                        new GPoint( 18, 25 ) );
+
+        MarkerImage icon =
+                new MarkerImage( urlFor( new ResourceReference( CustomPointPage.class, image ) ).toString() ).setSize(
+                        new GSize( 64, 64 ) ).setAnchor( new GPoint( 9, 2 ) );
+        MarkerImage shadowIcon =
+                new MarkerImage( urlFor( new ResourceReference( CustomPointPage.class, shadow ) ).toString() ).setSize(
+                        new GSize( 64, 64 ) ).setAnchor( new GPoint( 18, 25 ) );
+
         _map.setCenter( latLng );
-        return new GMarker( latLng, new GMarkerOptions( title, icon ) );
+        return new GMarker( new GMarkerOptions( _map, latLng, title, icon, shadowIcon ) );
     }
 }
