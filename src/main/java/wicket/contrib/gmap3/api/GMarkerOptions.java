@@ -18,8 +18,6 @@
  */
 package wicket.contrib.gmap3.api;
 
-import javax.annotation.Nonnull;
-
 import wicket.contrib.gmap3.GMap;
 import wicket.contrib.gmap3.js.ObjectLiteral;
 
@@ -50,18 +48,18 @@ public class GMarkerOptions implements GValue, Cloneable {
 
     private MarkerImage _shadow = null;
 
-    public GMarkerOptions( @Nonnull GMap gmap, @Nonnull LatLng latLng ) {
+    public GMarkerOptions( GMap gmap, LatLng latLng ) {
         _latLng = latLng;
         _gmap = gmap;
     }
 
-    public GMarkerOptions( @Nonnull GMap gmap, @Nonnull LatLng latLng, String title ) {
+    public GMarkerOptions( GMap gmap, LatLng latLng, String title ) {
         this( gmap, latLng );
         _title = title;
 
     }
 
-    public GMarkerOptions( @Nonnull GMap gmap, @Nonnull LatLng latLng, String title, MarkerImage icon, MarkerImage shadow ) {
+    public GMarkerOptions( GMap gmap, LatLng latLng, String title, MarkerImage icon, MarkerImage shadow ) {
         this( gmap, latLng );
         _title = title;
         _icon = icon;
