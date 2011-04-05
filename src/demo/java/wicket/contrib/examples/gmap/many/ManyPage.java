@@ -40,7 +40,7 @@ public class ManyPage extends WicketExamplePage {
         // the GMapHeaderContributor needs to be present in a page if it
         // potentially might initialize a GMap2 component.
         // 
-        container.add( new GMapHeaderContributor( "http" ) );
+        container.add( new GMapHeaderContributor() );
         add( container );
 
         repeating = new RepeatingView( "repeating" );

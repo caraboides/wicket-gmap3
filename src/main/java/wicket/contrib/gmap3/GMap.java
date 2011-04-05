@@ -96,7 +96,7 @@ public class GMap extends Panel implements GOverlayContainer {
      *            Google gmap API KEY
      */
     public GMap( final String id ) {
-        this( id, new GMapHeaderContributor( "http" ), new ArrayList<GOverlay>() );
+        this( id, new GMapHeaderContributor(), new ArrayList<GOverlay>() );
     }
 
     /**
@@ -111,7 +111,7 @@ public class GMap extends Panel implements GOverlayContainer {
      */
     @Deprecated
     public GMap( final String id, final List<GOverlay> overlays ) {
-        this( id, new GMapHeaderContributor( "http" ), overlays );
+        this( id, new GMapHeaderContributor(), overlays );
     }
 
     /**
@@ -181,8 +181,9 @@ public class GMap extends Panel implements GOverlayContainer {
         if ( Application.DEVELOPMENT.equalsIgnoreCase( Application.get().getConfigurationType() )
                 && !Application.get().getMarkupSettings().getStripWicketTags() ) {
             log.warn( "Application is in DEVELOPMENT mode && Wicket tags are not stripped,"
-                    + " Firefox 3.0 will not render the GMap." + " Change to DEPLOYMENT mode  || turn on Wicket tags stripping."
-                    + " See:" + " http://www.nabble.com/Gmap2-problem-with-Firefox-3.0-to18137475.html." );
+                    + "Some Chrome Versions will not render the GMap."
+                    + " Change to DEPLOYMENT mode  || turn on Wicket tags stripping." + " See:"
+                    + " http://www.nabble.com/Gmap2-problem-with-Firefox-3.0-to18137475.html." );
         }
     }
 
@@ -504,7 +505,7 @@ public class GMap extends Panel implements GOverlayContainer {
             @Override
             public void renderHead( final IHeaderResponse response ) {
                 final StringBuffer buf = new StringBuffer();
-                buf.append( "var bounds = new GLatLngBounds();\n" );
+                buf.append( "var bounds = new google.maps.LatLngBounds();\n" );
                 buf.append( "var map = " + GMap.this.getJSinvoke( "map" ) );
 
                 // Ask google maps to keep extending the bounds to include each
@@ -513,11 +514,7 @@ public class GMap extends Panel implements GOverlayContainer {
                     buf.append( "bounds.extend( " + point.getJSconstructor() + " );\n" );
                 }
 
-                // set the zoom level that shows the bounds
-                buf.append( "map.setZoom( map.getBoundsZoomLevel(bounds) + " + zoomAdjustment + ");\n" );
-
-                // center in the middle of the bounds
-                buf.append( "map.setCenter( bounds.getCenter() );\n" );
+                buf.append( "map.fitBounds( bounds  );\n" );
 
                 response.renderOnDomReadyJavascript( buf.toString() );
             }

@@ -12,34 +12,43 @@ public class GMapHeaderContributor extends HeaderContributor {
     private static final long serialVersionUID = 1L;
 
     // URL for Google Maps' API endpoint.
-    private static final String GMAP_API_URL = "http://maps.google.com/maps/api/js?sensor=false";
+    private static final String GMAP_API_URL = "://maps.google.com/maps/api/jsv=3?sensor=false";
+
+    private static final String HTTP = "http";
 
     // We have some custom Javascript.
     private static final ResourceReference WICKET_GMAP_JS = new JavascriptResourceReference( GMap.class, "wicket-gmap.js" );
 
-    protected static final String GOOGLE_LOAD_MAPS = "google.load(\"maps\", \"3\");";
+    protected static final String EMPTY = "";
 
-    public GMapHeaderContributor( final String schema ) {
+    String _clientId;
+
+    public GMapHeaderContributor() {
+        this( HTTP, null );
+    }
+
+    public GMapHeaderContributor( final String schema, final String clientId ) {
         super( new IHeaderContributor() {
             private static final long serialVersionUID = 1L;
 
-            /**
-             * see: <a href=
-             * "http://www.google.com/apis/maps/documentation/#Memory_Leaks">IE
-             * memory leak issues</a>
-             * 
-             * @see org.apache.wicket.markup.html.IHeaderContributor#renderHead(org.apache.wicket.markup.html.IHeaderResponse)
-             */
             @Override
             public void renderHead( IHeaderResponse response ) {
-                response.renderJavascriptReference( schema + GMAP_API_URL );
+                final String clientParm;
+                if ( !EMPTY.equals( clientId ) ) {
+                    clientParm = "&client=" + clientId;
+                } else {
+                    clientParm = EMPTY;
+                }
+                response.renderJavascriptReference( schema + GMAP_API_URL + clientParm );
                 response.renderJavascriptReference( WicketEventReference.INSTANCE );
                 response.renderJavascriptReference( WicketAjaxReference.INSTANCE );
                 response.renderJavascriptReference( WICKET_GMAP_JS );
-                // see:
-                // http://www.google.com/apis/maps/documentation/#Memory_Leaks
-                response.renderOnEventJavascript( "window", "onUnload", "google.maps.Unload();" );
+
             }
         } );
+    }
+
+    String getClientId() {
+        return _clientId;
     }
 }

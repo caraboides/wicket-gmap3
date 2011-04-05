@@ -37,7 +37,7 @@ public enum GEvent {
     }
 
     public String getJSadd( final GOverlay overlay ) {
-        return "google.maps.event.addListener(" + overlay.getId() + "', '" + name() + "')";
+        return "google.maps.event.addListener(overlay" + overlay.getId() + ", '" + name() + "');\n";
     }
 
     public String getJSclear( final GOverlay overlay ) {
