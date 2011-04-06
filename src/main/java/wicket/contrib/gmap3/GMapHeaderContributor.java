@@ -12,7 +12,7 @@ public class GMapHeaderContributor extends HeaderContributor {
     private static final long serialVersionUID = 1L;
 
     // URL for Google Maps' API endpoint.
-    private static final String GMAP_API_URL = "://maps.google.com/maps/api/jsv=3?sensor=false";
+    private static final String GMAP_API_URL = "://maps.google.com/maps/api/js?v=3&sensor=false";
 
     private static final String HTTP = "http";
 

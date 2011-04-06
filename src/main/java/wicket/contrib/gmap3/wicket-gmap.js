@@ -84,6 +84,15 @@ function WicketMap(id) {
 		}, function() {
 		});
 	}
+	
+	this.openSingleInfoWindowOn = function (overlay, contentString) {     
+        if (!this.map.singleInfoWindow) {
+            this.map.singleInfoWindow = new google.maps.InfoWindow({content: contentString});
+        } else {
+            this.map.singleInfoWindow.setContent(contentString); 
+        }
+        this.map.singleInfoWindow.open(this.map, overlay);
+    };
 
 	this.addListener = function(event, callBack) {
 		var self = this;

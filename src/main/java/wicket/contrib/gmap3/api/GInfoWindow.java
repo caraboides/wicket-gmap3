@@ -121,13 +121,18 @@ public class GInfoWindow extends WebMarkupContainer {
     private String getJSopen( LatLng latLng, GInfoWindowContent tab ) {
         StringBuffer buffer = new StringBuffer();
         buffer.append( " var info =  " + tab.getJSconstructor( latLng ) + " ;\n" );
-
         buffer.append( "info.open(" );
         buffer.append( getGMap2().getJsReference() + ".map" );
-
         buffer.append( ");" );
-
         return buffer.toString();
+    }
+
+    public static String getJSopenFunction( GMap map, String content, GMarker overlay ) {
+        StringBuffer openFunction = new StringBuffer();
+        openFunction.append( "function() {" );
+        openFunction.append( map.getJsReference() + ".openSingleInfoWindowOn(overlay" + overlay.getId() + ", \""
+                + content.toString() + "\");}" );
+        return openFunction.toString();
     }
 
     private String getJSopen( GMarker marker, GInfoWindowContent tab ) {
