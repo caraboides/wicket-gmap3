@@ -122,8 +122,9 @@ public class GMap extends Panel implements GOverlayContainer {
      */
     public GMap( final String id, final HeaderContributor headerContrib ) {
         super( id );
-
-        add( headerContrib );
+        if (headerContrib!=null){
+            add( headerContrib );
+        }
         add( new HeaderContributor( new IHeaderContributor() {
             private static final long serialVersionUID = 1L;
 
@@ -528,42 +529,42 @@ public class GMap extends Panel implements GOverlayContainer {
         }
     }
 
-    private String getJSsetDraggingEnabled( final boolean enabled ) {
+    protected String getJSsetDraggingEnabled( final boolean enabled ) {
         return getJSinvoke( "setDraggingEnabled(" + enabled + ")" );
     }
 
-    private String getJSsetDoubleClickZoomEnabled( final boolean enabled ) {
+    protected String getJSsetDoubleClickZoomEnabled( final boolean enabled ) {
         return getJSinvoke( "setDoubleClickZoomEnabled(" + enabled + ")" );
     }
 
-    private String getJSsetScrollWheelZoomEnabled( final boolean enabled ) {
+    protected String getJSsetScrollWheelZoomEnabled( final boolean enabled ) {
         return getJSinvoke( "setScrollWheelZoomEnabled(" + enabled + ")" );
     }
 
-    private String getJSsetZoom( final int zoom ) {
+    protected String getJSsetZoom( final int zoom ) {
         return getJSinvoke( "setZoom(" + zoom + ")" );
     }
 
-    private String getJSsetCenter( final LatLng center ) {
+    protected String getJSsetCenter( final LatLng center ) {
         if ( center != null ) {
             return getJSinvoke( "setCenter(" + center.getJSconstructor() + ")" );
         }
         return "";
     }
 
-    private String getJSpanDirection( final int dx, final int dy ) {
+    protected String getJSpanDirection( final int dx, final int dy ) {
         return getJSinvoke( "panDirection(" + dx + "," + dy + ")" );
     }
 
-    private String getJSpanTo( final LatLng center ) {
+    protected String getJSpanTo( final LatLng center ) {
         return getJSinvoke( "panTo(" + center.getJSconstructor() + ")" );
     }
 
-    private String getJSzoomOut() {
+    protected String getJSzoomOut() {
         return getJSinvoke( "zoomOut()" );
     }
 
-    private String getJSzoomIn() {
+    protected String getJSzoomIn() {
         return getJSinvoke( "zoomIn()" );
     }
 
