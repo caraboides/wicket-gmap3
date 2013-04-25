@@ -38,6 +38,9 @@ public class HomePage extends WicketExamplePage {
                 target.addComponent( label );
             }
         } );
+
+        marker.addFunctionListener( GEvent.click, "function() { alert(\"go home\");}" );
+
         topMap.addOverlay( marker );
     }
 }
