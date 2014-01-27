@@ -66,7 +66,6 @@ public class GMarkerOptions implements GValue, Cloneable {
         _shadow = shadow;
     }
 
-    @Override
     public String getJSconstructor() {
         ObjectLiteral literal = new ObjectLiteral();
 

@@ -72,7 +72,6 @@ public class LatLng implements GValue {
     /**
      * @see wicket.contrib.gmap.api.GValue#getJSconstructor()
      */
-    @Override
     public String getJSconstructor() {
         return new Constructor( "google.maps.LatLng" ).add( Double.valueOf( _lat ) ).add( Double.valueOf( _lng ) ).add(
                 Boolean.valueOf( _unbounded ) ).toJS();

@@ -60,7 +60,6 @@ public class GLatLngBounds implements GValue {
     /**
      * @see wicket.contrib.gmap.api.GValue#getJSconstructor()
      */
-    @Override
     public String getJSconstructor() {
         return new Constructor( "google.maps.LatLngBounds" ).add( _sw.getJSconstructor() ).add( _ne.getJSconstructor() ).toJS();
     }

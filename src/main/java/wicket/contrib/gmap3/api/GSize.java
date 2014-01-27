@@ -45,7 +45,6 @@ public class GSize implements GValue {
         return _height;
     }
 
-    @Override
     public String getJSconstructor() {
         return new Constructor( "google.maps.Size" ).add( _width ).add( _height ).toJS();
     }

@@ -73,7 +73,6 @@ public class MarkerImage implements GValue, Cloneable {
         return "icon" + String.valueOf( System.identityHashCode( this ) );
     }
 
-    @Override
     public String getJSconstructor() {
         final StringBuffer buffer = new StringBuffer();
         buffer.append( "(function() {\n" );
