@@ -26,7 +26,7 @@ limitations under the License.
 
     <artifactId>gmap3-alternative</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     
     <name>GMap3</name>
     <description>Alternative GMap3 component.</description>
