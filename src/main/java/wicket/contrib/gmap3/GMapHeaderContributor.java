@@ -31,7 +31,6 @@ public class GMapHeaderContributor extends HeaderContributor {
         super( new IHeaderContributor() {
             private static final long serialVersionUID = 1L;
 
-            @Override
             public void renderHead( IHeaderResponse response ) {
                 final String clientParm;
                 if ( clientId != null && !EMPTY.equals( clientId ) ) {

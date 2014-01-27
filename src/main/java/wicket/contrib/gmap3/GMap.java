@@ -128,7 +128,6 @@ public class GMap extends Panel implements GOverlayContainer {
         add( new HeaderContributor( new IHeaderContributor() {
             private static final long serialVersionUID = 1L;
 
-            @Override
             public void renderHead( final IHeaderResponse response ) {
                 response.renderOnDomReadyJavascript( getJSinit() );
             }
@@ -229,7 +228,6 @@ public class GMap extends Panel implements GOverlayContainer {
      *            overlay to add
      * @return This
      */
-    @Override
     public GMap addOverlay( final GOverlay overlay ) {
         _overlays.add( overlay );
         overlay.setParent( this );
@@ -248,7 +246,6 @@ public class GMap extends Panel implements GOverlayContainer {
      *            overlay to remove
      * @return This
      */
-    @Override
     public GMap removeOverlay( final GOverlay overlay ) {
         while ( _overlays.contains( overlay ) ) {
             _overlays.remove( overlay );
@@ -268,7 +265,6 @@ public class GMap extends Panel implements GOverlayContainer {
      * 
      * @return This
      */
-    @Override
     public GMap removeAllOverlays() {
         for ( final GOverlay overlay : _overlays ) {
             overlay.setParent( null );
@@ -280,7 +276,6 @@ public class GMap extends Panel implements GOverlayContainer {
         return this;
     }
 
-    @Override
     public List<GOverlay> getOverlays() {
         return Collections.unmodifiableList( _overlays );
     }
@@ -503,7 +498,6 @@ public class GMap extends Panel implements GOverlayContainer {
         this.add( new HeaderContributor( new IHeaderContributor() {
             private static final long serialVersionUID = 1L;
 
-            @Override
             public void renderHead( final IHeaderResponse response ) {
                 final StringBuffer buf = new StringBuffer();
                 buf.append( "var bounds = new google.maps.LatLngBounds();\n" );
