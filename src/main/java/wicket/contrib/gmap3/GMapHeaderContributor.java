@@ -34,7 +34,7 @@ public class GMapHeaderContributor extends HeaderContributor {
             public void renderHead( IHeaderResponse response ) {
                 final String clientParm;
                 if ( clientId != null && !EMPTY.equals( clientId ) ) {
-                    clientParm = "&client=" + clientId;
+                    clientParm = "&#38;client=" + clientId;
                 } else {
                     clientParm = EMPTY;
                 }
