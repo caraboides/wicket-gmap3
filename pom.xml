@@ -21,15 +21,15 @@ limitations under the License.
     <parent>
         <groupId>org.wicketstuff</groupId>
         <artifactId>gmap2-parent</artifactId>
-        <version>1.4.7.1</version>
+        <version>1.4.21</version>
     </parent>
 
-    <artifactId>gmap2</artifactId>
+    <artifactId>gmap3-alternative</artifactId>
     <packaging>jar</packaging>
-    <version>2</version>
+    <version>1.0.0</version>
     
-    <name>GMap2</name>
-    <description>GMap2 component.</description>
+    <name>GMap3</name>
+    <description>Alternative GMap3 component.</description>
     
     <dependencies>
         <dependency>
