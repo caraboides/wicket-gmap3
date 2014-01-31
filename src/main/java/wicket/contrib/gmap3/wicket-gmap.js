@@ -237,14 +237,15 @@ function WicketMap(id) {
 	this.removeOverlay = function(overlayId) {
 		if (this.overlays[overlayId] != null) {
 			this.map.removeOverlay(this.overlays[overlayId]);
-
 			this.overlays[overlayId] = null;
 		}
 	}
 
 	this.clearOverlays = function() {
+		while(this.overlays[0]) {
+			this.overlays.pop().setMap(null);
+		}
 		this.overlays = {};
-		this.map.clearOverlays();
 	}
 
 	this.openInfoWindowTabs = function(latLng, tabs) {
