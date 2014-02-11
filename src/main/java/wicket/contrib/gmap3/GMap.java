@@ -64,6 +64,8 @@ public class GMap extends Panel implements GOverlayContainer {
 
     private static final long serialVersionUID = 1L;
 
+    private static GMapOptions NO_OPTIONS = null;
+
     private LatLng _center = GMapOptions.DEFAULT_CENTER;
 
     private boolean _draggingEnabled = true;
@@ -123,7 +125,7 @@ public class GMap extends Panel implements GOverlayContainer {
      * @param headerContrib
      */
     public GMap( final String id, final HeaderContributor headerContrib ) {
-        this( id, headerContrib, null );
+        this( id, headerContrib, NO_OPTIONS );
     }
 
     /**
