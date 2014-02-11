@@ -64,7 +64,7 @@ public class GMap extends Panel implements GOverlayContainer {
 
     private static final long serialVersionUID = 1L;
 
-    private LatLng _center = new LatLng( 37.4419, -122.1419 );
+    private LatLng _center = GMapOptions.DEFAULT_CENTER;
 
     private boolean _draggingEnabled = true;
 
@@ -87,6 +87,8 @@ public class GMap extends Panel implements GOverlayContainer {
     private GLatLngBounds _bounds;
 
     private OverlayListener _overlayListener = null;
+
+    private final GMapOptions _mapOptions;
 
     /**
      * Construct.
@@ -121,8 +123,19 @@ public class GMap extends Panel implements GOverlayContainer {
      * @param headerContrib
      */
     public GMap( final String id, final HeaderContributor headerContrib ) {
+        this( id, headerContrib, null );
+    }
+
+    /**
+     * Construct.
+     * 
+     * @param id
+     * @param headerContrib
+     */
+    public GMap( final String id, final HeaderContributor headerContrib, GMapOptions mapOptions ) {
         super( id );
-        if (headerContrib!=null){
+        _mapOptions = mapOptions;
+        if ( headerContrib != null ) {
             add( headerContrib );
         }
         add( new HeaderContributor( new IHeaderContributor() {
@@ -407,7 +420,7 @@ public class GMap extends Panel implements GOverlayContainer {
      * @return The generated JavaScript
      */
     private String getJSinit() {
-        final StringBuffer js = new StringBuffer( "new WicketMap('" + _map.getMarkupId() + "');\n" );
+        final StringBuffer js = new StringBuffer( "new WicketMap('" + _map.getMarkupId() + "'" + getMapOptions() + ");\n" );
 
         if ( activateOverlayListener() ) {
             js.append( _overlayListener.getJSinit() );
@@ -435,6 +448,13 @@ public class GMap extends Panel implements GOverlayContainer {
         }
 
         return js.toString();
+    }
+
+    private String getMapOptions() {
+        if ( _mapOptions == null ) {
+            return "";
+        }
+        return ", " + _mapOptions.toJsProperties();
     }
 
     /**
