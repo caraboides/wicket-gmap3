@@ -59,13 +59,13 @@ function WicketClientGeocoder() {
 
 Wicket.maps = {}
 
-function WicketMap(id) {
+function WicketMap(id, mapOptions) {
 	Wicket.maps[id] = this;
 
 	this.options = {};
     
 
-	this.map = new google.maps.Map(document.getElementById(id));
+	this.map = new google.maps.Map(document.getElementById(id), mapOptions);
 	this.controls = {};
 	this.overlays = {};
 
